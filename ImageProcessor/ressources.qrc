@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/res">
+        <file>resources/no-image.png</file>
+        <file>resources/settings.png</file>
+        <file>resources/save.png</file>
+        <file>resources/open.png</file>
+        <file>resources/icon.png</file>
+        <file>resources/maximize.png</file>
+        <file>resources/close.png</file>
+    </qresource>
+</RCC>
