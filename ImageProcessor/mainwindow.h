@@ -26,7 +26,7 @@ private slots:
 
     void on_listWidget_itemClicked(QListWidgetItem *item);
 
-    void on_splitter_2_splitterMoved(int pos, int index);
+    void on_checkBox_clicked(bool checked);
 
 private:
     Ui::MainWindow *ui;
