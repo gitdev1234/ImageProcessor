@@ -3,6 +3,7 @@
 #include <sstream>
 #include <QPixmap>
 #include <iostream>
+#include "imageprocessor.h"
 
 using namespace std;
 
@@ -30,25 +31,27 @@ MainWindow::MainWindow(QWidget *parent) :
 
 
     // Load initial image
-    QPixmap pixMap("no-image.png");
+    ImageProcessor imgP;
+    imgP.loadImageToLabel("no-image.png",*(ui->label));
+
+    //QPixmap pixMap("no-image.png");
     int widthLabel  = ui->label->width();
     int heightLabel = ui->label->height();
 
 
 
-    ui->label->setPixmap(pixMap);
-    ui->label->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
-    ui->label->setScaledContents(true);
-    int widthPicture = pixMap.width();
-    int heightPicture = pixMap.height();
-    stringstream sstr;
-    sstr << "Width : " << widthLabel << ", Heigth : " << heightLabel;
-    QString qstr = QString::fromStdString(sstr.str());
-    ui->statusBar->showMessage(qstr);
+    //ui->label->setPixmap(pixMap);
+    //ui->label->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
+    //ui->label->setScaledContents(true);
+    //int widthPicture = pixMap.width();
+    //int heightPicture = pixMap.height();
+    //stringstream sstr;
+    //sstr << "Width : " << widthLabel << ", Heigth : " << heightLabel;
+    //QString qstr = QString::fromStdString(sstr.str());
+    //ui->statusBar->showMessage(qstr);
 
-    // initial gui - settings
-    setWindowFlags(Qt::FramelessWindowHint);
-
+    /* --- initial gui - settings ---*/
+    setWindowFlags(Qt::FramelessWindowHint); //needed for custom titleBar (deactivates normal statusbar)
     ui->tabWidget->tabBar()->hide();
     showMaximized();
 
