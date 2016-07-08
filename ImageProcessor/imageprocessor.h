@@ -10,7 +10,7 @@ using namespace std;
 class ImageProcessor {
 public:
     ImageProcessor() {};
-    void loadImageToLabel(const string& path_,QLabel& label_);
+    QPoint loadImageToLabel(const string& path_,QLabel& label_, bool scaled_ = true);
     void saveImageFromLabel(const string& path_, QLabel& label_);
 };
 
