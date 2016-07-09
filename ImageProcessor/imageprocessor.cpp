@@ -15,11 +15,11 @@ bool saveImage();                    // with    file-save-dialog
 /* --- scaling / zooming / stretching --- */
 void ImageProcessor::stretchImageToLabel(bool stretchImageToLabel_) {
     if (stretchImageToLabel_) {
-        label.setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
+        label->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
     } else {
-        label.setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+        label->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
     }
-    label.setScaledContents(true);
+    label->setScaledContents(true);
 }
 
 void ImageProcessor::scaleImage(double factor_, QLabel &label_, QScrollArea& scrollArea_) {

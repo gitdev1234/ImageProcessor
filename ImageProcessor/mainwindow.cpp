@@ -35,11 +35,13 @@ MainWindow::MainWindow(QWidget *parent) :
     showMaximized();
 
     /* --- bind gui-elements to ImageProcessor-objects --- */
-    originalImage = new ImageProcessor(ui->label,ui->scrollArea_3);
-    modifiedImage = new ImageProcessor(ui->label_2,ui->scrollArea_4);
+    originalImage = ImageProcessor(ui->label,ui->scrollArea_3);
+    modifiedImage = ImageProcessor(ui->label_2,ui->scrollArea_4);
 
     originalImage.loadImage("no-image.png");
-    originalImage.setScalingOfLabel(true);
+    originalImage.stretchImageToLabel(true);
+    modifiedImage.loadImage("no-image.png");
+    modifiedImage.stretchImageToLabel(true);
 
 
 
@@ -113,9 +115,8 @@ void MainWindow::on_listWidget_itemClicked(QListWidgetItem *item)
 void MainWindow::on_checkBox_clicked(bool checked)
 {
  ui->checkBox_2->setChecked(checked);
- ImageProcessor imageProcessor((ui->label),(ui->scrollArea_3));
- imageProcessor.setScalingOfLabel(checked,*(ui->label));
- imageProcessor.setScalingOfLabel(checked,*(ui->label_2));
+ originalImage.stretchImageToLabel(checked);
+ modifiedImage.stretchImageToLabel(checked);
 }
 
 void MainWindow::on_toolButton_clicked()
