@@ -6,6 +6,7 @@
 #include <QFile>
 #include <QFileDialog>
 #include <QScrollArea>
+#include <QScrollBar>
 #include <string>
 
 using namespace std;
@@ -20,10 +21,10 @@ public:
 
     /* --- Scaling / Zooming --- */
     void setScalingOfLabel(bool activateScaling, QLabel& label_);
-    void scaleImage(double factor_, QLabel& label_, QScrollArea& scrollArea_);
+    //void scaleImage(double factor_, QLabel& label_, QScrollArea& scrollArea_);
 private:
-    double scalingFactor = 0.0;
-    void adjustScrollBar(QScrollBar *scrollBar, double factor);
+    double scalingFactor = 1.0;
+    //void adjustScrollBar(QScrollBar *scrollBar, double factor);
 };
 
 #endif // IMAGEPROCESSOR_H

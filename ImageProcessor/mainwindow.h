@@ -4,6 +4,8 @@
 #include <QMainWindow>
 #include <QMouseEvent>
 #include <QListWidgetItem>
+#include <QScrollArea>
+#include <QImageReader>
 
 namespace Ui {
 class MainWindow;

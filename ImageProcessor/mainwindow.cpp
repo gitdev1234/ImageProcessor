@@ -85,7 +85,20 @@ void MainWindow::on_listWidget_itemClicked(QListWidgetItem *item)
         cout << "Load File" << endl;
         QFileDialog dialog(this, QString("Open File"));
         if(dialog.exec() == QDialog::Accepted ) {
-            ui->label->setPixmap(QPixmap(dialog.selectedFiles().first()));
+            QString path = dialog.selectedFiles().first();
+            QImageReader reader(path);
+            reader.setAutoTransform(true);
+            const QImage newImage = reader.read();
+            /*if (newImage.isNull()) {
+                QMessageBox::information(this, QGuiApplication::applicationDisplayName(),
+                                         tr("Cannot load %1: %2")
+                                         .arg(QDir::toNativeSeparators(fileName), reader.errorString()));
+                return false;
+            }*/
+
+
+            ui->label->setPixmap(QPixmap::fromImage(newImage));
+
         }
     } else if (data == "  Save File") {
         cout << "Save File" << endl;
@@ -117,5 +130,17 @@ void MainWindow::on_checkBox_clicked(bool checked)
 void MainWindow::on_toolButton_clicked()
 {
     ImageProcessor imageProcessor;
-    imageProcessor.scaleImage(2.0,*(ui->label),*(ui->scrollArea_3));
+    //imageProcessor.scaleImage(2.0,*(ui->label),*(ui->scrollArea_3));
+    //ui->label->resize(1.25 * ui->label->pixmap()->size());
+    //ui->scrollArea_3->resize(1.25 * ui->label->pixmap()->size());
+    double factor = 1.25;
+    int i = ui->scrollArea_3->verticalScrollBar()->value();
+    int max = ui->scrollArea_3->verticalScrollBar()->maximum();
+    int min = ui->scrollArea_3->verticalScrollBar()->minimum();
+    cout << "value : " <<  i << ", max : " << max << ", min : " << min << endl;
+    ui->scrollArea_3->verticalScrollBar()->setValue(max/2);
+    cout << "size --> w: " << ui->label->size().width() << ", h: " << ui->label->size().height() << endl;
+    ui->label->resize(0.5*ui->label->size());
+
+
 }
