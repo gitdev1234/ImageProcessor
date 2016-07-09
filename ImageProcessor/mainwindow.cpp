@@ -34,23 +34,12 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->tabWidget->tabBar()->hide();
     showMaximized();
 
+    /* --- bind gui-elements to ImageProcessor-objects --- */
+    originalImage = new ImageProcessor(ui->label,ui->scrollArea_3);
+    modifiedImage = new ImageProcessor(ui->label_2,ui->scrollArea_4);
 
-    // Load initial image
-    ImageProcessor imgP;
-    /*QPoint size = imgP.loadImageToLabel("no-image.png",*(ui->label),true);
-
-    // output size of image on statusbar
-    stringstream sstr;
-    sstr << "Width : " << size.x() << ", Heigth : " << size.y();
-    QString qstr = QString::fromStdString(sstr.str());
-    ui->statusBar->showMessage(qstr);
-
-    ui->label_2->setPixmap(*(ui->label->pixmap()));
-    const QPixmap *pi;
-    pi = ui->label->pixmap();
-    const QPixmap *pi2;
-    pi2 = ui->label_2->pixmap();
-*/
+    originalImage.loadImage("no-image.png");
+    originalImage.setScalingOfLabel(true);
 
 
 
@@ -80,14 +69,14 @@ void MainWindow::on_listWidget_itemClicked(QListWidgetItem *item)
 {
     QVariant variant = item->data(Qt::UserRole);
     string data = item->text().toStdString();
-    ImageProcessor imageProcessor;
+
     if (data == "  Load File") {
         cout << "Load File" << endl;
         QFileDialog dialog(this, QString("Open File"));
         if(dialog.exec() == QDialog::Accepted ) {
             QString path = dialog.selectedFiles().first();
             QImageReader reader(path);
-            reader.setAutoTransform(true);
+            //reader.setAutoTransform(true);
             const QImage newImage = reader.read();
             /*if (newImage.isNull()) {
                 QMessageBox::information(this, QGuiApplication::applicationDisplayName(),
@@ -97,8 +86,10 @@ void MainWindow::on_listWidget_itemClicked(QListWidgetItem *item)
             }*/
 
 
-            ui->label->setPixmap(QPixmap::fromImage(newImage));
-
+            //ui->label->setPixmap(QPixmap::fromImage(newImage));
+            //ui->label->setPixmap(QPixmap(path));
+            ImageProcessor imageProcessor((ui->label),(ui->scrollArea_3));
+            imageProcessor.loadImage(path.toStdString());
         }
     } else if (data == "  Save File") {
         cout << "Save File" << endl;
@@ -122,14 +113,14 @@ void MainWindow::on_listWidget_itemClicked(QListWidgetItem *item)
 void MainWindow::on_checkBox_clicked(bool checked)
 {
  ui->checkBox_2->setChecked(checked);
- ImageProcessor imageProcessor;
+ ImageProcessor imageProcessor((ui->label),(ui->scrollArea_3));
  imageProcessor.setScalingOfLabel(checked,*(ui->label));
  imageProcessor.setScalingOfLabel(checked,*(ui->label_2));
 }
 
 void MainWindow::on_toolButton_clicked()
 {
-    ImageProcessor imageProcessor;
+    ImageProcessor imageProcessor((ui->label),(ui->scrollArea_3));
     //imageProcessor.scaleImage(2.0,*(ui->label),*(ui->scrollArea_3));
     //ui->label->resize(1.25 * ui->label->pixmap()->size());
     //ui->scrollArea_3->resize(1.25 * ui->label->pixmap()->size());
@@ -138,9 +129,30 @@ void MainWindow::on_toolButton_clicked()
     int max = ui->scrollArea_3->verticalScrollBar()->maximum();
     int min = ui->scrollArea_3->verticalScrollBar()->minimum();
     cout << "value : " <<  i << ", max : " << max << ", min : " << min << endl;
-    ui->scrollArea_3->verticalScrollBar()->setValue(max/2);
+    ui->scrollArea_3->verticalScrollBar()->setValue(0);
     cout << "size --> w: " << ui->label->size().width() << ", h: " << ui->label->size().height() << endl;
     ui->label->resize(0.5*ui->label->size());
+    int sizeScrollArea = max-min;
 
+    ui->scrollArea_3->verticalScrollBar()->setMaximum(sizeScrollArea*0.5+min);
 
+}
+
+void MainWindow::on_toolButton_2_clicked()
+{
+
+    //imageProcessor.scaleImage(2.0,*(ui->label),*(ui->scrollArea_3));
+    //ui->label->resize(1.25 * ui->label->pixmap()->size());
+    //ui->scrollArea_3->resize(1.25 * ui->label->pixmap()->size());
+    double factor = 1.25;
+    int i = ui->scrollArea_3->verticalScrollBar()->value();
+    int max = ui->scrollArea_3->verticalScrollBar()->maximum();
+    int min = ui->scrollArea_3->verticalScrollBar()->minimum();
+    cout << "value : " <<  i << ", max : " << max << ", min : " << min << endl;
+    ui->scrollArea_3->verticalScrollBar()->setValue(0);
+    cout << "size --> w: " << ui->label->size().width() << ", h: " << ui->label->size().height() << endl;
+    ui->label->resize(1.5*ui->label->size());
+    int sizeScrollArea = max-min;
+
+    ui->scrollArea_3->verticalScrollBar()->setMaximum(sizeScrollArea*1.5+min);
 }

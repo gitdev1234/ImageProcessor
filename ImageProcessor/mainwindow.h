@@ -6,6 +6,8 @@
 #include <QListWidgetItem>
 #include <QScrollArea>
 #include <QImageReader>
+// ----
+#include "imageprocessor.h"
 
 namespace Ui {
 class MainWindow;
@@ -32,9 +34,15 @@ private slots:
 
     void on_toolButton_clicked();
 
+    void on_toolButton_2_clicked();
+
 private:
     Ui::MainWindow *ui;
     QPoint m_dragPosition;
+
+    ImageProcessor originalImage;
+    ImageProcessor modifiedImage;
+
 };
 
 #endif // MAINWINDOW_H
