@@ -28,6 +28,8 @@ private slots:
 
     void on_checkBox_clicked(bool checked);
 
+    void on_toolButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     QPoint m_dragPosition;

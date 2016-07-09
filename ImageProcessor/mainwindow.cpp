@@ -37,7 +37,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // Load initial image
     ImageProcessor imgP;
-    QPoint size = imgP.loadImageToLabel("no-image.png",*(ui->label),true);
+    /*QPoint size = imgP.loadImageToLabel("no-image.png",*(ui->label),true);
 
     // output size of image on statusbar
     stringstream sstr;
@@ -50,6 +50,8 @@ MainWindow::MainWindow(QWidget *parent) :
     pi = ui->label->pixmap();
     const QPixmap *pi2;
     pi2 = ui->label_2->pixmap();
+*/
+
 
 
 
@@ -89,14 +91,11 @@ void MainWindow::on_listWidget_itemClicked(QListWidgetItem *item)
         cout << "Save File" << endl;
         QFileDialog dialog;
         QString s = dialog.getSaveFileName();
+        const QPixmap *pixMap = ui->label->pixmap();
+        QFile file(s);
+        file.open(QIODevice::WriteOnly);
+        pixMap->save(&file, "PNG");
 
-
-        //if(dialog.exec() == QDialog::Accepted ) {
-            const QPixmap *pixMap = ui->label->pixmap();
-            QFile file(s);
-            file.open(QIODevice::WriteOnly);
-            pixMap->save(&file, "PNG");
-        //}
     } else if (data == "  General") {
         cout << "General" << endl;
         ui->tabWidget->setCurrentIndex(0);
@@ -113,4 +112,10 @@ void MainWindow::on_checkBox_clicked(bool checked)
  ImageProcessor imageProcessor;
  imageProcessor.setScalingOfLabel(checked,*(ui->label));
  imageProcessor.setScalingOfLabel(checked,*(ui->label_2));
+}
+
+void MainWindow::on_toolButton_clicked()
+{
+    ImageProcessor imageProcessor;
+    imageProcessor.scaleImage(2.0,*(ui->label),*(ui->scrollArea_3));
 }

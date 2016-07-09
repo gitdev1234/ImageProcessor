@@ -5,6 +5,7 @@
 #include <QPixmap>
 #include <QFile>
 #include <QFileDialog>
+#include <QScrollArea>
 #include <string>
 
 using namespace std;
@@ -12,11 +13,17 @@ using namespace std;
 class ImageProcessor {
 public:
     ImageProcessor() {};
-    QPoint loadImageToLabel(QLabel& label_, bool scaled_ = true); // with file-dialog
-    QPoint loadImageToLabel(const string& path_,QLabel& label_, bool scaled_ = true); // without file-dialog
-    void saveImageFromLabel(QLabel& label_);
-    void saveImageFromLabel(const string& path_, QLabel& label_);
+
+    /* --- getter / setter --- */
+    double getScalingFactor()            {return scalingFactor;};
+    void   setScalingFactor(double val_) {scalingFactor = val_;};
+
+    /* --- Scaling / Zooming --- */
     void setScalingOfLabel(bool activateScaling, QLabel& label_);
+    void scaleImage(double factor_, QLabel& label_, QScrollArea& scrollArea_);
+private:
+    double scalingFactor = 0.0;
+    void adjustScrollBar(QScrollBar *scrollBar, double factor);
 };
 
 #endif // IMAGEPROCESSOR_H
