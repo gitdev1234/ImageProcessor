@@ -18,9 +18,6 @@ public:
     ImageProcessor() {};
     ImageProcessor(QLabel* label_) : label(label_) { };
 
-    /* --- operators --- */
-    ImageProcessor& operator=( const ImageProcessor& other_ );
-
     /* --- getter / setter --- */
 
     /* --- load / save --- */
@@ -33,6 +30,7 @@ public:
     /* --- scaling / zooming / stretching --- */
     void stretchImageToLabel(bool stretchImageToLabel_);
     void scaleImage(double factor_);
+    void swap(ImageProcessor& image_);
 protected:
     QLabel* label;
 };

@@ -1,17 +1,5 @@
 #include "imageprocessor.h"
 
-/* --- operators --- */
-ImageProcessor& ImageProcessor::operator=( const ImageProcessor& other_ ) {
-
-    if( this == &other_ ) {
-        return *this;
-    }
-    //label(&(other_.label));
-
-
-    return *this;
-}
-
 /* --- load / save --- */
 QSize ImageProcessor::loadImage(const string& path_) {
     QPixmap *p=new QPixmap(QString(path_.c_str()));
@@ -66,5 +54,10 @@ void ImageProcessor::scaleImage(double factor_) {
         QPixmap temp = label->pixmap()->scaled(factor_*size,Qt::KeepAspectRatio, Qt::SmoothTransformation);
         label->setPixmap(temp);
     }
+}
+
+void ImageProcessor::swap(ImageProcessor &image_) {
+    QPixmap& temp  = image_.label->pixmap();
+    label->pixmap()->swap(temp);
 }
 
