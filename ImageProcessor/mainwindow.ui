@@ -300,6 +300,27 @@ QListView::item:hover {
               </property>
              </widget>
             </item>
+            <item>
+             <widget class="QToolButton" name="toolButton_4">
+              <property name="text">
+               <string>...</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QToolButton" name="toolButton_5">
+              <property name="text">
+               <string>...</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QToolButton" name="toolButton_6">
+              <property name="text">
+               <string>...</string>
+              </property>
+             </widget>
+            </item>
            </layout>
           </widget>
           <widget class="QScrollArea" name="scrollArea_4">
@@ -606,6 +627,42 @@ handle::hover {
    </property>
    <property name="shortcut">
     <string>Ctrl+F</string>
+   </property>
+  </action>
+  <action name="actionLoad_from_modified">
+   <property name="icon">
+    <iconset resource="ressources.qrc">
+     <normaloff>:/res/resources/up.png</normaloff>:/res/resources/up.png</iconset>
+   </property>
+   <property name="text">
+    <string>load from modified</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Up</string>
+   </property>
+  </action>
+  <action name="actionLoad_from_original">
+   <property name="icon">
+    <iconset resource="ressources.qrc">
+     <normaloff>:/res/resources/down.png</normaloff>:/res/resources/down.png</iconset>
+   </property>
+   <property name="text">
+    <string>load from original</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Down</string>
+   </property>
+  </action>
+  <action name="actionSwap">
+   <property name="icon">
+    <iconset resource="ressources.qrc">
+     <normaloff>:/res/resources/swap.png</normaloff>:/res/resources/swap.png</iconset>
+   </property>
+   <property name="text">
+    <string>swap</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Tab</string>
    </property>
   </action>
  </widget>

@@ -7,21 +7,7 @@
 
 using namespace std;
 
-void MainWindow::mouseMoveEvent(QMouseEvent *event)
-{
-    if (event->buttons() & Qt::LeftButton) {
-        move(event->globalPos() - m_dragPosition);
-        event->accept();
-    }
-}
-void MainWindow::mousePressEvent(QMouseEvent *event)
-{
-    if (event->button() == Qt::LeftButton) {
-
-        m_dragPosition = event->globalPos() - frameGeometry().topLeft();
-        event->accept();
-    }
-}
+/* --- CONSTRUCTORS / DESTRUCTORS --- */
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -36,10 +22,13 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->toolButton->  setDefaultAction(ui->actionZoom_out);
     ui->toolButton_2->setDefaultAction(ui->actionZoom_in);
     ui->toolButton_3->setDefaultAction(ui->actionZoom_Fit);
+    ui->toolButton_4->setDefaultAction(ui->actionLoad_from_original);
+    ui->toolButton_5->setDefaultAction(ui->actionLoad_from_modified);
+    ui->toolButton_6->setDefaultAction(ui->actionSwap);
 
     /* --- bind gui-elements to ImageProcessor-objects --- */
-    originalImage = ImageProcessor(ui->label,ui->scrollArea_3);
-    modifiedImage = ImageProcessor(ui->label_2,ui->scrollArea_4);
+    originalImage = ImageProcessor(ui->label);
+    modifiedImage = ImageProcessor(ui->label_2);
 
     /* --- load initial images --- */
     QSize originalSize = originalImage.loadImage("no-image.png");
@@ -54,63 +43,29 @@ MainWindow::MainWindow(QWidget *parent) :
     originalImage.stretchImageToLabel(true);
     modifiedImage.stretchImageToLabel(true);
 
-
-
-
 }
 
-MainWindow::~MainWindow()
-{
+MainWindow::~MainWindow() {
     delete ui;
 }
 
-void MainWindow::on_actionMaximize_triggered() {
-    if(isMaximized()) {
-        showNormal();
-    } else {
-        showMaximized();
-    }
-}
+/* --- SLOTS --- */
 
-void MainWindow::on_actionClose_triggered() {
-    close();
-}
-
-void MainWindow::on_listWidget_itemClicked(QListWidgetItem *item)
-{
+void MainWindow::on_listWidget_itemClicked(QListWidgetItem *item) {
     QVariant variant = item->data(Qt::UserRole);
     string data = item->text().toStdString();
 
     if (data == "  Load File") {
-        cout << "Load File" << endl;
-        QFileDialog dialog(this, QString("Open File"));
-        if(dialog.exec() == QDialog::Accepted ) {
-            QString path = dialog.selectedFiles().first();
-            QImageReader reader(path);
-            //reader.setAutoTransform(true);
-            const QImage newImage = reader.read();
-            /*if (newImage.isNull()) {
-                QMessageBox::information(this, QGuiApplication::applicationDisplayName(),
-                                         tr("Cannot load %1: %2")
-                                         .arg(QDir::toNativeSeparators(fileName), reader.errorString()));
-                return false;
-            }*/
+        // load images
+        QSize originalSize = originalImage.loadImage(*this);
+        //modifiedImage.loadImage(originalImage);
+        // output size at statusbar
+        stringstream sstr;
+        sstr << "width : " << originalSize.width() << ", height : " << originalSize.height() << endl;
+        ui->statusBar->showMessage(QString(sstr.str().c_str()));
 
-
-            //ui->label->setPixmap(QPixmap::fromImage(newImage));
-            //ui->label->setPixmap(QPixmap(path));
-            ImageProcessor imageProcessor((ui->label),(ui->scrollArea_3));
-            imageProcessor.loadImage(path.toStdString());
-        }
     } else if (data == "  Save File") {
-        cout << "Save File" << endl;
-        QFileDialog dialog;
-        QString s = dialog.getSaveFileName();
-        const QPixmap *pixMap = ui->label->pixmap();
-        QFile file(s);
-        file.open(QIODevice::WriteOnly);
-        pixMap->save(&file, "PNG");
-
+        originalImage.saveImage();
     } else if (data == "  General") {
         cout << "General" << endl;
         ui->tabWidget->setCurrentIndex(0);
@@ -120,6 +75,7 @@ void MainWindow::on_listWidget_itemClicked(QListWidgetItem *item)
     }
 }
 
+/* --- ACTIONS --- */
 
 void MainWindow::on_actionZoom_in_triggered()
 {
@@ -140,4 +96,53 @@ void MainWindow::on_actionZoom_Fit_triggered()
     modifiedImage.stretchImageToLabel(!ImagesStretchedToLabel);
     ui->toolButton->setEnabled(ImagesStretchedToLabel);   // zoom-out button
     ui->toolButton_2->setEnabled(ImagesStretchedToLabel); // zoom-in  button
+}
+
+void MainWindow::on_actionMaximize_triggered() {
+    if(isMaximized()) {
+        showNormal();
+    } else {
+        showMaximized();
+    }
+}
+
+void MainWindow::on_actionClose_triggered() {
+    close();
+}
+
+/* --- HANDLING OF CUSTOM TITLE-BAR --- */
+void MainWindow::mouseMoveEvent(QMouseEvent *event) {
+    if (event->buttons() & Qt::LeftButton) {
+        move(event->globalPos() - m_dragPosition);
+        event->accept();
+    }
+}
+
+void MainWindow::mousePressEvent(QMouseEvent *event) {
+    if (event->button() == Qt::LeftButton) {
+
+        m_dragPosition = event->globalPos() - frameGeometry().topLeft();
+        event->accept();
+    }
+}
+
+void MainWindow::on_actionLoad_from_modified_triggered()
+{
+    QSize originalSize = originalImage.loadImage(modifiedImage);
+    // output size at statusbar
+    stringstream sstr;
+    sstr << "width : " << originalSize.width() << ", height : " << originalSize.height() << endl;
+    ui->statusBar->showMessage(QString(sstr.str().c_str()));
+}
+
+void MainWindow::on_actionLoad_from_original_triggered()
+{
+    modifiedImage.loadImage(originalImage);
+}
+
+void MainWindow::on_actionSwap_triggered()
+{
+    bufferImage.loadImage(originalImage);
+    originalImage.loadImage(modifiedImage);
+    modifiedImage.loadImage(bufferImage);
 }

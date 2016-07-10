@@ -36,6 +36,12 @@ private slots:
 
     void on_actionZoom_Fit_triggered();
 
+    void on_actionLoad_from_modified_triggered();
+
+    void on_actionLoad_from_original_triggered();
+
+    void on_actionSwap_triggered();
+
 private:
     Ui::MainWindow *ui;
     QPoint m_dragPosition;
@@ -43,6 +49,8 @@ private:
     bool ImagesStretchedToLabel = true;
     ImageProcessor originalImage;
     ImageProcessor modifiedImage;
+    ImageProcessor bufferImage;
+    QLabel bufferLabel;
 
 };
 

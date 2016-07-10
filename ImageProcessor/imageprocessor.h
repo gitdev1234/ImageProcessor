@@ -14,32 +14,27 @@ using namespace std;
 
 class ImageProcessor {
 public:
+    /* --- constructors / destructors --- */
     ImageProcessor() {};
-    ImageProcessor(QLabel* label_, QScrollArea* scrollArea_)
-                   : label(label_), scrollArea(scrollArea_) { };
+    ImageProcessor(QLabel* label_) : label(label_) { };
+
+    /* --- operators --- */
+    ImageProcessor& operator=( const ImageProcessor& other_ );
 
     /* --- getter / setter --- */
 
     /* --- load / save --- */
     QSize loadImage(const string& path_); // without file-open-dialog
-    QSize loadImage();                    // with    file-open-dialog
-    bool saveImage(const string& path_); // without file-save-dialog
-    bool saveImage();                    // with    file-save-dialog
+    QSize loadImage(QWidget& widget_);    // with    file-open-dialog
+    QSize loadImage(const ImageProcessor& image_);    // copy from image
+    bool saveImage(const string& path_);  // without file-save-dialog
+    bool saveImage();                     // with    file-save-dialog
 
     /* --- scaling / zooming / stretching --- */
     void stretchImageToLabel(bool stretchImageToLabel_);
     void scaleImage(double factor_);
-
-private:
+protected:
     QLabel* label;
-    QScrollArea* scrollArea;
-
-    double scalingFactor = 1.0;
-    QSize               imageSizeBeforeScaling;
-    QSize   verticalScrollBarSizeBeforeScaling;
-    QSize horizontalScrollBarSizeBeforeScaling;
-    void scaleScrollBar(QScrollBar& scrollBar_, double factor_);
-    void adjustScrollBar(QScrollBar *scrollBar, double factor_);
 };
 
 #endif // IMAGEPROCESSOR_H
