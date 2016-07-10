@@ -19,18 +19,10 @@ public:
                    : label(label_), scrollArea(scrollArea_) { };
 
     /* --- getter / setter --- */
-    double getScalingFactor                        ()            {return scalingFactor;                       };
-    QSize  getImageSizeBeforeScaling               ()            {return imageSizeBeforeScaling;              };
-    QSize  getVerticalScrollBarSizeBeforeScaling   ()            {return verticalScrollBarSizeBeforeScaling;  };
-    QSize  getHorizontalScrollBarSizeBeforeScaling ()            {return horizontalScrollBarSizeBeforeScaling;};
-    void   setScalingFactor                        (double val_) {scalingFactor                        = val_;};
-    void   setImageSizeBeforeScaling               (QSize  val_) {imageSizeBeforeScaling               = val_;};
-    void   setVerticalScrollBarSizeBeforeScaling   (QSize  val_) {verticalScrollBarSizeBeforeScaling   = val_;};
-    void   setHorizontalScrollBarSizeBeforeScaling (QSize  val_) {horizontalScrollBarSizeBeforeScaling = val_;};
 
     /* --- load / save --- */
-    bool loadImage(const string& path_); // without file-open-dialog
-    bool loadImage();                    // with    file-open-dialog
+    QSize loadImage(const string& path_); // without file-open-dialog
+    QSize loadImage();                    // with    file-open-dialog
     bool saveImage(const string& path_); // without file-save-dialog
     bool saveImage();                    // with    file-save-dialog
 

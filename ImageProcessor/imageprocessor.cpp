@@ -2,11 +2,11 @@
 
 
 /* --- load / save --- */
-bool ImageProcessor::loadImage(const string& path_) {
+QSize ImageProcessor::loadImage(const string& path_) {
     QPixmap *p=new QPixmap(QString(path_.c_str()));
     QPixmap p1(p->scaled ( p->size().width(),p->size().height(), Qt::KeepAspectRatio, Qt::SmoothTransformation ));
     label->setPixmap(p1);
-    return true;
+    return p1.size();
 }
 
 /* --- scaling / zooming / stretching --- */

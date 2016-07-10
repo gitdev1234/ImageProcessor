@@ -30,18 +30,17 @@ private slots:
 
     void on_listWidget_itemClicked(QListWidgetItem *item);
 
-    void on_checkBox_clicked(bool checked);
+    void on_actionZoom_in_triggered();
 
-    void on_toolButton_clicked();
+    void on_actionZoom_out_triggered();
 
-    void on_toolButton_2_clicked();
-
-    void on_toolButton_3_clicked();
+    void on_actionZoom_Fit_triggered();
 
 private:
     Ui::MainWindow *ui;
     QPoint m_dragPosition;
 
+    bool ImagesStretchedToLabel = true;
     ImageProcessor originalImage;
     ImageProcessor modifiedImage;
 
