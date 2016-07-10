@@ -59,7 +59,6 @@ void MainWindow::on_actionMaximize_triggered() {
     } else {
         showMaximized();
     }
-
 }
 
 void MainWindow::on_actionClose_triggered()
@@ -121,39 +120,21 @@ void MainWindow::on_checkBox_clicked(bool checked)
 
 void MainWindow::on_toolButton_clicked()
 {
-    ImageProcessor imageProcessor((ui->label),(ui->scrollArea_3));
-    //imageProcessor.scaleImage(2.0,*(ui->label),*(ui->scrollArea_3));
-    //ui->label->resize(1.25 * ui->label->pixmap()->size());
-    //ui->scrollArea_3->resize(1.25 * ui->label->pixmap()->size());
-    double factor = 1.25;
-    int i = ui->scrollArea_3->verticalScrollBar()->value();
-    int max = ui->scrollArea_3->verticalScrollBar()->maximum();
-    int min = ui->scrollArea_3->verticalScrollBar()->minimum();
-    cout << "value : " <<  i << ", max : " << max << ", min : " << min << endl;
-    ui->scrollArea_3->verticalScrollBar()->setValue(0);
-    cout << "size --> w: " << ui->label->size().width() << ", h: " << ui->label->size().height() << endl;
-    ui->label->resize(0.5*ui->label->size());
-    int sizeScrollArea = max-min;
-
-    ui->scrollArea_3->verticalScrollBar()->setMaximum(sizeScrollArea*0.5+min);
+    originalImage.scaleImage(0.5);
+    modifiedImage.scaleImage(0.5);
 
 }
 
 void MainWindow::on_toolButton_2_clicked()
 {
+    originalImage.scaleImage(2.0);
+    modifiedImage.scaleImage(2.0);
 
-    //imageProcessor.scaleImage(2.0,*(ui->label),*(ui->scrollArea_3));
-    //ui->label->resize(1.25 * ui->label->pixmap()->size());
-    //ui->scrollArea_3->resize(1.25 * ui->label->pixmap()->size());
-    double factor = 1.25;
-    int i = ui->scrollArea_3->verticalScrollBar()->value();
-    int max = ui->scrollArea_3->verticalScrollBar()->maximum();
-    int min = ui->scrollArea_3->verticalScrollBar()->minimum();
-    cout << "value : " <<  i << ", max : " << max << ", min : " << min << endl;
-    ui->scrollArea_3->verticalScrollBar()->setValue(0);
-    cout << "size --> w: " << ui->label->size().width() << ", h: " << ui->label->size().height() << endl;
-    ui->label->resize(1.5*ui->label->size());
-    int sizeScrollArea = max-min;
+}
 
-    ui->scrollArea_3->verticalScrollBar()->setMaximum(sizeScrollArea*1.5+min);
+void MainWindow::on_toolButton_3_clicked()
+{
+    stringstream temp;
+    temp << ui->scrollArea_3->verticalScrollBar()->maximum();
+    ui->statusBar->showMessage(QString(temp.str().c_str()));
 }
