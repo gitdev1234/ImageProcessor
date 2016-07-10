@@ -21,8 +21,10 @@ void ImageProcessor::stretchImageToLabel(bool stretchImageToLabel_) {
 }
 
 void ImageProcessor::scaleImage(double factor_) {
-    QSize size = label->pixmap()->size();
-    QPixmap temp = label->pixmap()->scaled(factor_*size,Qt::KeepAspectRatio, Qt::SmoothTransformation);
-    label->setPixmap(temp);
+    if (label->sizePolicy() == QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed)) {
+        QSize size = label->pixmap()->size();
+        QPixmap temp = label->pixmap()->scaled(factor_*size,Qt::KeepAspectRatio, Qt::SmoothTransformation);
+        label->setPixmap(temp);
+    }
 }
 
