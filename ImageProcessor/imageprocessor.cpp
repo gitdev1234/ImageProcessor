@@ -3,7 +3,7 @@
 
 /* --- load / save --- */
 bool ImageProcessor::loadImage(const string& path_) {
-    // load image into pixmap of label
+   /* // load image into pixmap of label
     QImage image(QString(path_.c_str()));
     label->setPixmap(QPixmap::fromImage(image));
 
@@ -11,6 +11,10 @@ bool ImageProcessor::loadImage(const string& path_) {
     setImageSizeBeforeScaling(label->pixmap()->size());
     setHorizontalScrollBarSizeBeforeScaling(QSize(scrollArea->horizontalScrollBar()->minimum(),scrollArea->horizontalScrollBar()->maximum()));
     setVerticalScrollBarSizeBeforeScaling  (QSize(scrollArea->verticalScrollBar()->minimum()  ,scrollArea->verticalScrollBar()->maximum()));
+*/
+    QPixmap *p=new QPixmap(QString(path_.c_str()));
+    QPixmap p1(p->scaled ( p->size().width(),p->size().height(), Qt::KeepAspectRatio, Qt::SmoothTransformation ));
+    label->setPixmap(p1);
     return true;
 }
 
@@ -46,16 +50,18 @@ void ImageProcessor::scaleImage(double factor_) {
     scaleScrollBar(*(scrollArea->verticalScrollBar()),factor_);
     scaleScrollBar(*(scrollArea->horizontalScrollBar()),factor_);
 */
-    Q_ASSERT(label->pixmap());
+   /* Q_ASSERT(label->pixmap());
     scalingFactor *= factor_;
     if ((scalingFactor < 3.0) && scalingFactor > 0.03) {
         cout << "scaling-factor : " << scalingFactor << endl;
         label->resize(scalingFactor * label->pixmap()->size());
-
+        cout << "sizeLabel : " << label->size().width() << "," << label->size().height() << endl;
+        cout << "sizePixmap : " << label->pixmap()->size().width() << "," <<  label->pixmap()->size().height() << endl;
         adjustScrollBar(scrollArea->horizontalScrollBar(), factor_);
         adjustScrollBar(scrollArea->verticalScrollBar(), factor_);
-        scrollArea->horizontalScrollBar()->setMaximum(scrollArea->horizontalScrollBar()->maximum());
-    }
+        scrollArea->horizontalScrollBar()->setMaximum(scrollArea->horizontalScrollBar()->maximum()*5);
+        scrollArea->verticalScrollBar()->setMaximum(scrollArea->verticalScrollBar()->maximum()*5);
+    }*/
 
 
     //zoomInAct->setEnabled(scaleFactor < 3.0);

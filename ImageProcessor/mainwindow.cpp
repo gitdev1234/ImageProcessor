@@ -39,9 +39,9 @@ MainWindow::MainWindow(QWidget *parent) :
     modifiedImage = ImageProcessor(ui->label_2,ui->scrollArea_4);
 
     originalImage.loadImage("no-image.png");
-    originalImage.stretchImageToLabel(true);
+    //originalImage.stretchImageToLabel(true);
     modifiedImage.loadImage("no-image.png");
-    modifiedImage.stretchImageToLabel(true);
+    //modifiedImage.stretchImageToLabel(true);
 
 
 
