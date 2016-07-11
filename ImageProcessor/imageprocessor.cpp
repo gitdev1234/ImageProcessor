@@ -1,10 +1,21 @@
 #include "imageprocessor.h"
 
 /* --- load / save --- */
-QSize ImageProcessor::loadImage(const string& path_) {
+QSize ImageProcessor::loadImage(QWidget& widget_,const string& path_) {
     image = QImage(QString(path_.c_str()));
-    label->setPixmap(QPixmap::fromImage(image));
 
+    switch(image.format()) {
+        case QImage::Format_RGB32 : image.convertToFormat(QImage::Format_ARGB32); break;
+        case QImage::Format_ARGB32 : ; break;
+        case QImage::Format_Indexed8 : ; break;
+        default : {
+                    QMessageBox::information(&widget_,QString("Error"),QString("Error : Image-Type not supported"));
+                    image = QImage();
+                    label->setPixmap(QPixmap(0,0));
+                  } break;
+    }
+
+    label->setPixmap(QPixmap::fromImage(image));
     return label->pixmap()->size();
 }
 
@@ -12,7 +23,7 @@ QSize ImageProcessor::loadImage(QWidget& widget_) {
     QFileDialog dialog(&widget_, QString("Open File"));
     if(dialog.exec() == QDialog::Accepted ) {
         QString path = dialog.selectedFiles().first();
-        return loadImage(path.toStdString());
+        return loadImage(widget_,path.toStdString());
     } else {
         return QSize(0,0);
     }

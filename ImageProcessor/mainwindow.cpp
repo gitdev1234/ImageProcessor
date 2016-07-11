@@ -31,8 +31,8 @@ MainWindow::MainWindow(QWidget *parent) :
     modifiedImage = ImageProcessor(ui->label_2,ui->progressBar);
 
     /* --- load initial images --- */
-    QSize originalSize = originalImage.loadImage("no-image.png");
-    modifiedImage.loadImage("no-image.png");
+    QSize originalSize = originalImage.loadImage(*this,"no-image.png");
+    modifiedImage.loadImage(*this,"no-image.png");
 
     /* --- output size at statusbar --- */
     stringstream sstr;

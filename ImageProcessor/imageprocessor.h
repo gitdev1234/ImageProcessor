@@ -12,6 +12,7 @@
 #include <QScrollBar>
 #include <string>
 #include <iostream>
+#include <QMessageBox>
 //---
 #include "Types.h"
 
@@ -27,7 +28,7 @@ public:
     /* --- getter / setter --- */
 
     /* --- load / save --- */
-    QSize loadImage(const string& path_); // without file-open-dialog
+    QSize loadImage(QWidget &widget_, const string& path_); // without file-open-dialog
     QSize loadImage(QWidget& widget_);    // with    file-open-dialog
     QSize loadImage(const ImageProcessor& image_);    // copy from image
     bool saveImage(const string& path_);  // without file-save-dialog
