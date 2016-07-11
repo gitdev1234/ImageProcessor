@@ -166,6 +166,11 @@ QListView::item:hover {
           <normaloff>:/res/resources/settings.png</normaloff>:/res/resources/settings.png</iconset>
         </property>
        </item>
+       <item>
+        <property name="text">
+         <string>  Analyze</string>
+        </property>
+       </item>
       </widget>
       <widget class="QFrame" name="frame_2">
        <property name="frameShape">
@@ -408,7 +413,7 @@ QListView::item:hover {
             <item>
              <widget class="QTabWidget" name="tabWidget">
               <property name="currentIndex">
-               <number>1</number>
+               <number>2</number>
               </property>
               <widget class="QWidget" name="tab">
                <attribute name="title">
@@ -550,6 +555,24 @@ QListView::item:hover {
                 </item>
                </layout>
               </widget>
+              <widget class="QWidget" name="tab_3">
+               <attribute name="title">
+                <string>Page</string>
+               </attribute>
+               <widget class="QPushButton" name="pushButton_3">
+                <property name="geometry">
+                 <rect>
+                  <x>20</x>
+                  <y>20</y>
+                  <width>95</width>
+                  <height>31</height>
+                 </rect>
+                </property>
+                <property name="text">
+                 <string>PushButton</string>
+                </property>
+               </widget>
+              </widget>
              </widget>
             </item>
            </layout>
@@ -558,6 +581,23 @@ QListView::item:hover {
            <property name="title">
             <string>Results</string>
            </property>
+           <layout class="QVBoxLayout" name="verticalLayout_7">
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>9</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>0</number>
+            </property>
+            <item>
+             <widget class="QListWidget" name="listWidget_2"/>
+            </item>
+           </layout>
           </widget>
          </widget>
         </item>

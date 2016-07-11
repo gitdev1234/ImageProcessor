@@ -66,12 +66,12 @@ void ImageProcessor::swap(ImageProcessor &image_) {
 void ImageProcessor::modifyRGB(signedRGBDelta delta_) {
     QImage img("no-image");
     unsigned int imageHeight = img.height();
-    for (int y = 0; y < imageHeight; y++) {
+    for (unsigned int y = 0; y < imageHeight; y++) {
         QRgb *scanLine = (QRgb *) img.scanLine(y);
-        for (int x = 0; x < img.width(); x++) {
+        for (unsigned int x = 0; x < img.width(); x++) {
             // line[x] has an individual pixel
             QColor color = scanLine[x];
-            int oldRed = color.red();
+
             int newRed = (color.red() + delta_.red);
             if (newRed > 255) {
                 newRed = 255;
@@ -107,6 +107,33 @@ void ImageProcessor::modifyRGB(signedRGBDelta delta_) {
     label->setPixmap(QPixmap().fromImage(img));
 
 
+}
+
+QColor ImageProcessor::getMaxRGB() {
+    QImage img("no-image");
+    int maxRed = 0;
+    int maxGreen = 0;
+    int maxBlue = 0;
+    unsigned int imageHeight = img.height();
+    for (unsigned int y = 0; y < imageHeight; y++) {
+        QRgb *scanLine = (QRgb *) img.scanLine(y);
+        for (unsigned int x = 0; x < img.width(); x++) {
+            QColor color = scanLine[x];
+            if (color.red() > maxRed) {
+                maxRed = color.red();
+            }
+            if (color.green() > maxGreen) {
+                maxGreen = color.green();
+            }
+            if (color.blue() > maxBlue) {
+                maxBlue = color.blue();
+            }
+        }
+        unsigned int progress = round(100.0 / double(imageHeight)*y);
+        setProgressBar(progress);
+    }
+    QColor maxColors(maxRed,maxGreen,maxBlue);
+    return maxColors;
 }
 
 void ImageProcessor::setProgressBar(unsigned int percentage_) {

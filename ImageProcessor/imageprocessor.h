@@ -40,6 +40,8 @@ public:
 
     /* --- modify image --- */
     void modifyRGB(signedRGBDelta delta_);
+    /* --- analyse image --- */
+    QColor getMaxRGB();
 private:
     QLabel* label;
     QProgressBar* progressBar;

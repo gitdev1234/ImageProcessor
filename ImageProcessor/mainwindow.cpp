@@ -77,6 +77,8 @@ void MainWindow::on_listWidget_itemClicked(QListWidgetItem *item) {
         ui->tabWidget->setCurrentIndex(0);
     } else if (data == "  RGB") {
         ui->tabWidget->setCurrentIndex(1);
+    } else if (data == "  Analyze") {
+        ui->tabWidget->setCurrentIndex(2);
     }
 }
 
@@ -222,4 +224,21 @@ void MainWindow::on_pushButton_2_clicked()
     temp.green = 0;
     temp.blue  = 0;
     modifiedImage.modifyRGB(temp);
+}
+
+void MainWindow::on_pushButton_3_clicked()
+{
+    stringstream sstr;
+    QColor maxColors = modifiedImage.getMaxRGB();
+
+    ui->listWidget_2->clear();
+    sstr << "Red Max : " << maxColors.red();
+    ui->listWidget_2->addItem(QString(sstr.str().c_str()));
+    sstr.str("");
+    sstr << "Green Max : " << maxColors.green();
+    ui->listWidget_2->addItem(QString(sstr.str().c_str()));
+    sstr.str("");
+    sstr << "Blue Max : " << maxColors.blue();
+    ui->listWidget_2->addItem(QString(sstr.str().c_str()));
+
 }
