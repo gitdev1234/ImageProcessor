@@ -46,7 +46,7 @@ private:
     Ui::MainWindow *ui;
     QPoint m_dragPosition;
 
-    bool ImagesStretchedToLabel = true;
+    bool ImagesStretchedToLabel;
     ImageProcessor originalImage;
     ImageProcessor modifiedImage;
     ImageProcessor bufferImage;

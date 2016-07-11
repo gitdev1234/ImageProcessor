@@ -42,6 +42,9 @@ MainWindow::MainWindow(QWidget *parent) :
     /* --- initially stretch images --- */
     originalImage.stretchImageToLabel(true);
     modifiedImage.stretchImageToLabel(true);
+    ImagesStretchedToLabel = true;
+    ui->toolButton->setEnabled(!ImagesStretchedToLabel);   // zoom-out button
+    ui->toolButton_2->setEnabled(!ImagesStretchedToLabel); // zoom-in  button
 
 }
 
@@ -92,10 +95,10 @@ void MainWindow::on_actionZoom_out_triggered()
 void MainWindow::on_actionZoom_Fit_triggered()
 {
     ImagesStretchedToLabel = !ImagesStretchedToLabel; // toggle
-    originalImage.stretchImageToLabel(!ImagesStretchedToLabel);
-    modifiedImage.stretchImageToLabel(!ImagesStretchedToLabel);
-    ui->toolButton->setEnabled(ImagesStretchedToLabel);   // zoom-out button
-    ui->toolButton_2->setEnabled(ImagesStretchedToLabel); // zoom-in  button
+    originalImage.stretchImageToLabel(ImagesStretchedToLabel);
+    modifiedImage.stretchImageToLabel(ImagesStretchedToLabel);
+    ui->toolButton->setEnabled(!ImagesStretchedToLabel);   // zoom-out button
+    ui->toolButton_2->setEnabled(!ImagesStretchedToLabel); // zoom-in  button
 }
 
 void MainWindow::on_actionMaximize_triggered() {

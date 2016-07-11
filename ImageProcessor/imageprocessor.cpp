@@ -57,7 +57,8 @@ void ImageProcessor::scaleImage(double factor_) {
 }
 
 void ImageProcessor::swap(ImageProcessor &image_) {
-    QPixmap& temp  = image_.label->pixmap();
-    label->pixmap()->swap(temp);
+    // TODO
+    //QPixmap& temp  = image_.label->pixmap();
+    //label->pixmap()->swap(temp);
 }
 
