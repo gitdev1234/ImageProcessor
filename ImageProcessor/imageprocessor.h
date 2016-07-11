@@ -43,6 +43,7 @@ public:
     /* --- analyse image --- */
     QColor getMaxRGB();
 private:
+    QImage image;
     QLabel* label;
     QProgressBar* progressBar;
 
