@@ -4,6 +4,7 @@
 QSize ImageProcessor::loadImage(const string& path_) {
     image = QImage(QString(path_.c_str()));
     label->setPixmap(QPixmap::fromImage(image));
+
     return label->pixmap()->size();
 }
 
@@ -18,10 +19,9 @@ QSize ImageProcessor::loadImage(QWidget& widget_) {
 }
 
 QSize ImageProcessor::loadImage(const ImageProcessor& image_) {
-    const QPixmap *pixMapToCopy = (image_.label->pixmap());
-    QPixmap newPixMap(pixMapToCopy->scaled(pixMapToCopy->size().width(),pixMapToCopy->size().height(), Qt::KeepAspectRatio, Qt::SmoothTransformation ));
-    label->setPixmap(newPixMap);
-    return newPixMap.size();
+    image = QImage(image_.image);
+    label->setPixmap(QPixmap::fromImage(image));
+    return label->pixmap()->size();
 }
 
 bool ImageProcessor::saveImage() {
@@ -63,11 +63,11 @@ void ImageProcessor::swap(ImageProcessor &image_) {
 
 /* --- modify image --- */
 void ImageProcessor::modifyRGB(signedRGBDelta delta_) {
-    QImage img("no-image");
-    unsigned int imageHeight = img.height();
+
+    unsigned int imageHeight = image.height();
     for (unsigned int y = 0; y < imageHeight; y++) {
-        QRgb *scanLine = (QRgb *) img.scanLine(y);
-        for (unsigned int x = 0; x < img.width(); x++) {
+        QRgb *scanLine = (QRgb *) image.scanLine(y);
+        for (unsigned int x = 0; x < image.width(); x++) {
             // line[x] has an individual pixel
             QColor color = scanLine[x];
 
@@ -103,20 +103,26 @@ void ImageProcessor::modifyRGB(signedRGBDelta delta_) {
         unsigned int progress = round(100.0 / double(imageHeight)*y);
         setProgressBar(progress);
     }
-    label->setPixmap(QPixmap().fromImage(img));
+    setProgressBar(100);
+    setAndReScalePixMapAfterModification(image);
 
 
 }
 
+void ImageProcessor::setAndReScalePixMapAfterModification(const QImage &image_) {
+    QSize sizeBeforeModification = label->pixmap()->size();
+    label->setPixmap(QPixmap().fromImage(image).scaled(sizeBeforeModification,Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    //label->setPixmap(label->pixmap()->scaled(tempSize,Qt::KeepAspectRatio, Qt::SmoothTransformation));
+}
+
 QColor ImageProcessor::getMaxRGB() {
-    QImage img("no-image");
     int maxRed = 0;
     int maxGreen = 0;
     int maxBlue = 0;
-    unsigned int imageHeight = img.height();
+    unsigned int imageHeight = image.height();
     for (unsigned int y = 0; y < imageHeight; y++) {
-        QRgb *scanLine = (QRgb *) img.scanLine(y);
-        for (unsigned int x = 0; x < img.width(); x++) {
+        QRgb *scanLine = (QRgb *) image.scanLine(y);
+        for (unsigned int x = 0; x < image.width(); x++) {
             QColor color = scanLine[x];
             if (color.red() > maxRed) {
                 maxRed = color.red();
@@ -132,6 +138,7 @@ QColor ImageProcessor::getMaxRGB() {
         setProgressBar(progress);
     }
     QColor maxColors(maxRed,maxGreen,maxBlue);
+    setProgressBar(100);
     return maxColors;
 }
 

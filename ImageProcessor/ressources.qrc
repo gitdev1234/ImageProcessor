@@ -13,5 +13,6 @@
         <file>resources/down.png</file>
         <file>resources/swap.png</file>
         <file>resources/up.png</file>
+        <file>resources/analyze.png</file>
     </qresource>
 </RCC>

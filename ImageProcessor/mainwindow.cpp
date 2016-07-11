@@ -65,7 +65,7 @@ void MainWindow::on_listWidget_itemClicked(QListWidgetItem *item) {
     if (data == "  Load File") {
         // load images
         QSize originalSize = originalImage.loadImage(*this);
-        //modifiedImage.loadImage(originalImage);
+        modifiedImage.loadImage(originalImage);
         // output size at statusbar
         stringstream sstr;
         sstr << "width : " << originalSize.width() << ", height : " << originalSize.height() << endl;

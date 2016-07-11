@@ -170,6 +170,10 @@ QListView::item:hover {
         <property name="text">
          <string>  Analyze</string>
         </property>
+        <property name="icon">
+         <iconset resource="ressources.qrc">
+          <normaloff>:/res/resources/analyze.png</normaloff>:/res/resources/analyze.png</iconset>
+        </property>
        </item>
       </widget>
       <widget class="QFrame" name="frame_2">
@@ -215,7 +219,7 @@ QListView::item:hover {
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>428</width>
+              <width>339</width>
               <height>152</height>
              </rect>
             </property>
@@ -337,7 +341,7 @@ QListView::item:hover {
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>428</width>
+              <width>339</width>
               <height>155</height>
              </rect>
             </property>
