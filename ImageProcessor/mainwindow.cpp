@@ -46,6 +46,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->toolButton->setEnabled(!ImagesStretchedToLabel);   // zoom-out button
     ui->toolButton_2->setEnabled(!ImagesStretchedToLabel); // zoom-in  button
 
+    /* --- initial settings for enabling / disabling RGB channels --- */
+    rgbDeltasBeforeDisabling.red   = 0;
+    rgbDeltasBeforeDisabling.green = 0;
+    rgbDeltasBeforeDisabling.blue  = 0;
 }
 
 MainWindow::~MainWindow() {
@@ -167,4 +171,55 @@ void MainWindow::on_horizontalSlider_3_sliderReleased()
     signedRGBDelta delta;
     delta.blue = ui->horizontalSlider_3->value();
     modifiedImage.modifyRGB(delta);
+}
+
+void MainWindow::on_checkBox_clicked(bool checked)
+{
+    if (checked) {
+        ui->horizontalSlider->setValue(rgbDeltasBeforeDisabling.red);
+    } else {
+        rgbDeltasBeforeDisabling.red = ui->horizontalSlider->value();
+        ui->horizontalSlider->setValue(-255);
+    }
+    on_horizontalSlider_sliderReleased();
+}
+
+void MainWindow::on_checkBox_2_clicked(bool checked)
+{
+    if (checked) {
+        ui->horizontalSlider_2->setValue(rgbDeltasBeforeDisabling.green);
+    } else {
+        rgbDeltasBeforeDisabling.green = ui->horizontalSlider_2->value();
+        ui->horizontalSlider_2->setValue(-255);
+    }
+    on_horizontalSlider_2_sliderReleased();
+}
+
+void MainWindow::on_checkBox_3_clicked(bool checked)
+{
+    if (checked) {
+        ui->horizontalSlider_3->setValue(rgbDeltasBeforeDisabling.blue);
+    } else {
+        rgbDeltasBeforeDisabling.blue = ui->horizontalSlider_3->value();
+        ui->horizontalSlider_3->setValue(-255);
+    }
+    on_horizontalSlider_3_sliderReleased();
+}
+
+void MainWindow::on_pushButton_2_clicked()
+{
+    ui->horizontalSlider  ->setValue(0);
+    ui->horizontalSlider_2->setValue(0);
+    ui->horizontalSlider_3->setValue(0);
+    rgbDeltasBeforeDisabling.red   = 0;
+    rgbDeltasBeforeDisabling.green = 0;
+    rgbDeltasBeforeDisabling.blue  = 0;
+    ui->checkBox  ->setChecked(true);
+    ui->checkBox_2->setChecked(true);
+    ui->checkBox_3->setChecked(true);
+    signedRGBDelta temp;
+    temp.red   = 0;
+    temp.green = 0;
+    temp.blue  = 0;
+    modifiedImage.modifyRGB(temp);
 }

@@ -380,6 +380,12 @@ QListView::item:hover {
            <enum>Qt::Vertical</enum>
           </property>
           <widget class="QGroupBox" name="groupBox">
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>250</height>
+            </size>
+           </property>
            <property name="title">
             <string>Settings</string>
            </property>
@@ -426,63 +432,123 @@ QListView::item:hover {
                <attribute name="title">
                 <string>Tab 2</string>
                </attribute>
-               <widget class="QSlider" name="horizontalSlider">
-                <property name="geometry">
-                 <rect>
-                  <x>20</x>
-                  <y>40</y>
-                  <width>160</width>
-                  <height>18</height>
-                 </rect>
-                </property>
-                <property name="minimum">
-                 <number>-255</number>
-                </property>
-                <property name="maximum">
-                 <number>255</number>
-                </property>
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-               </widget>
-               <widget class="QSlider" name="horizontalSlider_2">
-                <property name="geometry">
-                 <rect>
-                  <x>20</x>
-                  <y>70</y>
-                  <width>160</width>
-                  <height>18</height>
-                 </rect>
-                </property>
-                <property name="minimum">
-                 <number>-255</number>
-                </property>
-                <property name="maximum">
-                 <number>255</number>
-                </property>
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-               </widget>
-               <widget class="QSlider" name="horizontalSlider_3">
-                <property name="geometry">
-                 <rect>
-                  <x>20</x>
-                  <y>100</y>
-                  <width>160</width>
-                  <height>18</height>
-                 </rect>
-                </property>
-                <property name="minimum">
-                 <number>-255</number>
-                </property>
-                <property name="maximum">
-                 <number>255</number>
-                </property>
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-               </widget>
+               <layout class="QVBoxLayout" name="verticalLayout_6">
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_3">
+                  <item>
+                   <widget class="QLabel" name="label_3">
+                    <property name="text">
+                     <string>R</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QSlider" name="horizontalSlider">
+                    <property name="minimum">
+                     <number>-255</number>
+                    </property>
+                    <property name="maximum">
+                     <number>255</number>
+                    </property>
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="checkBox">
+                    <property name="text">
+                     <string/>
+                    </property>
+                    <property name="checked">
+                     <bool>true</bool>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_4">
+                  <item>
+                   <widget class="QLabel" name="label_4">
+                    <property name="text">
+                     <string>G</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QSlider" name="horizontalSlider_2">
+                    <property name="minimum">
+                     <number>-255</number>
+                    </property>
+                    <property name="maximum">
+                     <number>255</number>
+                    </property>
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="checkBox_2">
+                    <property name="text">
+                     <string/>
+                    </property>
+                    <property name="checked">
+                     <bool>true</bool>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_5">
+                  <item>
+                   <widget class="QLabel" name="label_5">
+                    <property name="text">
+                     <string>B</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QSlider" name="horizontalSlider_3">
+                    <property name="minimum">
+                     <number>-255</number>
+                    </property>
+                    <property name="maximum">
+                     <number>255</number>
+                    </property>
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="checkBox_3">
+                    <property name="text">
+                     <string/>
+                    </property>
+                    <property name="checked">
+                     <bool>true</bool>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="pushButton_2">
+                  <property name="maximumSize">
+                   <size>
+                    <width>16777215</width>
+                    <height>30</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string>Reset</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
               </widget>
              </widget>
             </item>

@@ -6,6 +6,7 @@
 #include <QListWidgetItem>
 #include <QScrollArea>
 #include <QImageReader>
+#include <QColor>
 // ----
 #include "imageprocessor.h"
 #include "Types.h"
@@ -49,6 +50,14 @@ private slots:
 
     void on_horizontalSlider_3_sliderReleased();
 
+    void on_checkBox_clicked(bool checked);
+
+    void on_checkBox_2_clicked(bool checked);
+
+    void on_checkBox_3_clicked(bool checked);
+
+    void on_pushButton_2_clicked();
+
 private:
     Ui::MainWindow *ui;
     QPoint m_dragPosition;
@@ -58,6 +67,9 @@ private:
     ImageProcessor modifiedImage;
     ImageProcessor bufferImage;
     QLabel bufferLabel;
+
+    // enabling/disabling of RGB-channels
+    signedRGBDelta rgbDeltasBeforeDisabling;
 
 };
 
