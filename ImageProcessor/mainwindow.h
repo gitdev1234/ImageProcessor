@@ -8,6 +8,7 @@
 #include <QImageReader>
 // ----
 #include "imageprocessor.h"
+#include "Types.h"
 
 namespace Ui {
 class MainWindow;
@@ -41,6 +42,12 @@ private slots:
     void on_actionLoad_from_original_triggered();
 
     void on_actionSwap_triggered();
+
+    void on_horizontalSlider_sliderReleased();
+
+    void on_horizontalSlider_2_sliderReleased();
+
+    void on_horizontalSlider_3_sliderReleased();
 
 private:
     Ui::MainWindow *ui;

@@ -27,8 +27,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->toolButton_6->setDefaultAction(ui->actionSwap);
 
     /* --- bind gui-elements to ImageProcessor-objects --- */
-    originalImage = ImageProcessor(ui->label);
-    modifiedImage = ImageProcessor(ui->label_2);
+    originalImage = ImageProcessor(ui->label,ui->progressBar);
+    modifiedImage = ImageProcessor(ui->label_2,ui->progressBar);
 
     /* --- load initial images --- */
     QSize originalSize = originalImage.loadImage("no-image.png");
@@ -70,10 +70,8 @@ void MainWindow::on_listWidget_itemClicked(QListWidgetItem *item) {
     } else if (data == "  Save File") {
         originalImage.saveImage();
     } else if (data == "  General") {
-        cout << "General" << endl;
         ui->tabWidget->setCurrentIndex(0);
-    } else if (data == "  Method2") {
-        cout << "Method2" << endl;
+    } else if (data == "  RGB") {
         ui->tabWidget->setCurrentIndex(1);
     }
 }
@@ -148,4 +146,25 @@ void MainWindow::on_actionSwap_triggered()
     bufferImage.loadImage(originalImage);
     originalImage.loadImage(modifiedImage);
     modifiedImage.loadImage(bufferImage);
+}
+
+void MainWindow::on_horizontalSlider_sliderReleased()
+{
+    signedRGBDelta delta;
+    delta.red = ui->horizontalSlider->value();
+    modifiedImage.modifyRGB(delta);
+}
+
+void MainWindow::on_horizontalSlider_2_sliderReleased()
+{
+    signedRGBDelta delta;
+    delta.green = ui->horizontalSlider_2->value();
+    modifiedImage.modifyRGB(delta);
+}
+
+void MainWindow::on_horizontalSlider_3_sliderReleased()
+{
+    signedRGBDelta delta;
+    delta.blue = ui->horizontalSlider_3->value();
+    modifiedImage.modifyRGB(delta);
 }

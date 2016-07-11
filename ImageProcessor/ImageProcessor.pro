@@ -19,7 +19,8 @@ SOURCES += main.cpp\
     imageprocessor.cpp
 
 HEADERS  += mainwindow.h \
-    imageprocessor.h
+    imageprocessor.h \
+    Types.h
 
 FORMS    += mainwindow.ui
 

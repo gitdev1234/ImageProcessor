@@ -62,3 +62,54 @@ void ImageProcessor::swap(ImageProcessor &image_) {
     //label->pixmap()->swap(temp);
 }
 
+/* --- modify image --- */
+void ImageProcessor::modifyRGB(signedRGBDelta delta_) {
+    QImage img("no-image");
+    unsigned int imageHeight = img.height();
+    for (int y = 0; y < imageHeight; y++) {
+        QRgb *scanLine = (QRgb *) img.scanLine(y);
+        for (int x = 0; x < img.width(); x++) {
+            // line[x] has an individual pixel
+            QColor color = scanLine[x];
+            int oldRed = color.red();
+            int newRed = (color.red() + delta_.red);
+            if (newRed > 255) {
+                newRed = 255;
+            }
+            if (newRed < 0 ) {
+                newRed = 0;
+            }
+            color.setRed(newRed);
+
+            int newGreen = (color.green() + delta_.green);
+            if (newGreen > 255) {
+                newGreen = 255;
+            }
+            if (newGreen < 0 ) {
+                newGreen = 0;
+            }
+            color.setGreen(newGreen);
+
+            int newBlue = (color.blue() + delta_.blue);
+            if (newBlue > 255) {
+                newBlue = 255;
+            }
+            if (newBlue < 0 ) {
+                newBlue = 0;
+            }
+            color.setBlue(newBlue);
+
+            scanLine[x] = color.rgb();
+        }
+        unsigned int progress = round(100.0 / double(imageHeight)*y);
+        setProgressBar(progress);
+    }
+    label->setPixmap(QPixmap().fromImage(img));
+
+
+}
+
+void ImageProcessor::setProgressBar(unsigned int percentage_) {
+    progressBar->setValue(percentage_);
+}
+

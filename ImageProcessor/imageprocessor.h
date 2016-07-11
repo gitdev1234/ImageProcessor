@@ -2,13 +2,18 @@
 #define IMAGEPROCESSOR_H
 
 #include <QLabel>
+#include <QProgressBar>
 #include <QPixmap>
+#include <QImage>
+#include <QRgb>
 #include <QFile>
 #include <QFileDialog>
 #include <QScrollArea>
 #include <QScrollBar>
 #include <string>
 #include <iostream>
+//---
+#include "Types.h"
 
 using namespace std;
 
@@ -16,7 +21,8 @@ class ImageProcessor {
 public:
     /* --- constructors / destructors --- */
     ImageProcessor() {};
-    ImageProcessor(QLabel* label_) : label(label_) { };
+    ImageProcessor(QLabel* label_, QProgressBar* progressBar_)
+        : label(label_), progressBar(progressBar_) { };
 
     /* --- getter / setter --- */
 
@@ -31,8 +37,14 @@ public:
     void stretchImageToLabel(bool stretchImageToLabel_);
     void scaleImage(double factor_);
     void swap(ImageProcessor& image_);
-protected:
+
+    /* --- modify image --- */
+    void modifyRGB(signedRGBDelta delta_);
+private:
     QLabel* label;
+    QProgressBar* progressBar;
+
+    void setProgressBar(unsigned int percentage_);
 };
 
 #endif // IMAGEPROCESSOR_H
