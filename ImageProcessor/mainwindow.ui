@@ -31,7 +31,10 @@ QSplitter::handle {
 
 
 QFrame{
-       background-color:#fafafa;
+       /*background-color:#fafafa;*/
+    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+	                                stop: 0 #fafafa, stop: 1 #ededed);
+
 }
 
 QStatusBar {
@@ -53,7 +56,6 @@ QToolButton:disabled {
     color :#33363b;
     background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
                                 stop: 0 #33363b, stop: 1 #aCcEF1);
-    border-image url(:/res/resources/zoom_fit.png);
 }</string>
   </property>
   <widget class="QWidget" name="widget">
@@ -259,6 +261,9 @@ QListView::item:hover {
              <height>30</height>
             </size>
            </property>
+           <property name="styleSheet">
+            <string notr="true"/>
+           </property>
            <property name="frameShape">
             <enum>QFrame::StyledPanel</enum>
            </property>
@@ -417,7 +422,7 @@ QListView::item:hover {
             <item>
              <widget class="QTabWidget" name="tabWidget">
               <property name="currentIndex">
-               <number>2</number>
+               <number>0</number>
               </property>
               <widget class="QWidget" name="tab">
                <attribute name="title">

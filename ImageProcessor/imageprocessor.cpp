@@ -157,3 +157,17 @@ void ImageProcessor::setProgressBar(unsigned int percentage_) {
     progressBar->setValue(percentage_);
 }
 
+void ImageProcessor::todo() {
+    unsigned int imageHeight = image.height();
+    for (unsigned int y = 0; y < imageHeight; y++) {
+        QRgb *scanLine = (QRgb *) image.scanLine(y);
+        uchar* ar = image.scanLine(y);
+        int width = image.width();
+        cout << "[";
+        for (unsigned int x = 0; x < width*4; x++) {
+            cout << int(*ar) << ",";
+            ar++;
+        }
+        cout << "]" << endl;
+    }
+}

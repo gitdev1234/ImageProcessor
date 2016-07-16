@@ -44,6 +44,7 @@ public:
     void setAndReScalePixMapAfterModification(const QImage& image_);
     /* --- analyse image --- */
     QColor getMaxRGB();
+    void todo();
 private:
     QImage image;
     QLabel* label;

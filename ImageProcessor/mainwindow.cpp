@@ -242,3 +242,8 @@ void MainWindow::on_pushButton_3_clicked()
     ui->listWidget_2->addItem(QString(sstr.str().c_str()));
 
 }
+
+void MainWindow::on_pushButton_clicked()
+{
+    originalImage.todo();
+}
