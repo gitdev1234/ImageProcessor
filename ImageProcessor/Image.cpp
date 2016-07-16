@@ -1,7 +1,7 @@
-#include "imageprocessor.h"
+#include "Image.h"
 
 /* --- load / save --- */
-QSize ImageProcessor::loadImage(QWidget& widget_,const string& path_) {
+QSize Image::loadImage(QWidget& widget_,const string& path_) {
     image = QImage(QString(path_.c_str()));
 
     switch(image.format()) {
@@ -19,7 +19,7 @@ QSize ImageProcessor::loadImage(QWidget& widget_,const string& path_) {
     return label->pixmap()->size();
 }
 
-QSize ImageProcessor::loadImage(QWidget& widget_) {
+QSize Image::loadImage(QWidget& widget_) {
     QFileDialog dialog(&widget_, QString("Open File"));
     if(dialog.exec() == QDialog::Accepted ) {
         QString path = dialog.selectedFiles().first();
@@ -29,26 +29,26 @@ QSize ImageProcessor::loadImage(QWidget& widget_) {
     }
 }
 
-QSize ImageProcessor::loadImage(const ImageProcessor& image_) {
+QSize Image::loadImage(const Image& image_) {
     image = QImage(image_.image);
     label->setPixmap(QPixmap::fromImage(image));
     return label->pixmap()->size();
 }
 
-bool ImageProcessor::saveImage() {
+bool Image::saveImage() {
     QFileDialog dialog;
     QString path = dialog.getSaveFileName();
     return saveImage(path.toStdString());
 }
 
-bool ImageProcessor::saveImage(const string &path_) {
+bool Image::saveImage(const string &path_) {
     QFile file(QString(path_.c_str()));
     file.open(QIODevice::WriteOnly);
     return label->pixmap()->save(&file, "PNG");
 }
 
 /* --- scaling / zooming / stretching --- */
-void ImageProcessor::stretchImageToLabel(bool stretchImageToLabel_) {
+void Image::stretchImageToLabel(bool stretchImageToLabel_) {
     if (stretchImageToLabel_) {
         label->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
     } else {
@@ -58,7 +58,7 @@ void ImageProcessor::stretchImageToLabel(bool stretchImageToLabel_) {
 
 }
 
-void ImageProcessor::scaleImage(double factor_) {
+void Image::scaleImage(double factor_) {
     if (label->sizePolicy() == QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed)) {
         QSize size = label->pixmap()->size();
         QPixmap temp = label->pixmap()->scaled(factor_*size,Qt::KeepAspectRatio, Qt::SmoothTransformation);
@@ -66,14 +66,14 @@ void ImageProcessor::scaleImage(double factor_) {
     }
 }
 
-void ImageProcessor::swap(ImageProcessor &image_) {
+void Image::swap(Image &image_) {
     // TODO
     //QPixmap& temp  = image_.label->pixmap();
     //label->pixmap()->swap(temp);
 }
 
 /* --- modify image --- */
-void ImageProcessor::modifyRGB(signedRGBDelta delta_) {
+void Image::modifyRGB(signedRGBDelta delta_) {
 
     unsigned int imageHeight = image.height();
     for (unsigned int y = 0; y < imageHeight; y++) {
@@ -120,13 +120,13 @@ void ImageProcessor::modifyRGB(signedRGBDelta delta_) {
 
 }
 
-void ImageProcessor::setAndReScalePixMapAfterModification(const QImage &image_) {
+void Image::setAndReScalePixMapAfterModification(const QImage &image_) {
     QSize sizeBeforeModification = label->pixmap()->size();
     label->setPixmap(QPixmap().fromImage(image).scaled(sizeBeforeModification,Qt::KeepAspectRatio, Qt::SmoothTransformation));
     //label->setPixmap(label->pixmap()->scaled(tempSize,Qt::KeepAspectRatio, Qt::SmoothTransformation));
 }
 
-QColor ImageProcessor::getMaxRGB() {
+QColor Image::getMaxRGB() {
     int maxRed = 0;
     int maxGreen = 0;
     int maxBlue = 0;
@@ -153,11 +153,11 @@ QColor ImageProcessor::getMaxRGB() {
     return maxColors;
 }
 
-void ImageProcessor::setProgressBar(unsigned int percentage_) {
+void Image::setProgressBar(unsigned int percentage_) {
     progressBar->setValue(percentage_);
 }
 
-void ImageProcessor::todo() {
+void Image::todo() {
     unsigned int imageHeight = image.height();
     for (unsigned int y = 0; y < imageHeight; y++) {
         QRgb *scanLine = (QRgb *) image.scanLine(y);

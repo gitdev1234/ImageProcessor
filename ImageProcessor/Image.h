@@ -1,5 +1,5 @@
-#ifndef IMAGEPROCESSOR_H
-#define IMAGEPROCESSOR_H
+#ifndef IMAGE_H
+#define IMAGE_H
 
 #include <QLabel>
 #include <QProgressBar>
@@ -18,11 +18,11 @@
 
 using namespace std;
 
-class ImageProcessor {
+class Image {
 public:
     /* --- constructors / destructors --- */
-    ImageProcessor() {};
-    ImageProcessor(QLabel* label_, QProgressBar* progressBar_)
+    Image() {};
+    Image(QLabel* label_, QProgressBar* progressBar_)
         : label(label_), progressBar(progressBar_) { };
 
     /* --- getter / setter --- */
@@ -30,14 +30,14 @@ public:
     /* --- load / save --- */
     QSize loadImage(QWidget &widget_, const string& path_); // without file-open-dialog
     QSize loadImage(QWidget& widget_);    // with    file-open-dialog
-    QSize loadImage(const ImageProcessor& image_);    // copy from image
+    QSize loadImage(const Image& image_);    // copy from image
     bool saveImage(const string& path_);  // without file-save-dialog
     bool saveImage();                     // with    file-save-dialog
 
     /* --- scaling / zooming / stretching --- */
     void stretchImageToLabel(bool stretchImageToLabel_);
     void scaleImage(double factor_);
-    void swap(ImageProcessor& image_);
+    void swap(Image& image_);
 
     /* --- modify image --- */
     void modifyRGB(signedRGBDelta delta_);
@@ -53,4 +53,4 @@ private:
     void setProgressBar(unsigned int percentage_);
 };
 
-#endif // IMAGEPROCESSOR_H
+#endif // IMAGE_H

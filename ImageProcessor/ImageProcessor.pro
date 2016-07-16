@@ -16,11 +16,14 @@ CONFIG += c++11
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    imageprocessor.cpp
+    Image.cpp
 
 HEADERS  += mainwindow.h \
-    imageprocessor.h \
-    Types.h
+    Types.h \
+    Image.h \
+    ImageData.h \
+    OriginalImageData.h \
+    Filter.h
 
 FORMS    += mainwindow.ui
 

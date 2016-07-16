@@ -8,7 +8,7 @@
 #include <QImageReader>
 #include <QColor>
 // ----
-#include "imageprocessor.h"
+#include "Image.h"
 #include "Types.h"
 
 namespace Ui {
@@ -67,9 +67,9 @@ private:
     QPoint m_dragPosition;
 
     bool ImagesStretchedToLabel;
-    ImageProcessor originalImage;
-    ImageProcessor modifiedImage;
-    ImageProcessor bufferImage;
+    Image originalImage;
+    Image modifiedImage;
+    Image bufferImage;
     QLabel bufferLabel;
 
     // enabling/disabling of RGB-channels

@@ -3,7 +3,7 @@
 #include <sstream>
 #include <QPixmap>
 #include <iostream>
-#include "imageprocessor.h"
+#include "Image.h"
 
 using namespace std;
 
@@ -26,9 +26,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->toolButton_5->setDefaultAction(ui->actionLoad_from_modified);
     ui->toolButton_6->setDefaultAction(ui->actionSwap);
 
-    /* --- bind gui-elements to ImageProcessor-objects --- */
-    originalImage = ImageProcessor(ui->label,ui->progressBar);
-    modifiedImage = ImageProcessor(ui->label_2,ui->progressBar);
+    /* --- bind gui-elements to Image-objects --- */
+    originalImage = Image(ui->label,ui->progressBar);
+    modifiedImage = Image(ui->label_2,ui->progressBar);
 
     /* --- load initial images --- */
     QSize originalSize = originalImage.loadImage(*this,"no-image.png");
