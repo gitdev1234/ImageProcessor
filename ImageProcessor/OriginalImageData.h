@@ -1,17 +1,20 @@
 #ifndef ORIGINALIMAGEDATA_H
 #define ORIGINALIMAGEDATA_H
 
-#include <iostream>
 #include "ImageData.h"
-
-using namespace std;
 
 class OriginalImageData : public ImageData {
    public:
-        OriginalImageData() {};
-        virtual QPixmap getImageData() {
-            return imageData_;
+        OriginalImageData() { };
+        OriginalImageData(const QPixmap* pixMap_) {
+            imageData = QPixmap(*pixMap_);
         };
+        virtual QPixmap getImageData() {
+            return imageData;
+        };
+    private:
+        QPixmap imageData;
 };
+
 
 #endif // ORIGINALIMAGEDATA_H

@@ -13,6 +13,7 @@ class Filter : public ImageData {
     private:
         ImageData* imageData;
 
+
 };
 
 #endif // DECORATOR_H

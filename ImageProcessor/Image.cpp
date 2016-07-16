@@ -16,6 +16,7 @@ QSize Image::loadImage(QWidget& widget_,const string& path_) {
     }
 
     label->setPixmap(QPixmap::fromImage(image));
+    originalImageData = OriginalImageData(label->pixmap());
     return label->pixmap()->size();
 }
 

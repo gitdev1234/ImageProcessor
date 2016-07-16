@@ -15,6 +15,7 @@
 #include <QMessageBox>
 //---
 #include "Types.h"
+#include "OriginalImageData.h"
 
 using namespace std;
 
@@ -47,6 +48,7 @@ public:
     void todo();
 private:
     QImage image;
+    OriginalImageData originalImageData;
     QLabel* label;
     QProgressBar* progressBar;
 

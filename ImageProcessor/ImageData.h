@@ -3,12 +3,11 @@
 
 #include <QImage>
 
+
 class ImageData {
     public:
-        ImageData(QPixmap& pixMap_) {};
+        ImageData() {};
         virtual QPixmap getImageData() = 0;
-    private:
-        QPixmap imageData_;
 
 };
 

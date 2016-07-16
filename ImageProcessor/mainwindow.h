@@ -10,6 +10,7 @@
 // ----
 #include "Image.h"
 #include "Types.h"
+#include "OriginalImageData.h"
 
 namespace Ui {
 class MainWindow;
