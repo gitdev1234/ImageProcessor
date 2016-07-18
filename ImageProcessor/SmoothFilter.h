@@ -1,23 +1,22 @@
-#ifndef CONCRETEDECORATORA_H
-#define CONCRETEDECORATORA_H
+#ifndef SMOOTHFILTER_H
+#define SMOOTHFILTER_H
 
 #include <iostream>
-#include "decorator.h"
+#include "Filter.h"
 
 using namespace std;
 
-class ConcreteDecoratorA : public Decorator {
+class SmoothFilter : public Filter {
     public:
-        ConcreteDecoratorA(Component* component_) : Decorator(component_) {};
-        virtual double getPrice() {
-            double temp = Decorator::getPrice();
-            return temp + getConcreteDecoratorAPrice();
-        }
+        SmoothFilter(ImageData* imageData_) : Filter(imageData_) {};
+        virtual QPixmap getImageData() {
+            return Filter::getImageData();
+        };
     private:
-        double getConcreteDecoratorAPrice() {
-            cout << "ConcreteDecoratorA : 50.3" << endl;
+        ImageData smoothFilter() {
+            cout << "SmoothFilter : 50.3" << endl;
             return 50.3;
         }
 };
 
-#endif // CONCRETEDECORATORA_H
+#endif // SMOOTHFILTER_H

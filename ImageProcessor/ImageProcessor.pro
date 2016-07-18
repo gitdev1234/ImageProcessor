@@ -23,7 +23,8 @@ HEADERS  += mainwindow.h \
     Image.h \
     ImageData.h \
     OriginalImageData.h \
-    Filter.h
+    Filter.h \
+    SmoothFilter.h
 
 FORMS    += mainwindow.ui
 
