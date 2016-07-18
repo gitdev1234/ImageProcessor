@@ -6,14 +6,12 @@
 class OriginalImageData : public ImageData {
    public:
         OriginalImageData() { };
-        OriginalImageData(const QPixmap* pixMap_) {
-            imageData = QPixmap(*pixMap_);
+        OriginalImageData(QImage& image_) {
+            qimageToSignalProcessors(image_);
         };
-        virtual QPixmap getImageData() {
-            return imageData;
+        virtual QImage getImageData() {
+            return QImage("");//imageData;
         };
-    private:
-        QPixmap imageData;
 };
 
 

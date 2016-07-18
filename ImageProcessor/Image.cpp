@@ -16,9 +16,8 @@ QSize Image::loadImage(QWidget& widget_,const string& path_) {
     }
 
     label->setPixmap(QPixmap::fromImage(image));
-    originalImageData = OriginalImageData(label->pixmap());
+    originalImageData = OriginalImageData(image);
     smoothFilter = SmoothFilter(&originalImageData);
-    smoothFilter.setFormat(image.format());
     return label->pixmap()->size();
 }
 
@@ -165,10 +164,12 @@ void Image::todo() {
     for (unsigned int y = 0; y < imageHeight; y++) {
         QRgb *scanLine = (QRgb *) image.scanLine(y);
         uchar* ar = image.scanLine(y);
+        vector<int> array;
         int width = image.width();
         cout << "[";
         for (unsigned int x = 0; x < width*4; x++) {
             cout << int(*ar) << ",";
+            array.push_back(*ar);
             ar++;
         }
         cout << "]" << endl;

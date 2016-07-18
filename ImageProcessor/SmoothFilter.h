@@ -12,7 +12,7 @@ class SmoothFilter : public Filter {
     public:
         SmoothFilter() {};
         SmoothFilter(ImageData* imageData_) : Filter(imageData_) {};
-        virtual QPixmap getImageData() {
+        virtual QImage getImageData() {
             return Filter::getImageData();
         };
     private:

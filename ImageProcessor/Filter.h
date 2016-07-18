@@ -10,23 +10,16 @@ class Filter : public ImageData {
     public:
         Filter() {};
         Filter(ImageData* imageData_) : imageData(imageData_) {};
-        virtual QPixmap getImageData() {
+        virtual QImage getImageData() {
             return imageData->getImageData();
         };
-
-        void setFormat(QImage::Format val_) {format = val_;};
 
 
     private:
         ImageData* imageData;
-        QImage::Format format;
-        SignalProcessor grayScaleSignal;
-        SignalProcessor redSignal;
-        SignalProcessor greenSignal;
-        SignalProcessor blueSignal;
-        SignalProcessor alphaChannelSignal;
 
-        void loadImageDataToSignalProcessors();
+
+
 
 
 };
