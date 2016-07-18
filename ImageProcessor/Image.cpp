@@ -14,7 +14,7 @@ QSize Image::loadImage(QWidget& widget_,const string& path_) {
                     label->setPixmap(QPixmap(0,0));
                   } break;
     }
-
+    qImageToSignalProcessors(image); // load image into signal processors
     label->setPixmap(QPixmap::fromImage(image));
     return label->pixmap()->size();
 }
@@ -31,6 +31,7 @@ QSize Image::loadImage(QWidget& widget_) {
 
 QSize Image::loadImage(const Image& image_) {
     image = QImage(image_.image);
+    qImageToSignalProcessors(image); // load image into signal processors
     label->setPixmap(QPixmap::fromImage(image));
     return label->pixmap()->size();
 }
@@ -175,7 +176,9 @@ void Image::todo() {
 }
 
 void Image::smooth() {
-
+    grayScaleSignal = grayScaleSignal + 50;
+    signalProcessorsToQImage(image);
+    setAndReScalePixMapAfterModification(image);
 }
 
 
