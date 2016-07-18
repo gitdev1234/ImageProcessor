@@ -15,6 +15,7 @@
 #include <QMessageBox>
 //---
 #include "Types.h"
+#include "SignalProcessor.h"
 
 using namespace std;
 
@@ -50,8 +51,12 @@ private:
     QImage image;
     QLabel* label;
     QProgressBar* progressBar;
-
     void setProgressBar(unsigned int percentage_);
+    // Converting QImage <---> SignalProcessor
+    void qImageToSignalProcessors(QImage imageToLoadFrom_);
+    void signalProcessorsToQImage(QImage& imageToWriteTo_);
+    // SignalProcessors
+    SignalProcessor grayScaleSignal;
 };
 
 #endif // IMAGE_H
