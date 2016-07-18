@@ -2,6 +2,7 @@
 #define DECORATOR_H
 
 #include "ImageData.h"
+#include "SignalProcessor.h"
 
 class Filter : public ImageData {
     public:
@@ -10,8 +11,17 @@ class Filter : public ImageData {
             return imageData->getImageData();
         };
 
+
     private:
         ImageData* imageData;
+        QImage::Format format;
+        SignalProcessor grayScaleSignal;
+        SignalProcessor redSignal;
+        SignalProcessor greenSignal;
+        SignalProcessor blueSignal;
+        SignalProcessor alphaChannelSignal;
+
+        void loadImageDataToSignalProcessors();
 
 
 };

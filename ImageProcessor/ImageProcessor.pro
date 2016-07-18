@@ -16,7 +16,9 @@ CONFIG += c++11
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    Image.cpp
+    Image.cpp \
+    SignalProcessor.cpp \
+    Filter.cpp
 
 HEADERS  += mainwindow.h \
     Types.h \
@@ -24,7 +26,8 @@ HEADERS  += mainwindow.h \
     ImageData.h \
     OriginalImageData.h \
     Filter.h \
-    SmoothFilter.h
+    SmoothFilter.h \
+    SignalProcessor.h
 
 FORMS    += mainwindow.ui
 
