@@ -1,6 +1,7 @@
 #ifndef DECORATOR_H
 #define DECORATOR_H
 
+#include <QPixmap>
 #include "ImageData.h"
 #include "SignalProcessor.h"
 
@@ -14,7 +15,6 @@ class Filter : public ImageData {
 
     private:
         ImageData* imageData;
-        QImage::Format format;
         SignalProcessor grayScaleSignal;
         SignalProcessor redSignal;
         SignalProcessor greenSignal;
