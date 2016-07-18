@@ -10,14 +10,22 @@ class Filter : public ImageData {
     public:
         Filter() {};
         Filter(ImageData* imageData_) : imageData(imageData_) {};
-        virtual QImage getImageData() {
-            return imageData->getImageData();
+        virtual void getSignalProcessors(SignalProcessor* gray_) {
+            imageData->getSignalProcessors(grayScaleSignal);
+            executeFilter();
+            gray_ = grayScaleSignal;
         };
+        void setActive(bool val_ = true) {
+            active = val_;
+        }
+        bool getActive() {return active;};
+
+        virtual void executeFilter() = 0;
 
 
     private:
         ImageData* imageData;
-
+        bool active;
 
 
 

@@ -12,14 +12,13 @@ class SmoothFilter : public Filter {
     public:
         SmoothFilter() {};
         SmoothFilter(ImageData* imageData_) : Filter(imageData_) {};
-        virtual QImage getImageData() {
-            return Filter::getImageData();
-        };
-    private:
-        /*ImageData smoothFilter() {
-            cout << "SmoothFilter : 50.3" << endl;
-            return 50.3;
-        }*/
+        virtual void executeFilter() {
+            if (getActive()) {
+                vector<int> temp;
+                temp.push_back(3);
+                grayScaleSignal->modifySignalProcessor(ModificationType::MOVING_AVERAGE,temp);
+            }
+        }
 };
 
 #endif // SMOOTHFILTER_H

@@ -247,3 +247,8 @@ void MainWindow::on_pushButton_clicked()
 {
     originalImage.todo();
 }
+
+void MainWindow::on_pushButton_4_clicked()
+{
+    originalImage.smooth();
+}

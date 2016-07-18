@@ -44,6 +44,7 @@ public:
     /* --- modify image --- */
     void modifyRGB(signedRGBDelta delta_);
     void setAndReScalePixMapAfterModification(const QImage& image_);
+    void smooth();
     /* --- analyse image --- */
     QColor getMaxRGB();
     void todo();

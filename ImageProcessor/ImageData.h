@@ -12,12 +12,12 @@ class ImageData {
             if (imageToLoadFrom_.format() == QImage::Format::Format_Indexed8) {
                 unsigned int imageHeight = imageToLoadFrom_.height();
                 unsigned int imageWidth = imageToLoadFrom_.width();
-                grayScaleSignal = SignalProcessor(imageHeight*imageWidth,true,0,255);
+                grayScaleSignal = new SignalProcessor(imageHeight*imageWidth,true,0,255);
                 for (unsigned int y = 0; y < imageHeight; y++) {
                     uchar* ar = imageToLoadFrom_.scanLine(y);
                     for (unsigned int x = 0; x < imageWidth; x++) {
                         int index = imageWidth * y + x;
-                        grayScaleSignal[index] = *ar;
+                        (*grayScaleSignal)[index] = *ar;
                         ar++;
                     }
                 }
@@ -30,12 +30,12 @@ class ImageData {
             if (imageToWriteTo_.format() == QImage::Format::Format_Indexed8) {
                 unsigned int imageHeight = imageToWriteTo_.height();
                 unsigned int imageWidth = imageToWriteTo_.width();
-                if (grayScaleSignal.size() == imageHeight * imageWidth) {
+                if (grayScaleSignal->size() == imageHeight * imageWidth) {
                     for (unsigned int y = 0; y < imageHeight; y++) {
                         uchar* ar = imageToWriteTo_.scanLine(y);
                         for (unsigned int x = 0; x < imageWidth; x++) {
                             int index = imageWidth * y + x;
-                            *ar = grayScaleSignal[index];
+                            *ar = (*grayScaleSignal)[index];
                             ar++;
                         }
                     }
@@ -47,12 +47,16 @@ class ImageData {
             }
         }
 
-        virtual QImage getImageData() = 0;
-        SignalProcessor grayScaleSignal;
-        SignalProcessor redSignal;
-        SignalProcessor greenSignal;
-        SignalProcessor blueSignal;
-        SignalProcessor alphaChannelSignal;
+        void getImage(QImage& image_) {
+            getSignalProcessors(grayScaleSignal);
+            signalProcessorsToQImage(image_);
+        };
+        virtual void getSignalProcessors(SignalProcessor* gray_) = 0;
+        SignalProcessor* grayScaleSignal;
+        SignalProcessor* redSignal;
+        SignalProcessor* greenSignal;
+        SignalProcessor* blueSignal;
+        SignalProcessor* alphaChannelSignal;
 };
 
 #endif // COMPONENT_H

@@ -6,11 +6,11 @@
 class OriginalImageData : public ImageData {
    public:
         OriginalImageData() { };
+        virtual void getSignalProcessors(SignalProcessor* gray_) {
+            gray_ = grayScaleSignal;
+        };
         OriginalImageData(QImage& image_) {
             qimageToSignalProcessors(image_);
-        };
-        virtual QImage getImageData() {
-            return QImage("");//imageData;
         };
 };
 

@@ -17,7 +17,6 @@ QSize Image::loadImage(QWidget& widget_,const string& path_) {
 
     label->setPixmap(QPixmap::fromImage(image));
     originalImageData = OriginalImageData(image);
-    smoothFilter = SmoothFilter(&originalImageData);
     return label->pixmap()->size();
 }
 
@@ -174,4 +173,10 @@ void Image::todo() {
         }
         cout << "]" << endl;
     }
+}
+
+void Image::smooth() {
+    smoothFilter = SmoothFilter(&originalImageData);
+    smoothFilter.setActive(true);
+    smoothFilter.getImage(image);
 }
