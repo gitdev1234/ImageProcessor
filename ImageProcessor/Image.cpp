@@ -17,6 +17,8 @@ QSize Image::loadImage(QWidget& widget_,const string& path_) {
 
     label->setPixmap(QPixmap::fromImage(image));
     originalImageData = OriginalImageData(label->pixmap());
+    smoothFilter = SmoothFilter(&originalImageData);
+    smoothFilter.setFormat(image.format());
     return label->pixmap()->size();
 }
 

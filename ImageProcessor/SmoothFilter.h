@@ -2,21 +2,24 @@
 #define SMOOTHFILTER_H
 
 #include <iostream>
+// ---
 #include "Filter.h"
+#include "ImageData.h"
 
 using namespace std;
 
 class SmoothFilter : public Filter {
     public:
+        SmoothFilter() {};
         SmoothFilter(ImageData* imageData_) : Filter(imageData_) {};
         virtual QPixmap getImageData() {
             return Filter::getImageData();
         };
     private:
-        ImageData smoothFilter() {
+        /*ImageData smoothFilter() {
             cout << "SmoothFilter : 50.3" << endl;
             return 50.3;
-        }
+        }*/
 };
 
 #endif // SMOOTHFILTER_H

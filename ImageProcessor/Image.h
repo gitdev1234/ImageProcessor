@@ -16,6 +16,7 @@
 //---
 #include "Types.h"
 #include "OriginalImageData.h"
+#include "SmoothFilter.h"
 
 using namespace std;
 
@@ -49,6 +50,7 @@ public:
 private:
     QImage image;
     OriginalImageData originalImageData;
+    SmoothFilter smoothFilter;
     QLabel* label;
     QProgressBar* progressBar;
 
