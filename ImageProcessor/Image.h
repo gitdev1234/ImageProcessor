@@ -35,6 +35,9 @@ public:
     bool saveImage(const string& path_);  // without file-save-dialog
     bool saveImage();                     // with    file-save-dialog
 
+    /* --- converting / grayScale / Formats --- */
+    QImage convertToGrayScale(const QImage& image_);
+
     /* --- scaling / zooming / stretching --- */
     void stretchImageToLabel(bool stretchImageToLabel_);
     void scaleImage(double factor_);

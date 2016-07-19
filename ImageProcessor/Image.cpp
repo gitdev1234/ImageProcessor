@@ -7,7 +7,7 @@ QSize Image::loadImage(QWidget& widget_,const string& path_) {
     switch(image.format()) {
         case QImage::Format_RGB32 : image.convertToFormat(QImage::Format_ARGB32); break;
         case QImage::Format_ARGB32 : ; break;
-        case QImage::Format_Indexed8 : ; break;
+        case QImage::Format_Indexed8 : if (!image.allGray()) image = convertToGrayScale(image); break;
         default : {
                     QMessageBox::information(&widget_,QString("Error"),QString("Error : Image-Type not supported"));
                     image = QImage();
@@ -46,6 +46,34 @@ bool Image::saveImage(const string &path_) {
     QFile file(QString(path_.c_str()));
     file.open(QIODevice::WriteOnly);
     return label->pixmap()->save(&file, "PNG");
+}
+
+/* --- converting / grayScale / Formats --- */
+QImage Image::convertToGrayScale(const QImage& image_) {
+    // create image of same size
+    QImage image_gray(image_.width(), image_.height(), QImage::Format_Indexed8);
+
+    // create color table for gray scale
+    QVector<QRgb> grayscales;
+    for (int i=0; i<256; ++i) {
+        grayscales.push_back(qRgb(i,i,i));
+    }
+
+    // assign color table to new image
+    image_gray.setColorTable(grayscales);
+
+    // convert old colors
+    for (int y=0; y<image_.height(); ++y) {
+        for (int x=0; x<image_.width(); ++x) {
+               // get old color
+               QRgb rgb = image_.pixel(x,y);
+               // convert to grayscale value
+               unsigned char gray = 0.299*qRed(rgb) + 0.587*qGreen(rgb) + 0.114*qBlue(rgb);
+               // assign grayscale value to new image
+               image_gray.setPixel(x,y, gray);
+         }
+    }
+    return image_gray;
 }
 
 /* --- scaling / zooming / stretching --- */
@@ -180,6 +208,8 @@ void Image::smooth() {
     signalProcessorsToQImage(image);
     setAndReScalePixMapAfterModification(image);
 }
+
+
 
 
 void Image::qImageToSignalProcessors(QImage imageToLoadFrom_) {
