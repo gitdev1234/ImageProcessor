@@ -126,12 +126,24 @@ QListView::item:hover {
        <property name="frameShape">
         <enum>QFrame::NoFrame</enum>
        </property>
+       <property name="selectionMode">
+        <enum>QAbstractItemView::MultiSelection</enum>
+       </property>
        <property name="layoutMode">
         <enum>QListView::SinglePass</enum>
        </property>
        <property name="spacing">
         <number>2</number>
        </property>
+       <item>
+        <property name="text">
+         <string>  --- General ---</string>
+        </property>
+        <property name="icon">
+         <iconset resource="ressources.qrc">
+          <normaloff>:/res/resources/general.png</normaloff>:/res/resources/general.png</iconset>
+        </property>
+       </item>
        <item>
         <property name="text">
          <string>  Load File</string>
@@ -152,11 +164,56 @@ QListView::item:hover {
        </item>
        <item>
         <property name="text">
-         <string>  General</string>
+         <string>  --- Analyze ---</string>
         </property>
         <property name="icon">
          <iconset resource="ressources.qrc">
-          <normaloff>:/res/resources/settings.png</normaloff>:/res/resources/settings.png</iconset>
+          <normaloff>:/res/resources/analyze.png</normaloff>:/res/resources/analyze.png</iconset>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>  --- Filter ---</string>
+        </property>
+        <property name="icon">
+         <iconset resource="ressources.qrc">
+          <normaloff>:/res/resources/filter.png</normaloff>:/res/resources/filter.png</iconset>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>  Smooth</string>
+        </property>
+        <property name="icon">
+         <iconset resource="ressources.qrc">
+          <normaloff>:/res/resources/smooth.png</normaloff>:/res/resources/smooth.png</iconset>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>  Gradient</string>
+        </property>
+        <property name="icon">
+         <iconset resource="ressources.qrc">
+          <normaloff>:/res/resources/gradient.png</normaloff>:/res/resources/gradient.png</iconset>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>  Threshold</string>
+        </property>
+        <property name="icon">
+         <iconset resource="ressources.qrc">
+          <normaloff>:/res/resources/threshold.png</normaloff>:/res/resources/threshold.png</iconset>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>  --- Modify ---</string>
+        </property>
+        <property name="icon">
+         <iconset resource="ressources.qrc">
+          <normaloff>:/res/resources/modify.png</normaloff>:/res/resources/modify.png</iconset>
         </property>
        </item>
        <item>
@@ -165,16 +222,7 @@ QListView::item:hover {
         </property>
         <property name="icon">
          <iconset resource="ressources.qrc">
-          <normaloff>:/res/resources/settings.png</normaloff>:/res/resources/settings.png</iconset>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>  Analyze</string>
-        </property>
-        <property name="icon">
-         <iconset resource="ressources.qrc">
-          <normaloff>:/res/resources/analyze.png</normaloff>:/res/resources/analyze.png</iconset>
+          <normaloff>:/res/resources/rgb.png</normaloff>:/res/resources/rgb.png</iconset>
         </property>
        </item>
       </widget>
@@ -422,7 +470,7 @@ QListView::item:hover {
             <item>
              <widget class="QTabWidget" name="tabWidget">
               <property name="currentIndex">
-               <number>2</number>
+               <number>0</number>
               </property>
               <widget class="QWidget" name="tab">
                <attribute name="title">

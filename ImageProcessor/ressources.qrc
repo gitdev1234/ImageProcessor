@@ -1,7 +1,6 @@
 <RCC>
     <qresource prefix="/res">
         <file>resources/no-image.png</file>
-        <file>resources/settings.png</file>
         <file>resources/save.png</file>
         <file>resources/open.png</file>
         <file>resources/icon.png</file>
@@ -19,5 +18,12 @@
         <file>resources/average.png</file>
         <file>resources/histogram.png</file>
         <file>resources/Std_Dev.png</file>
+        <file>resources/threshold.png</file>
+        <file>resources/smooth.png</file>
+        <file>resources/gradient.png</file>
+        <file>resources/modify.png</file>
+        <file>resources/general.png</file>
+        <file>resources/filter.png</file>
+        <file>resources/rgb.png</file>
     </qresource>
 </RCC>

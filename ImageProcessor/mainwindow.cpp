@@ -25,6 +25,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->toolButton_4->setDefaultAction(ui->actionLoad_from_original);
     ui->toolButton_5->setDefaultAction(ui->actionLoad_from_modified);
     ui->toolButton_6->setDefaultAction(ui->actionSwap);
+    ui->listWidget->item(0)->setSelected(true); // General
+    ui->listWidget->item(3)->setSelected(true); // Analyze
+    ui->listWidget->item(4)->setSelected(true); // Filter
+    ui->listWidget->item(8)->setSelected(true); // Modify
 
     /* --- bind gui-elements to Image-objects --- */
     originalImage = Image(ui->label,ui->progressBar);
@@ -51,6 +55,8 @@ MainWindow::MainWindow(QWidget *parent) :
     rgbDeltasBeforeDisabling.red   = 0;
     rgbDeltasBeforeDisabling.green = 0;
     rgbDeltasBeforeDisabling.blue  = 0;
+
+
 }
 
 MainWindow::~MainWindow() {
@@ -74,13 +80,18 @@ void MainWindow::on_listWidget_itemClicked(QListWidgetItem *item) {
         ui->statusBar->showMessage(QString(sstr.str().c_str()));
     } else if (data == "  Save File") {
         originalImage.saveImage();
-    } else if (data == "  General") {
+    } else if (data == "  --- General ---") {
         ui->tabWidget->setCurrentIndex(0);
     } else if (data == "  RGB") {
         ui->tabWidget->setCurrentIndex(1);
-    } else if (data == "  Analyze") {
+    } else if (data == "  --- Analyze ---") {
         ui->tabWidget->setCurrentIndex(2);
     }
+
+    ui->listWidget->item(0)->setSelected(true); // General
+    ui->listWidget->item(3)->setSelected(true); // Analyze
+    ui->listWidget->item(4)->setSelected(true); // Filter
+    ui->listWidget->item(8)->setSelected(true); // Modify
 }
 
 void MainWindow::on_listWidget_3_itemClicked(QListWidgetItem *item) {
