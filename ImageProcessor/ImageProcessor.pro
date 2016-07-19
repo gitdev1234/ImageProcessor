@@ -22,7 +22,6 @@ SOURCES += main.cpp\
 HEADERS  += mainwindow.h \
     Types.h \
     Image.h \
-    Filter.h \
     SignalProcessor.h
 
 FORMS    += mainwindow.ui

@@ -422,7 +422,7 @@ QListView::item:hover {
             <item>
              <widget class="QTabWidget" name="tabWidget">
               <property name="currentIndex">
-               <number>0</number>
+               <number>2</number>
               </property>
               <widget class="QWidget" name="tab">
                <attribute name="title">
@@ -581,19 +581,114 @@ QListView::item:hover {
                <attribute name="title">
                 <string>Page</string>
                </attribute>
-               <widget class="QPushButton" name="pushButton_3">
-                <property name="geometry">
-                 <rect>
-                  <x>20</x>
-                  <y>20</y>
-                  <width>95</width>
-                  <height>31</height>
-                 </rect>
-                </property>
-                <property name="text">
-                 <string>PushButton</string>
-                </property>
-               </widget>
+               <layout class="QVBoxLayout" name="verticalLayout_8">
+                <item>
+                 <widget class="QListWidget" name="listWidget_3">
+                  <property name="enabled">
+                   <bool>true</bool>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>16777215</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <pointsize>12</pointsize>
+                    <weight>75</weight>
+                    <bold>true</bold>
+                   </font>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">QListView{
+background-color:#33363b;
+alternate-background-color: yellow;
+color:#cad4de
+}
+
+QListView {
+    show-decoration-selected: 1; /* make the selection span the entire width of the view */
+}
+
+QListView::item:selected {
+    border: 1px solid #6a6ea9;
+}
+
+QListView::item:selected:!active {
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                stop: 0 #ABAFE5, stop: 1 #8588B2);
+}
+
+QListView::item:selected:active {
+    color :#33363b;
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                stop: 0 #FAFBFE, stop: 1 #DCDEF1);
+}
+
+QListView::item:hover {
+    color :#33363b;
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                stop: 0 #FAFBFE, stop: 1 #DCDEF1);
+}</string>
+                  </property>
+                  <property name="frameShape">
+                   <enum>QFrame::NoFrame</enum>
+                  </property>
+                  <property name="layoutMode">
+                   <enum>QListView::SinglePass</enum>
+                  </property>
+                  <property name="spacing">
+                   <number>2</number>
+                  </property>
+                  <item>
+                   <property name="text">
+                    <string>  Minimum</string>
+                   </property>
+                   <property name="icon">
+                    <iconset resource="ressources.qrc">
+                     <normaloff>:/res/resources/minimum.png</normaloff>:/res/resources/minimum.png</iconset>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>  Maximum</string>
+                   </property>
+                   <property name="icon">
+                    <iconset resource="ressources.qrc">
+                     <normaloff>:/res/resources/maximum.png</normaloff>:/res/resources/maximum.png</iconset>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>  Average</string>
+                   </property>
+                   <property name="icon">
+                    <iconset resource="ressources.qrc">
+                     <normaloff>:/res/resources/average.png</normaloff>:/res/resources/average.png</iconset>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>  Standard Deviation</string>
+                   </property>
+                   <property name="icon">
+                    <iconset resource="ressources.qrc">
+                     <normaloff>:/res/resources/Std_Dev.png</normaloff>:/res/resources/Std_Dev.png</iconset>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>  Histogram</string>
+                   </property>
+                   <property name="icon">
+                    <iconset resource="ressources.qrc">
+                     <normaloff>:/res/resources/histogram.png</normaloff>:/res/resources/histogram.png</iconset>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+               </layout>
               </widget>
              </widget>
             </item>

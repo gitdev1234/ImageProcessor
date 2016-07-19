@@ -14,5 +14,10 @@
         <file>resources/swap.png</file>
         <file>resources/up.png</file>
         <file>resources/analyze.png</file>
+        <file>resources/maximum.png</file>
+        <file>resources/minimum.png</file>
+        <file>resources/average.png</file>
+        <file>resources/histogram.png</file>
+        <file>resources/Std_Dev.png</file>
     </qresource>
 </RCC>
