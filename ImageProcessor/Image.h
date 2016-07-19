@@ -27,6 +27,8 @@ public:
         : label(label_), progressBar(progressBar_) { };
 
     /* --- getter / setter --- */
+    void setPath(const string& path_ ) {path = path_;};
+    const string& getPath() {return path;};
 
     /* --- load / save --- */
     QSize loadImage(QWidget &widget_, const string& path_); // without file-open-dialog
@@ -52,6 +54,7 @@ public:
     void todo();
 private:
     QImage image;
+    string path;
     QLabel* label;
     QProgressBar* progressBar;
     void setProgressBar(unsigned int percentage_);

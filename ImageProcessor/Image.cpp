@@ -3,6 +3,7 @@
 /* --- load / save --- */
 QSize Image::loadImage(QWidget& widget_,const string& path_) {
     image = QImage(QString(path_.c_str()));
+    setPath(path_);
 
     switch(image.format()) {
         case QImage::Format_RGB32 : image.convertToFormat(QImage::Format_ARGB32); break;
@@ -208,9 +209,6 @@ void Image::smooth() {
     signalProcessorsToQImage(image);
     setAndReScalePixMapAfterModification(image);
 }
-
-
-
 
 void Image::qImageToSignalProcessors(QImage imageToLoadFrom_) {
     if (imageToLoadFrom_.format() == QImage::Format::Format_Indexed8) {

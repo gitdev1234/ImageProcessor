@@ -36,7 +36,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     /* --- output size at statusbar --- */
     stringstream sstr;
-    sstr << "width : " << originalSize.width() << ", height : " << originalSize.height() << endl;
+    sstr << "Filename : " << originalImage.getPath();
+    sstr << " | Size : width = " << originalSize.width() << ", height = " << originalSize.height() << endl;
     ui->statusBar->showMessage(QString(sstr.str().c_str()));
 
     /* --- initially stretch images --- */
@@ -66,9 +67,10 @@ void MainWindow::on_listWidget_itemClicked(QListWidgetItem *item) {
         // load images
         QSize originalSize = originalImage.loadImage(*this);
         modifiedImage.loadImage(originalImage);
-        // output size at statusbar
+        // output filename and size at statusbar
         stringstream sstr;
-        sstr << "width : " << originalSize.width() << ", height : " << originalSize.height() << endl;
+        sstr << "Filename : " << originalImage.getPath();
+        sstr << " | Size : width = " << originalSize.width() << ", height = " << originalSize.height() << endl;
         ui->statusBar->showMessage(QString(sstr.str().c_str()));
 
     } else if (data == "  Save File") {
