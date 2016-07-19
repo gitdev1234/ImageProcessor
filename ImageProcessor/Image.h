@@ -49,9 +49,14 @@ public:
     void modifyRGB(signedRGBDelta delta_);
     void setAndReScalePixMapAfterModification(const QImage& image_);
     void smooth();
-    /* --- analyse image --- */
+
+    /* --- analyze image --- */
+    QColor getMinMax(bool min_);
+    QColor getAverage();
+    QColor getStandardDeviation();
     QColor getMaxRGB();
     void todo();
+
 private:
     QImage image;
     string path;

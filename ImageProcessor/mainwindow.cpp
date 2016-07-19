@@ -72,7 +72,6 @@ void MainWindow::on_listWidget_itemClicked(QListWidgetItem *item) {
         sstr << "Filename : " << originalImage.getPath();
         sstr << " | Size : width = " << originalSize.width() << ", height = " << originalSize.height() << endl;
         ui->statusBar->showMessage(QString(sstr.str().c_str()));
-
     } else if (data == "  Save File") {
         originalImage.saveImage();
     } else if (data == "  General") {
@@ -82,6 +81,29 @@ void MainWindow::on_listWidget_itemClicked(QListWidgetItem *item) {
     } else if (data == "  Analyze") {
         ui->tabWidget->setCurrentIndex(2);
     }
+}
+
+void MainWindow::on_listWidget_3_itemClicked(QListWidgetItem *item) {
+    QVariant variant = item->data(Qt::UserRole);
+    string data = item->text().toStdString();
+    QColor result;
+    stringstream sstr;
+
+    ui->listWidget_2->clear();
+    if (data == "  Minimum") {
+        result = originalImage.getMinMax(true);
+    } else if (data == "  Maximum") {
+        result = originalImage.getMinMax(false);
+    } else if (data == "  Average") {
+        result = originalImage.getAverage();
+    } else if (data == "  Standard Deviation") {
+        result = originalImage.getStandardDeviation();
+    } else if (data == "  Histogram") {
+
+    }
+
+    sstr << data << " : " << result.red();
+    ui->listWidget_2->addItem(QString(sstr.str().c_str()));
 }
 
 /* --- ACTIONS --- */
@@ -254,3 +276,5 @@ void MainWindow::on_pushButton_4_clicked()
 {
     originalImage.smooth();
 }
+
+

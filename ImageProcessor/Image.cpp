@@ -156,6 +156,57 @@ void Image::setAndReScalePixMapAfterModification(const QImage &image_) {
     //label->setPixmap(label->pixmap()->scaled(tempSize,Qt::KeepAspectRatio, Qt::SmoothTransformation));
 }
 
+/* --- analyze image --- */
+
+QColor Image::getMinMax(bool min_) {
+    QColor res;
+    double minMax;
+    if (image.format() == QImage::Format_Indexed8) {
+        if (min_ ) {
+            minMax = grayScaleSignal.analyzeSignalProcessor(AnalyzationType::MINIMUM);
+        } else {
+            minMax = grayScaleSignal.analyzeSignalProcessor(AnalyzationType::MAXIMUM);
+        }
+        res.setAlpha (minMax);
+        res.setRed   (minMax);
+        res.setGreen (minMax);
+        res.setBlue  (minMax);
+    } else if (image.format() == QImage::Format_ARGB32) {
+        //TODO
+    }
+    return res;
+}
+
+QColor Image::getAverage() {
+    QColor res;
+    double average;
+    if (image.format() == QImage::Format_Indexed8) {
+        average = grayScaleSignal.analyzeSignalProcessor(AnalyzationType::AVERAGE);
+        res.setAlpha (average);
+        res.setRed   (average);
+        res.setGreen (average);
+        res.setBlue  (average);
+    } else if (image.format() == QImage::Format_ARGB32) {
+        //TODO
+    }
+    return res;
+}
+
+QColor Image::getStandardDeviation() {
+    QColor res;
+    double standardDeviation;
+    if (image.format() == QImage::Format_Indexed8) {
+        standardDeviation = grayScaleSignal.analyzeSignalProcessor(AnalyzationType::STD_DEVIATION);
+        res.setAlpha (standardDeviation);
+        res.setRed   (standardDeviation);
+        res.setGreen (standardDeviation);
+        res.setBlue  (standardDeviation);
+    } else if (image.format() == QImage::Format_ARGB32) {
+        //TODO
+    }
+    return res;
+}
+
 QColor Image::getMaxRGB() {
     int maxRed = 0;
     int maxGreen = 0;

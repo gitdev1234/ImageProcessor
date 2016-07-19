@@ -64,6 +64,8 @@ private slots:
 
     void on_pushButton_4_clicked();
 
+    void on_listWidget_3_itemClicked(QListWidgetItem *item);
+
 private:
     Ui::MainWindow *ui;
     QPoint m_dragPosition;
