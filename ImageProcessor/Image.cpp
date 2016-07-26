@@ -275,7 +275,6 @@ void Image::smooth(int horizontal_,int vertical_) {
         setProgressBar(progress);
     }
     setProgressBar(100);
-    // grayScaleSignal = grayScaleSignal + 50;
     signalProcessorsToQImage(image,true);
     setAndReScalePixMapAfterModification(image);
 }

@@ -189,11 +189,13 @@ SignalProcessor SignalProcessor::modifySignalProcessor(ModificationType modifica
                 }break;
             case ModificationType::MOVING_AVERAGE : {
                     int sum = 0;
-                    for( int j = 0; j < val_[0]; j++ ) {
-                        sum += copyBeforeModification.getValueAt( i+j-val_[0]/2 );
-                    }
+                    if (!(val_[0] <= 0)) {
+                        for( int j = 0; j < val_[0]; j++ ) {
+                            sum += copyBeforeModification.getValueAt( i+j-val_[0]/2 );
+                        }
 
-                    (*this)[i] = round(double(sum) / double( val_[0] ) );
+                        (*this)[i] = round(double(sum) / double( val_[0] ) );
+                    }
                 } break;
         case ModificationType::GRADIENT :  {
             int sum = copyBeforeModification.getValueAt( i + 1) - copyBeforeModification.getValueAt( i - 1);

@@ -45,6 +45,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->listWidget->item(8)->setSelected(true); // Modify
     ui->horizontalSlider_4->setMaximum(originalSize.width());
     ui->horizontalSlider_5->setMaximum(originalSize.height());
+    ui->label_10->setText(QString::number(originalSize.width()));
+    ui->label_11->setText(QString::number(originalSize.height()));
 
     /* --- initially stretch images --- */
     originalImage.stretchImageToLabel(true);
@@ -80,6 +82,11 @@ void MainWindow::on_listWidget_itemClicked(QListWidgetItem *item) {
         sstr << "Filename : " << originalImage.getPath();
         sstr << " | Size : width = " << originalSize.width() << ", height = " << originalSize.height() << endl;
         ui->statusBar->showMessage(QString(sstr.str().c_str()));
+        // set slider for smooth
+        ui->horizontalSlider_4->setMaximum(originalSize.width());
+        ui->horizontalSlider_5->setMaximum(originalSize.height());
+        ui->label_10->setText(QString::number(originalSize.width()));
+        ui->label_11->setText(QString::number(originalSize.height()));
     } else if (data == "  Save File") {
         originalImage.saveImage();
     } else if (data == "  --- General ---") {
@@ -90,10 +97,16 @@ void MainWindow::on_listWidget_itemClicked(QListWidgetItem *item) {
         ui->tabWidget->setCurrentIndex(2);
     }
 
-    ui->listWidget->item(0)->setSelected(true); // General
-    ui->listWidget->item(3)->setSelected(true); // Analyze
-    ui->listWidget->item(4)->setSelected(true); // Filter
-    ui->listWidget->item(8)->setSelected(true); // Modify
+    ui->listWidget->item(0)->setSelected(true ); // General
+    ui->listWidget->item(1)->setSelected(false); // Load
+    ui->listWidget->item(2)->setSelected(false); // Save
+    ui->listWidget->item(3)->setSelected(true ); // Analyze
+    ui->listWidget->item(4)->setSelected(true ); // Filter
+    ui->listWidget->item(5)->setSelected(false); // Smooth
+    ui->listWidget->item(6)->setSelected(false); // Gradient
+    ui->listWidget->item(7)->setSelected(false); // Threshold
+    ui->listWidget->item(8)->setSelected(true ); // Modify
+    ui->listWidget->item(9)->setSelected(false); // RGB
 }
 
 void MainWindow::on_listWidget_3_itemClicked(QListWidgetItem *item) {
@@ -177,6 +190,11 @@ void MainWindow::on_actionLoad_from_modified_triggered()
     stringstream sstr;
     sstr << "width : " << originalSize.width() << ", height : " << originalSize.height() << endl;
     ui->statusBar->showMessage(QString(sstr.str().c_str()));
+    // set sliders for smooth
+    ui->horizontalSlider_4->setMaximum(originalSize.width());
+    ui->horizontalSlider_5->setMaximum(originalSize.height());
+    ui->label_10->setText(QString::number(originalSize.width()));
+    ui->label_11->setText(QString::number(originalSize.height()));
 }
 
 void MainWindow::on_actionLoad_from_original_triggered()
@@ -294,5 +312,14 @@ void MainWindow::on_pushButton_4_clicked()
 
 void MainWindow::on_horizontalSlider_4_valueChanged(int value)
 {
-    ui->label_8->text(QString::number(value))
+    ui->label_8->setText(QString::number(value));
+}
+
+void MainWindow::on_horizontalSlider_5_valueChanged(int value)
+{
+    ui->label_9->setText(QString::number(value));
+}
+
+void MainWindow::on_progressBar_valueChanged(int value)
+{
 }
