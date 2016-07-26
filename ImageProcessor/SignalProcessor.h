@@ -10,7 +10,9 @@
 #define SIGNALPROCESSOR_H
 
 #include <vector>
+#include <map>
 #include <iostream>
+#include <fstream>
 #include <climits>
 #include <cmath>
 
@@ -89,6 +91,7 @@ class SignalProcessor : public vector<int>{
         int getValueAt(int index_) const;
 
         double analyzeSignalProcessor(AnalyzationType analyzationType_) ;
+        map<int,int> calcHistogram(const string& path_ = "", const string& delimiter_ = "\t");
         SignalProcessor modifySignalProcessor(ModificationType modificationType_, vector<int> val_ = {0} );
         int cutOffToRange(int val_);
 

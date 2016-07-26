@@ -263,6 +263,31 @@ double SignalProcessor::analyzeSignalProcessor(AnalyzationType analyzationType_)
     return result_l;
 }
 
+map<int, int> SignalProcessor::calcHistogram(const string &path_, const string &delimiter_) {
+    int size_l = getSize();
+    map<int, int> res;
+    for( int i = 0; i < size_l; i++ ) {
+        int value = (*this)[i];
+        if(res.find(value) == res.end()) {
+            res[value] = 1;
+        } else {
+            res[value] = res[value] + 1;
+        }
+    }
+    if (path_ != "") {
+        ofstream file;
+        file.open(path_);
+        typedef map<int, int>::iterator it_type;
+        for(it_type iterator = res.begin(); iterator != res.end(); iterator++) {
+            file << iterator->first;
+            file << delimiter_;
+            file << iterator->second << endl;
+        }
+        file.close();
+    }
+    return res;
+}
+
 
 /* --- operators --- */
 
