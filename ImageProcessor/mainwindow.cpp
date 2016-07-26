@@ -15,6 +15,20 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    /* --- bind gui-elements to Image-objects --- */
+    originalImage = Image(ui->label,ui->progressBar);
+    modifiedImage = Image(ui->label_2,ui->progressBar);
+
+    /* --- load initial images --- */
+    QSize originalSize = originalImage.loadImage(*this,"Sample03.png");
+    modifiedImage.loadImage(*this,"Sample03.png");
+
+    /* --- output size at statusbar --- */
+    stringstream sstr;
+    sstr << "Filename : " << originalImage.getPath();
+    sstr << " | Size : width = " << originalSize.width() << ", height = " << originalSize.height() << endl;
+    ui->statusBar->showMessage(QString(sstr.str().c_str()));
+
     /* --- initial gui - settings ---*/
     setWindowFlags(Qt::FramelessWindowHint); //needed for custom titleBar (deactivates normal statusbar)
     ui->tabWidget->tabBar()->hide();
@@ -29,20 +43,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->listWidget->item(3)->setSelected(true); // Analyze
     ui->listWidget->item(4)->setSelected(true); // Filter
     ui->listWidget->item(8)->setSelected(true); // Modify
-
-    /* --- bind gui-elements to Image-objects --- */
-    originalImage = Image(ui->label,ui->progressBar);
-    modifiedImage = Image(ui->label_2,ui->progressBar);
-
-    /* --- load initial images --- */
-    QSize originalSize = originalImage.loadImage(*this,"Sample03.png");
-    modifiedImage.loadImage(*this,"Sample03.png");
-
-    /* --- output size at statusbar --- */
-    stringstream sstr;
-    sstr << "Filename : " << originalImage.getPath();
-    sstr << " | Size : width = " << originalSize.width() << ", height = " << originalSize.height() << endl;
-    ui->statusBar->showMessage(QString(sstr.str().c_str()));
+    ui->horizontalSlider_4->setMaximum(originalSize.width());
+    ui->horizontalSlider_5->setMaximum(originalSize.height());
 
     /* --- initially stretch images --- */
     originalImage.stretchImageToLabel(true);
@@ -110,7 +112,7 @@ void MainWindow::on_listWidget_3_itemClicked(QListWidgetItem *item) {
     } else if (data == "  Standard Deviation") {
         result = originalImage.getStandardDeviation();
     } else if (data == "  Histogram") {
-
+        originalImage.calcHistogram();
     }
 
     sstr << data << " : " << result.red();
@@ -280,12 +282,17 @@ void MainWindow::on_pushButton_3_clicked()
 
 void MainWindow::on_pushButton_clicked()
 {
-    originalImage.todo();
+
 }
 
 void MainWindow::on_pushButton_4_clicked()
 {
-    originalImage.smooth();
+    originalImage.smooth(ui->horizontalSlider_4->value(),ui->horizontalSlider_5->value());
 }
 
 
+
+void MainWindow::on_horizontalSlider_4_valueChanged(int value)
+{
+    ui->label_8->text(QString::number(value))
+}

@@ -7,6 +7,7 @@
 #include <QScrollArea>
 #include <QImageReader>
 #include <QColor>
+#include <QPainter>
 // ----
 #include "Image.h"
 #include "Types.h"
@@ -65,6 +66,8 @@ private slots:
     void on_pushButton_4_clicked();
 
     void on_listWidget_3_itemClicked(QListWidgetItem *item);
+
+    void on_horizontalSlider_4_valueChanged(int value);
 
 private:
     Ui::MainWindow *ui;

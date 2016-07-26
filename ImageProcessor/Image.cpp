@@ -207,6 +207,16 @@ QColor Image::getStandardDeviation() {
     return res;
 }
 
+void Image::calcHistogram() {
+    QFileDialog dialog;
+    QString path = dialog.getSaveFileName();
+    if (image.format() == QImage::Format_Indexed8) {
+        grayScaleSignal.calcHistogram(path.toStdString());
+    } else if (image.format() == QImage::Format_ARGB32) {
+        //TODO
+    }
+}
+
 QColor Image::getMaxRGB() {
     int maxRed = 0;
     int maxGreen = 0;
@@ -255,9 +265,18 @@ void Image::todo() {
     }
 }
 
-void Image::smooth() {
-    grayScaleSignal = grayScaleSignal + 50;
-    signalProcessorsToQImage(image);
+void Image::smooth(int horizontal_,int vertical_) {
+    qImageToSignalProcessors(image);
+    int imageHeight = image.height();
+    for (int y = 0; y < imageHeight; y++) {
+        SignalProcessor* tempSignalProcessor = &grayScaleSignalVector[y];
+        tempSignalProcessor->modifySignalProcessor(ModificationType::MOVING_AVERAGE,{horizontal_});
+        unsigned int progress = round(100.0 / double(imageHeight)*y);
+        setProgressBar(progress);
+    }
+    setProgressBar(100);
+    // grayScaleSignal = grayScaleSignal + 50;
+    signalProcessorsToQImage(image,true);
     setAndReScalePixMapAfterModification(image);
 }
 
@@ -266,11 +285,15 @@ void Image::qImageToSignalProcessors(QImage imageToLoadFrom_) {
         unsigned int imageHeight = imageToLoadFrom_.height();
         unsigned int imageWidth = imageToLoadFrom_.width();
         grayScaleSignal = SignalProcessor(imageHeight*imageWidth,true,0,255);
+        grayScaleSignalVector.clear();
         for (unsigned int y = 0; y < imageHeight; y++) {
             uchar* ar = imageToLoadFrom_.scanLine(y);
+            grayScaleSignalVector.push_back(SignalProcessor(imageHeight*imageWidth,true,0,255));
             for (unsigned int x = 0; x < imageWidth; x++) {
                 int index = imageWidth * y + x;
                 grayScaleSignal[index] = *ar;
+                SignalProcessor* tempSignalProcessor = &grayScaleSignalVector[y];
+                (*tempSignalProcessor)[index] = *ar;
                 ar++;
             }
         }
@@ -279,7 +302,7 @@ void Image::qImageToSignalProcessors(QImage imageToLoadFrom_) {
     }
 };
 
-void Image::signalProcessorsToQImage(QImage& imageToWriteTo_) {
+void Image::signalProcessorsToQImage(QImage& imageToWriteTo_,bool loadFromSignalProcessorVector_) {
     if (imageToWriteTo_.format() == QImage::Format::Format_Indexed8) {
         unsigned int imageHeight = imageToWriteTo_.height();
         unsigned int imageWidth = imageToWriteTo_.width();
@@ -288,7 +311,12 @@ void Image::signalProcessorsToQImage(QImage& imageToWriteTo_) {
                 uchar* ar = imageToWriteTo_.scanLine(y);
                 for (unsigned int x = 0; x < imageWidth; x++) {
                     int index = imageWidth * y + x;
-                    *ar = grayScaleSignal[index];
+                    if (loadFromSignalProcessorVector_) {
+                        SignalProcessor* tempSignalProcessor = &grayScaleSignalVector[y];
+                        *ar = (*tempSignalProcessor)[index];
+                    } else {
+                        *ar = grayScaleSignal[index];
+                    }
                     ar++;
                 }
             }
