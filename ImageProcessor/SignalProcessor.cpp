@@ -196,13 +196,16 @@ SignalProcessor SignalProcessor::modifySignalProcessor(ModificationType modifica
 
                     (*this)[i] = round(double(sum) / double( val_[0] ) );
                 } break;
-            case ModificationType::GRADIENT_NORMAL :  {
+            case ModificationType::GRADIENT_NORMAL : {
                 int sum = copyBeforeModification.getValueAt( i + 1) - copyBeforeModification.getValueAt( i - 1);
                 (*this)[i] = round(double(sum) / double( 2 ) );
             } break;
-            case ModificationType::GRADIENT_ABS :  {
+            case ModificationType::GRADIENT_ABS : {
                 int sum = copyBeforeModification.getValueAt( i + 1) - copyBeforeModification.getValueAt( i - 1);
                 (*this)[i] = abs(round(double(sum) / double( 2 )));
+            } break;
+            case ModificationType::INVERT : {
+                (*this)[i] = getMaxValue() - (*this)[i];
             } break;
 
             default : (*this)[i] = 0;

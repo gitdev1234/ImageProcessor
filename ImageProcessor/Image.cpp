@@ -299,14 +299,14 @@ void Image::gradient(bool processVertical_) {
     if (processVertical_) {
         for (int x = 0; x < imageWidth; x++) {
             SignalProcessor* tempSignalProcessor = &grayScaleSignalVector[x];
-            tempSignalProcessor->modifySignalProcessor(ModificationType::GRADIENT_ABS,{0});
+            tempSignalProcessor->modifySignalProcessor(ModificationType::GRADIENT_ABS);
             unsigned int progress = round(100.0 / double(imageWidth)*x);
             setProgressBar(progress);
         }
     } else {
         for (int y = 0; y < imageHeight; y++) {
             SignalProcessor* tempSignalProcessor = &grayScaleSignalVector[y];
-            tempSignalProcessor->modifySignalProcessor(ModificationType::GRADIENT_ABS,{0});
+            tempSignalProcessor->modifySignalProcessor(ModificationType::GRADIENT_ABS);
             unsigned int progress = round(100.0 / double(imageHeight)*y);
             setProgressBar(progress);
         }
@@ -314,6 +314,14 @@ void Image::gradient(bool processVertical_) {
 
     setProgressBar(100);
     signalProcessorsToQImage(image,true,processVertical_);
+    setAndReScalePixMapAfterModification(image);
+}
+
+void Image::invert() {
+    qImageToSignalProcessors(image);
+    grayScaleSignal.modifySignalProcessor(ModificationType::INVERT);
+    setProgressBar(100);
+    signalProcessorsToQImage(image);
     setAndReScalePixMapAfterModification(image);
 }
 

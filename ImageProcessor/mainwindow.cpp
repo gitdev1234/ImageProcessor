@@ -42,7 +42,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->listWidget->item(0)->setSelected(true); // General
     ui->listWidget->item(3)->setSelected(true); // Analyze
     ui->listWidget->item(4)->setSelected(true); // Filter
-    ui->listWidget->item(8)->setSelected(true); // Modify
+    ui->listWidget->item(9)->setSelected(true); // Modify
     ui->horizontalSlider_4->setMaximum(originalSize.width());
     ui->horizontalSlider_5->setMaximum(originalSize.height());
     ui->label_10->setText(QString::number(originalSize.width()));
@@ -97,18 +97,21 @@ void MainWindow::on_listWidget_itemClicked(QListWidgetItem *item) {
         ui->tabWidget->setCurrentIndex(2);
     } else if (data == "  Threshold") {
         ui->tabWidget->setCurrentIndex(3);
+    } else if (data == "  Invert") {
+        originalImage.invert();
     }
 
-    ui->listWidget->item(0)->setSelected(true ); // General
-    ui->listWidget->item(1)->setSelected(false); // Load
-    ui->listWidget->item(2)->setSelected(false); // Save
-    ui->listWidget->item(3)->setSelected(true ); // Analyze
-    ui->listWidget->item(4)->setSelected(true ); // Filter
-    ui->listWidget->item(5)->setSelected(false); // Smooth
-    ui->listWidget->item(6)->setSelected(false); // Gradient
-    ui->listWidget->item(7)->setSelected(false); // Threshold
-    ui->listWidget->item(8)->setSelected(true ); // Modify
-    ui->listWidget->item(9)->setSelected(false); // RGB
+    ui->listWidget->item(0)->setSelected(true );  // General
+    ui->listWidget->item(1)->setSelected(false);  // Load
+    ui->listWidget->item(2)->setSelected(false);  // Save
+    ui->listWidget->item(3)->setSelected(true );  // Analyze
+    ui->listWidget->item(4)->setSelected(true );  // Filter
+    ui->listWidget->item(5)->setSelected(false);  // Smooth
+    ui->listWidget->item(6)->setSelected(false);  // Gradient
+    ui->listWidget->item(7)->setSelected(false);  // Threshold
+    ui->listWidget->item(8)->setSelected(false);  // Invert
+    ui->listWidget->item(9)->setSelected(true );  // Modify
+    ui->listWidget->item(10)->setSelected(false); // RGB
 }
 
 void MainWindow::on_listWidget_3_itemClicked(QListWidgetItem *item) {

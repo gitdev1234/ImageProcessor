@@ -50,6 +50,7 @@ public:
     void setAndReScalePixMapAfterModification(const QImage& image_);
     void smooth(int horizontal_, int vertical_, bool processVertical_);
     void gradient(bool processVertical_);
+    void invert();
 
     /* --- analyze image --- */
     QColor getMinMax(bool min_);
