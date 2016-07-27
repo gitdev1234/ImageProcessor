@@ -73,6 +73,8 @@ private slots:
 
     void on_progressBar_valueChanged(int value);
 
+    void on_toolButton_4_clicked();
+
 private:
     Ui::MainWindow *ui;
     QPoint m_dragPosition;

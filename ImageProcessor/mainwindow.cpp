@@ -89,12 +89,14 @@ void MainWindow::on_listWidget_itemClicked(QListWidgetItem *item) {
         ui->label_11->setText(QString::number(originalSize.height()));
     } else if (data == "  Save File") {
         originalImage.saveImage();
-    } else if (data == "  --- General ---") {
-        ui->tabWidget->setCurrentIndex(0);
-    } else if (data == "  RGB") {
-        ui->tabWidget->setCurrentIndex(1);
     } else if (data == "  --- Analyze ---") {
+        ui->tabWidget->setCurrentIndex(0);
+    } else if (data == "  Smooth") {
+        ui->tabWidget->setCurrentIndex(1);
+    } else if (data == "  Gradient") {
         ui->tabWidget->setCurrentIndex(2);
+    } else if (data == "  Threshold") {
+        ui->tabWidget->setCurrentIndex(3);
     }
 
     ui->listWidget->item(0)->setSelected(true ); // General
@@ -188,7 +190,8 @@ void MainWindow::on_actionLoad_from_modified_triggered()
     QSize originalSize = originalImage.loadImage(modifiedImage);
     // output size at statusbar
     stringstream sstr;
-    sstr << "width : " << originalSize.width() << ", height : " << originalSize.height() << endl;
+    sstr << "Filename : " << originalImage.getPath();
+    sstr << " | Size : width = " << originalSize.width() << ", height = " << originalSize.height() << endl;
     ui->statusBar->showMessage(QString(sstr.str().c_str()));
     // set sliders for smooth
     ui->horizontalSlider_4->setMaximum(originalSize.width());
@@ -300,15 +303,15 @@ void MainWindow::on_pushButton_3_clicked()
 
 void MainWindow::on_pushButton_clicked()
 {
-
+    bool processVertical = (ui->comboBox_2->currentIndex() == 1);
+    originalImage.gradient(processVertical);
 }
 
 void MainWindow::on_pushButton_4_clicked()
 {
-    originalImage.smooth(ui->horizontalSlider_4->value(),ui->horizontalSlider_5->value());
+    bool processVertical = (ui->comboBox->currentIndex() == 1);
+    originalImage.smooth(ui->horizontalSlider_4->value(),ui->horizontalSlider_5->value(),processVertical);
 }
-
-
 
 void MainWindow::on_horizontalSlider_4_valueChanged(int value)
 {
@@ -322,4 +325,9 @@ void MainWindow::on_horizontalSlider_5_valueChanged(int value)
 
 void MainWindow::on_progressBar_valueChanged(int value)
 {
+}
+
+void MainWindow::on_toolButton_4_clicked()
+{
+
 }

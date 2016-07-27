@@ -198,8 +198,8 @@ SignalProcessor SignalProcessor::modifySignalProcessor(ModificationType modifica
                     }
                 } break;
         case ModificationType::GRADIENT :  {
-            int sum = copyBeforeModification.getValueAt( i + 1) - copyBeforeModification.getValueAt( i - 1);
-            (*this)[i] = round(double(sum) / double( 2 ) );
+            int sum = copyBeforeModification.getValueAt(i + 3) - copyBeforeModification.getValueAt(i - 3);
+            (*this)[i] = abs(round(double(sum) / double( 2 ) ));
         } break;
 
             default : (*this)[i] = 0;

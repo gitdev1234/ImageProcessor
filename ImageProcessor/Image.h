@@ -48,7 +48,8 @@ public:
     /* --- modify image --- */
     void modifyRGB(signedRGBDelta delta_);
     void setAndReScalePixMapAfterModification(const QImage& image_);
-    void smooth(int horizontal_, int vertical_);
+    void smooth(int horizontal_, int vertical_, bool processVertical_);
+    void gradient(bool processVertical_);
 
     /* --- analyze image --- */
     QColor getMinMax(bool min_);
@@ -65,8 +66,8 @@ private:
     QProgressBar* progressBar;
     void setProgressBar(unsigned int percentage_);
     // Converting QImage <---> SignalProcessor
-    void qImageToSignalProcessors(QImage imageToLoadFrom_);
-    void signalProcessorsToQImage(QImage& imageToWriteTo_, bool loadFromSignalProcessorVector_ = false);
+    void qImageToSignalProcessors(QImage imageToLoadFrom_, bool loadVerticalToVector_ = false);
+    void signalProcessorsToQImage(QImage& imageToWriteTo_, bool loadFromSignalProcessorVector_ = false, bool loadVerticalFromVector_ = false);
     // one SignalProcessor per whole image
     SignalProcessor grayScaleSignal;
     // vector of SignalProcessors, for one signalProcessor per scanline

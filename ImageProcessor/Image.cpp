@@ -265,34 +265,94 @@ void Image::todo() {
     }
 }
 
-void Image::smooth(int horizontal_,int vertical_) {
-    qImageToSignalProcessors(image);
+void Image::smooth(int horizontal_,int vertical_,bool processVertical_) {
+    qImageToSignalProcessors(image,processVertical_);
     int imageHeight = image.height();
-    for (int y = 0; y < imageHeight; y++) {
-        SignalProcessor* tempSignalProcessor = &grayScaleSignalVector[y];
-        tempSignalProcessor->modifySignalProcessor(ModificationType::MOVING_AVERAGE,{horizontal_});
-        unsigned int progress = round(100.0 / double(imageHeight)*y);
-        setProgressBar(progress);
+    int imageWidth  = image.width();
+
+    if (processVertical_) {
+        for (int x = 0; x < imageWidth; x++) {
+            SignalProcessor* tempSignalProcessor = &grayScaleSignalVector[x];
+            tempSignalProcessor->modifySignalProcessor(ModificationType::MOVING_AVERAGE,{horizontal_});
+            unsigned int progress = round(100.0 / double(imageWidth)*x);
+            setProgressBar(progress);
+        }
+    } else {
+        for (int y = 0; y < imageHeight; y++) {
+            SignalProcessor* tempSignalProcessor = &grayScaleSignalVector[y];
+            tempSignalProcessor->modifySignalProcessor(ModificationType::MOVING_AVERAGE,{horizontal_});
+            unsigned int progress = round(100.0 / double(imageHeight)*y);
+            setProgressBar(progress);
+        }
     }
+
     setProgressBar(100);
-    signalProcessorsToQImage(image,true);
+    signalProcessorsToQImage(image,true,processVertical_);
     setAndReScalePixMapAfterModification(image);
 }
 
-void Image::qImageToSignalProcessors(QImage imageToLoadFrom_) {
+void Image::gradient(bool processVertical_) {
+    qImageToSignalProcessors(image,processVertical_);
+    int imageHeight = image.height();
+    int imageWidth  = image.width();
+
+    if (processVertical_) {
+        for (int x = 0; x < imageWidth; x++) {
+            SignalProcessor* tempSignalProcessor = &grayScaleSignalVector[x];
+            tempSignalProcessor->modifySignalProcessor(ModificationType::GRADIENT,{0});
+            unsigned int progress = round(100.0 / double(imageWidth)*x);
+            setProgressBar(progress);
+        }
+    } else {
+        for (int y = 0; y < imageHeight; y++) {
+            SignalProcessor* tempSignalProcessor = &grayScaleSignalVector[y];
+            tempSignalProcessor->modifySignalProcessor(ModificationType::GRADIENT,{0});
+            unsigned int progress = round(100.0 / double(imageHeight)*y);
+            setProgressBar(progress);
+        }
+    }
+
+    setProgressBar(100);
+    signalProcessorsToQImage(image,true,processVertical_);
+    setAndReScalePixMapAfterModification(image);
+}
+
+void Image::qImageToSignalProcessors(QImage imageToLoadFrom_, bool loadVerticalToVector_) {
     if (imageToLoadFrom_.format() == QImage::Format::Format_Indexed8) {
         unsigned int imageHeight = imageToLoadFrom_.height();
         unsigned int imageWidth = imageToLoadFrom_.width();
         grayScaleSignal = SignalProcessor(imageHeight*imageWidth,true,0,255);
         grayScaleSignalVector.clear();
+
+        // create signals for every horizontal / vertical line
+        if (loadVerticalToVector_) {
+            for (unsigned int x = 0; x < imageWidth; x++) {
+                grayScaleSignalVector.push_back(SignalProcessor(imageHeight,true,0,255));
+            }
+        } else {
+            for (unsigned int y = 0; y < imageHeight; y++) {
+                grayScaleSignalVector.push_back(SignalProcessor(imageWidth,true,0,255));
+            }
+        }
+
         for (unsigned int y = 0; y < imageHeight; y++) {
             uchar* ar = imageToLoadFrom_.scanLine(y);
-            grayScaleSignalVector.push_back(SignalProcessor(imageHeight*imageWidth,true,0,255));
             for (unsigned int x = 0; x < imageWidth; x++) {
                 int index = imageWidth * y + x;
+
+                // push values into signal of whole picture
                 grayScaleSignal[index] = *ar;
-                SignalProcessor* tempSignalProcessor = &grayScaleSignalVector[y];
-                (*tempSignalProcessor)[index] = *ar;
+
+                // push values into signals per horizontal / vertical lines
+                if (loadVerticalToVector_) {
+                    SignalProcessor* tempSignalProcessor = &grayScaleSignalVector[x];
+                    (*tempSignalProcessor)[y] = *ar;
+                } else {
+                    SignalProcessor* tempSignalProcessor = &grayScaleSignalVector[y];
+                    (*tempSignalProcessor)[x] = *ar;
+                }
+
+                // increment pointer to imageData
                 ar++;
             }
         }
@@ -301,7 +361,7 @@ void Image::qImageToSignalProcessors(QImage imageToLoadFrom_) {
     }
 };
 
-void Image::signalProcessorsToQImage(QImage& imageToWriteTo_,bool loadFromSignalProcessorVector_) {
+void Image::signalProcessorsToQImage(QImage& imageToWriteTo_, bool loadFromSignalProcessorVector_, bool loadVerticalFromVector_) {
     if (imageToWriteTo_.format() == QImage::Format::Format_Indexed8) {
         unsigned int imageHeight = imageToWriteTo_.height();
         unsigned int imageWidth = imageToWriteTo_.width();
@@ -311,8 +371,13 @@ void Image::signalProcessorsToQImage(QImage& imageToWriteTo_,bool loadFromSignal
                 for (unsigned int x = 0; x < imageWidth; x++) {
                     int index = imageWidth * y + x;
                     if (loadFromSignalProcessorVector_) {
-                        SignalProcessor* tempSignalProcessor = &grayScaleSignalVector[y];
-                        *ar = (*tempSignalProcessor)[index];
+                        if (loadVerticalFromVector_) {
+                            SignalProcessor* tempSignalProcessor = &grayScaleSignalVector[x];
+                            *ar = (*tempSignalProcessor)[y];
+                        } else {
+                            SignalProcessor* tempSignalProcessor = &grayScaleSignalVector[y];
+                            *ar = (*tempSignalProcessor)[x];
+                        }
                     } else {
                         *ar = grayScaleSignal[index];
                     }

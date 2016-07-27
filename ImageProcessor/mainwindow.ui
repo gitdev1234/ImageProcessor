@@ -21,19 +21,36 @@
 QToolBar {
    background-color:#33363b;
 }
+
 QToolBar::seperator{
   background-color:#33363b;
 }
+
+QPushButton{
+background-color:#33363b;
+color:#cad4de;
+font:bold;
+}
+
+QLabel{
+color:#33363b;
+font:bold;
+}
+
 
 QSplitter::handle {
 	background-color:#33363b;
 }
 
+QScrollArea {
+	background-color:#cad4de;
+}
 
 QFrame{
        /*background-color:#fafafa;*/
-    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-	                                stop: 0 #fafafa, stop: 1 #ededed);
+    background-color:#cad4de;
+    /*background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+	                                stop: 0 #fafafa, stop: 1 #ededed);*/
 
 }
 
@@ -67,7 +84,7 @@ QProgressBar {
 QProgressBar::chunk {
     background-color:#cad4de;
 	width: 20px;
-color:#cad4de
+    color:#cad4de
 }
 
 
@@ -95,7 +112,7 @@ color:#cad4de
        </property>
        <property name="maximumSize">
         <size>
-         <width>167</width>
+         <width>180</width>
          <height>16777215</height>
         </size>
        </property>
@@ -122,8 +139,11 @@ QListView::item:selected {
 }
 
 QListView::item:selected:!active {
+   /* background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                stop: 0 #ABAFE5, stop: 1 #8588B2);*/
     background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                stop: 0 #ABAFE5, stop: 1 #8588B2);
+                                stop: 0 #FAFBFE, stop: 1 #DCDEF1);
+color :#33363b;
 }
 
 QListView::item:selected:active {
@@ -243,10 +263,13 @@ QListView::item:hover {
       </widget>
       <widget class="QFrame" name="frame_2">
        <property name="frameShape">
-        <enum>QFrame::StyledPanel</enum>
+        <enum>QFrame::NoFrame</enum>
        </property>
        <property name="frameShadow">
-        <enum>QFrame::Raised</enum>
+        <enum>QFrame::Plain</enum>
+       </property>
+       <property name="lineWidth">
+        <number>0</number>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout">
         <property name="spacing">
@@ -266,6 +289,9 @@ QListView::item:hover {
         </property>
         <item>
          <widget class="QSplitter" name="splitter_2">
+          <property name="lineWidth">
+           <number>0</number>
+          </property>
           <property name="orientation">
            <enum>Qt::Vertical</enum>
           </property>
@@ -276,6 +302,15 @@ QListView::item:hover {
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
+           <property name="frameShape">
+            <enum>QFrame::NoFrame</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Plain</enum>
+           </property>
+           <property name="lineWidth">
+            <number>0</number>
+           </property>
            <property name="widgetResizable">
             <bool>true</bool>
            </property>
@@ -284,9 +319,12 @@ QListView::item:hover {
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>378</width>
-              <height>152</height>
+              <width>380</width>
+              <height>154</height>
              </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background-color:#cad4de;</string>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_4">
              <item>
@@ -328,23 +366,26 @@ QListView::item:hover {
             <string notr="true"/>
            </property>
            <property name="frameShape">
-            <enum>QFrame::StyledPanel</enum>
+            <enum>QFrame::NoFrame</enum>
            </property>
            <property name="frameShadow">
-            <enum>QFrame::Raised</enum>
+            <enum>QFrame::Plain</enum>
+           </property>
+           <property name="lineWidth">
+            <number>0</number>
            </property>
            <layout class="QHBoxLayout" name="horizontalLayout_2">
             <property name="leftMargin">
-             <number>0</number>
+             <number>2</number>
             </property>
             <property name="topMargin">
-             <number>0</number>
+             <number>1</number>
             </property>
             <property name="rightMargin">
              <number>2</number>
             </property>
             <property name="bottomMargin">
-             <number>0</number>
+             <number>1</number>
             </property>
             <item>
              <widget class="QProgressBar" name="progressBar">
@@ -352,7 +393,7 @@ QListView::item:hover {
                <string notr="true"/>
               </property>
               <property name="value">
-               <number>0</number>
+               <number>100</number>
               </property>
              </widget>
             </item>
@@ -404,6 +445,15 @@ QListView::item:hover {
            </layout>
           </widget>
           <widget class="QScrollArea" name="scrollArea_4">
+           <property name="frameShape">
+            <enum>QFrame::NoFrame</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Plain</enum>
+           </property>
+           <property name="lineWidth">
+            <number>0</number>
+           </property>
            <property name="widgetResizable">
             <bool>true</bool>
            </property>
@@ -412,13 +462,34 @@ QListView::item:hover {
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>378</width>
-              <height>155</height>
+              <width>380</width>
+              <height>159</height>
              </rect>
             </property>
+            <property name="styleSheet">
+             <string notr="true">background-color:#cad4de;</string>
+            </property>
             <layout class="QVBoxLayout" name="verticalLayout_5">
+             <property name="spacing">
+              <number>6</number>
+             </property>
+             <property name="leftMargin">
+              <number>9</number>
+             </property>
+             <property name="topMargin">
+              <number>9</number>
+             </property>
+             <property name="rightMargin">
+              <number>9</number>
+             </property>
+             <property name="bottomMargin">
+              <number>9</number>
+             </property>
              <item>
               <widget class="QLabel" name="label_2">
+               <property name="styleSheet">
+                <string notr="true"/>
+               </property>
                <property name="text">
                 <string>TextLabel</string>
                </property>
@@ -433,10 +504,13 @@ QListView::item:hover {
       </widget>
       <widget class="QFrame" name="frame">
        <property name="frameShape">
-        <enum>QFrame::StyledPanel</enum>
+        <enum>QFrame::NoFrame</enum>
        </property>
        <property name="frameShadow">
-        <enum>QFrame::Raised</enum>
+        <enum>QFrame::Plain</enum>
+       </property>
+       <property name="lineWidth">
+        <number>0</number>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <property name="spacing">
@@ -467,7 +541,10 @@ QListView::item:hover {
             </size>
            </property>
            <property name="title">
-            <string>Settings</string>
+            <string> Settings</string>
+           </property>
+           <property name="flat">
+            <bool>true</bool>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_3">
             <property name="spacing">
@@ -487,9 +564,128 @@ QListView::item:hover {
             </property>
             <item>
              <widget class="QTabWidget" name="tabWidget">
-              <property name="currentIndex">
-               <number>0</number>
+              <property name="styleSheet">
+               <string notr="true">border:0;</string>
               </property>
+              <property name="currentIndex">
+               <number>2</number>
+              </property>
+              <property name="elideMode">
+               <enum>Qt::ElideNone</enum>
+              </property>
+              <widget class="QWidget" name="tab_3">
+               <attribute name="title">
+                <string>Page</string>
+               </attribute>
+               <layout class="QVBoxLayout" name="verticalLayout_8">
+                <item>
+                 <widget class="QListWidget" name="listWidget_3">
+                  <property name="enabled">
+                   <bool>true</bool>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>16777215</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <pointsize>12</pointsize>
+                    <weight>75</weight>
+                    <bold>true</bold>
+                   </font>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">QListView{
+background-color:#33363b;
+alternate-background-color: yellow;
+color:#cad4de
+}
+
+QListView {
+    show-decoration-selected: 1; /* make the selection span the entire width of the view */
+}
+
+QListView::item:selected {
+    border: 1px solid #6a6ea9;
+}
+
+QListView::item:selected:!active {
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                stop: 0 #ABAFE5, stop: 1 #8588B2);
+}
+
+QListView::item:selected:active {
+    color :#33363b;
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                stop: 0 #FAFBFE, stop: 1 #DCDEF1);
+}
+
+QListView::item:hover {
+    color :#33363b;
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                stop: 0 #FAFBFE, stop: 1 #DCDEF1);
+}</string>
+                  </property>
+                  <property name="frameShape">
+                   <enum>QFrame::NoFrame</enum>
+                  </property>
+                  <property name="layoutMode">
+                   <enum>QListView::SinglePass</enum>
+                  </property>
+                  <property name="spacing">
+                   <number>2</number>
+                  </property>
+                  <item>
+                   <property name="text">
+                    <string>  Minimum</string>
+                   </property>
+                   <property name="icon">
+                    <iconset resource="ressources.qrc">
+                     <normaloff>:/res/resources/minimum.png</normaloff>:/res/resources/minimum.png</iconset>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>  Maximum</string>
+                   </property>
+                   <property name="icon">
+                    <iconset resource="ressources.qrc">
+                     <normaloff>:/res/resources/maximum.png</normaloff>:/res/resources/maximum.png</iconset>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>  Average</string>
+                   </property>
+                   <property name="icon">
+                    <iconset resource="ressources.qrc">
+                     <normaloff>:/res/resources/average.png</normaloff>:/res/resources/average.png</iconset>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>  Standard Deviation</string>
+                   </property>
+                   <property name="icon">
+                    <iconset resource="ressources.qrc">
+                     <normaloff>:/res/resources/Std_Dev.png</normaloff>:/res/resources/Std_Dev.png</iconset>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>  Histogram</string>
+                   </property>
+                   <property name="icon">
+                    <iconset resource="ressources.qrc">
+                     <normaloff>:/res/resources/histogram.png</normaloff>:/res/resources/histogram.png</iconset>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
               <widget class="QWidget" name="tab">
                <attribute name="title">
                 <string>Tab 1</string>
@@ -562,6 +758,20 @@ QListView::item:hover {
                    </layout>
                   </item>
                   <item>
+                   <widget class="QComboBox" name="comboBox">
+                    <item>
+                     <property name="text">
+                      <string>Processing Direction : Horizontal</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>Processing Direction : Vertical</string>
+                     </property>
+                    </item>
+                   </widget>
+                  </item>
+                  <item>
                    <widget class="QPushButton" name="pushButton_4">
                     <property name="text">
                      <string>Smooth</string>
@@ -571,6 +781,69 @@ QListView::item:hover {
                  </layout>
                 </item>
                </layout>
+              </widget>
+              <widget class="QWidget" name="tab_4">
+               <attribute name="title">
+                <string>Page</string>
+               </attribute>
+               <widget class="QPushButton" name="pushButton">
+                <property name="geometry">
+                 <rect>
+                  <x>40</x>
+                  <y>100</y>
+                  <width>95</width>
+                  <height>31</height>
+                 </rect>
+                </property>
+                <property name="text">
+                 <string>Gradient</string>
+                </property>
+               </widget>
+               <widget class="QComboBox" name="comboBox_2">
+                <property name="geometry">
+                 <rect>
+                  <x>10</x>
+                  <y>20</y>
+                  <width>236</width>
+                  <height>23</height>
+                 </rect>
+                </property>
+                <item>
+                 <property name="text">
+                  <string>Processing Direction : Horizontal</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Processing Direction : Vertical</string>
+                 </property>
+                </item>
+               </widget>
+               <widget class="QComboBox" name="comboBox_3">
+                <property name="geometry">
+                 <rect>
+                  <x>10</x>
+                  <y>60</y>
+                  <width>236</width>
+                  <height>23</height>
+                 </rect>
+                </property>
+                <item>
+                 <property name="text">
+                  <string>Gradient Type : Normal </string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Gradient Type : Magnitude</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Gradient Type : Direction</string>
+                 </property>
+                </item>
+               </widget>
               </widget>
               <widget class="QWidget" name="tab_2">
                <attribute name="title">
@@ -694,126 +967,13 @@ QListView::item:hover {
                 </item>
                </layout>
               </widget>
-              <widget class="QWidget" name="tab_3">
-               <attribute name="title">
-                <string>Page</string>
-               </attribute>
-               <layout class="QVBoxLayout" name="verticalLayout_8">
-                <item>
-                 <widget class="QListWidget" name="listWidget_3">
-                  <property name="enabled">
-                   <bool>true</bool>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>16777215</width>
-                    <height>16777215</height>
-                   </size>
-                  </property>
-                  <property name="font">
-                   <font>
-                    <pointsize>12</pointsize>
-                    <weight>75</weight>
-                    <bold>true</bold>
-                   </font>
-                  </property>
-                  <property name="styleSheet">
-                   <string notr="true">QListView{
-background-color:#33363b;
-alternate-background-color: yellow;
-color:#cad4de
-}
-
-QListView {
-    show-decoration-selected: 1; /* make the selection span the entire width of the view */
-}
-
-QListView::item:selected {
-    border: 1px solid #6a6ea9;
-}
-
-QListView::item:selected:!active {
-    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                stop: 0 #ABAFE5, stop: 1 #8588B2);
-}
-
-QListView::item:selected:active {
-    color :#33363b;
-    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                stop: 0 #FAFBFE, stop: 1 #DCDEF1);
-}
-
-QListView::item:hover {
-    color :#33363b;
-    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                stop: 0 #FAFBFE, stop: 1 #DCDEF1);
-}</string>
-                  </property>
-                  <property name="frameShape">
-                   <enum>QFrame::NoFrame</enum>
-                  </property>
-                  <property name="layoutMode">
-                   <enum>QListView::SinglePass</enum>
-                  </property>
-                  <property name="spacing">
-                   <number>2</number>
-                  </property>
-                  <item>
-                   <property name="text">
-                    <string>  Minimum</string>
-                   </property>
-                   <property name="icon">
-                    <iconset resource="ressources.qrc">
-                     <normaloff>:/res/resources/minimum.png</normaloff>:/res/resources/minimum.png</iconset>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>  Maximum</string>
-                   </property>
-                   <property name="icon">
-                    <iconset resource="ressources.qrc">
-                     <normaloff>:/res/resources/maximum.png</normaloff>:/res/resources/maximum.png</iconset>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>  Average</string>
-                   </property>
-                   <property name="icon">
-                    <iconset resource="ressources.qrc">
-                     <normaloff>:/res/resources/average.png</normaloff>:/res/resources/average.png</iconset>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>  Standard Deviation</string>
-                   </property>
-                   <property name="icon">
-                    <iconset resource="ressources.qrc">
-                     <normaloff>:/res/resources/Std_Dev.png</normaloff>:/res/resources/Std_Dev.png</iconset>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>  Histogram</string>
-                   </property>
-                   <property name="icon">
-                    <iconset resource="ressources.qrc">
-                     <normaloff>:/res/resources/histogram.png</normaloff>:/res/resources/histogram.png</iconset>
-                   </property>
-                  </item>
-                 </widget>
-                </item>
-               </layout>
-              </widget>
              </widget>
             </item>
            </layout>
           </widget>
           <widget class="QGroupBox" name="groupBox_2">
            <property name="title">
-            <string>Results</string>
+            <string> Results</string>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_7">
             <property name="leftMargin">
@@ -829,7 +989,17 @@ QListView::item:hover {
              <number>0</number>
             </property>
             <item>
-             <widget class="QListWidget" name="listWidget_2"/>
+             <widget class="QListWidget" name="listWidget_2">
+              <property name="frameShape">
+               <enum>QFrame::Box</enum>
+              </property>
+              <property name="frameShadow">
+               <enum>QFrame::Plain</enum>
+              </property>
+              <property name="lineWidth">
+               <number>0</number>
+              </property>
+             </widget>
             </item>
            </layout>
           </widget>
