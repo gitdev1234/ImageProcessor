@@ -134,7 +134,7 @@ SignalProcessor SignalProcessor::modifySignalProcessor(ModificationType modifica
             return (*this);
         }
     } else {
-        if (int(val_.size()) > 1) {
+        if (int(val_.size()) > 3) {
             return (*this);
         }
     }
@@ -180,13 +180,13 @@ SignalProcessor SignalProcessor::modifySignalProcessor(ModificationType modifica
                 }; break;
             case ModificationType::THRESHOLD :
                 if ((*this)[ i ] < val_[0]) {
-                   (*this)[ i ] = 0 ;
+                   (*this)[ i ] = val_[1] ;
                 } break;
             case ModificationType::BINARY_THRESHOLD :
                 if ((*this)[ i ] < val_[0]) {
-                   (*this)[ i ] = 0;
+                   (*this)[ i ] = val_[1];
                 } else {
-                   (*this)[ i ] = 1 ;
+                   (*this)[ i ] = val_[2];
                 }break;
             case ModificationType::MOVING_AVERAGE : {
                     int sum = 0;

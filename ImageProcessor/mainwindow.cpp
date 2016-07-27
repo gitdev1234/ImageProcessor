@@ -47,6 +47,13 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->horizontalSlider_5->setMaximum(originalSize.height());
     ui->label_10->setText(QString::number(originalSize.width()));
     ui->label_11->setText(QString::number(originalSize.height()));
+    ui->horizontalSlider->setMaximum(originalImage.getMinMax(false).alpha());
+    ui->horizontalSlider->setValue(originalImage.getMinMax(false).alpha()/2);
+    ui->label_4->setText(QString::number(originalImage.getMinMax(false).alpha()));
+    ui->horizontalSlider_2->setMaximum(originalImage.getMinMax(false).alpha());
+    ui->label_13->setText(QString::number(originalImage.getMinMax(false).alpha()));
+    ui->horizontalSlider_3->setMaximum(originalImage.getMinMax(false).alpha());
+    ui->label_16->setText(QString::number(originalImage.getMinMax(false).alpha()));
 
     /* --- initially stretch images --- */
     originalImage.stretchImageToLabel(true);
@@ -215,99 +222,19 @@ void MainWindow::on_actionSwap_triggered()
     modifiedImage.loadImage(bufferImage);
 }
 
-void MainWindow::on_horizontalSlider_sliderReleased()
-{
-    signedRGBDelta delta;
-    delta.red = ui->horizontalSlider->value();
-    modifiedImage.modifyRGB(delta);
-}
-
-void MainWindow::on_horizontalSlider_2_sliderReleased()
-{
-    signedRGBDelta delta;
-    delta.green = ui->horizontalSlider_2->value();
-    modifiedImage.modifyRGB(delta);
-}
-
-void MainWindow::on_horizontalSlider_3_sliderReleased()
-{
-    signedRGBDelta delta;
-    delta.blue = ui->horizontalSlider_3->value();
-    modifiedImage.modifyRGB(delta);
-}
-
-void MainWindow::on_checkBox_clicked(bool checked)
-{
-    if (checked) {
-        ui->horizontalSlider->setValue(rgbDeltasBeforeDisabling.red);
-    } else {
-        rgbDeltasBeforeDisabling.red = ui->horizontalSlider->value();
-        ui->horizontalSlider->setValue(-255);
-    }
-    on_horizontalSlider_sliderReleased();
-}
-
-void MainWindow::on_checkBox_2_clicked(bool checked)
-{
-    if (checked) {
-        ui->horizontalSlider_2->setValue(rgbDeltasBeforeDisabling.green);
-    } else {
-        rgbDeltasBeforeDisabling.green = ui->horizontalSlider_2->value();
-        ui->horizontalSlider_2->setValue(-255);
-    }
-    on_horizontalSlider_2_sliderReleased();
-}
-
-void MainWindow::on_checkBox_3_clicked(bool checked)
-{
-    if (checked) {
-        ui->horizontalSlider_3->setValue(rgbDeltasBeforeDisabling.blue);
-    } else {
-        rgbDeltasBeforeDisabling.blue = ui->horizontalSlider_3->value();
-        ui->horizontalSlider_3->setValue(-255);
-    }
-    on_horizontalSlider_3_sliderReleased();
-}
-
-void MainWindow::on_pushButton_2_clicked()
-{
-    ui->horizontalSlider  ->setValue(0);
-    ui->horizontalSlider_2->setValue(0);
-    ui->horizontalSlider_3->setValue(0);
-    rgbDeltasBeforeDisabling.red   = 0;
-    rgbDeltasBeforeDisabling.green = 0;
-    rgbDeltasBeforeDisabling.blue  = 0;
-    ui->checkBox  ->setChecked(true);
-    ui->checkBox_2->setChecked(true);
-    ui->checkBox_3->setChecked(true);
-    signedRGBDelta temp;
-    temp.red   = 0;
-    temp.green = 0;
-    temp.blue  = 0;
-    modifiedImage.modifyRGB(temp);
-}
-
-void MainWindow::on_pushButton_3_clicked()
-{
-    stringstream sstr;
-    QColor maxColors = modifiedImage.getMaxRGB();
-
-    ui->listWidget_2->clear();
-    sstr << "Red Max : " << maxColors.red();
-    ui->listWidget_2->addItem(QString(sstr.str().c_str()));
-    sstr.str("");
-    sstr << "Green Max : " << maxColors.green();
-    ui->listWidget_2->addItem(QString(sstr.str().c_str()));
-    sstr.str("");
-    sstr << "Blue Max : " << maxColors.blue();
-    ui->listWidget_2->addItem(QString(sstr.str().c_str()));
-
-}
 
 void MainWindow::on_pushButton_clicked()
 {
     bool processVertical = (ui->comboBox_2->currentIndex() == 1);
-    originalImage.gradient(processVertical);
+    GradientType gradientType;
+    switch (ui->comboBox_3->currentIndex()) {
+        case 0 : gradientType = GradientType::GR_NORMAL; break;
+        case 1 : gradientType = GradientType::GR_ABS; break;
+        case 2 : gradientType = GradientType::GR_MAGNITUDE; break;
+        case 3 : gradientType = GradientType::GR_DIRECTION; break;
+    }
+
+    originalImage.gradient(processVertical,gradientType);
 }
 
 void MainWindow::on_pushButton_4_clicked()
@@ -333,4 +260,42 @@ void MainWindow::on_progressBar_valueChanged(int value)
 void MainWindow::on_toolButton_4_clicked()
 {
 
+}
+
+void MainWindow::on_horizontalSlider_valueChanged(int value)
+{
+     ui->label_3->setText(QString::number(value));
+}
+
+void MainWindow::on_pushButton_2_clicked()
+{
+    ThresholdType thresholdType;
+    if (ui->comboBox_4->currentIndex() == 0) {
+        thresholdType = ThresholdType::TH_BINARY;
+    } else {
+        thresholdType = ThresholdType::TH_NORMAL;
+    }
+
+    originalImage.threshold(thresholdType, ui->horizontalSlider->value(),
+                            ui->horizontalSlider_2->value(),ui->horizontalSlider_3->value());
+}
+
+void MainWindow::on_comboBox_4_currentIndexChanged(const QString &arg1)
+{
+    bool hideControls = (arg1.toStdString() != "Threshold Type : Normal Threshold");
+    ui->label_15->setVisible(hideControls);
+    ui->label_16->setVisible(hideControls);
+    ui->label_17->setVisible(hideControls);
+    ui->horizontalSlider_3->setVisible(hideControls);
+
+}
+
+void MainWindow::on_horizontalSlider_2_valueChanged(int value)
+{
+    ui->label_14->setText(QString::number(value));
+}
+
+void MainWindow::on_horizontalSlider_3_valueChanged(int value)
+{
+    ui->label_17->setText(QString::number(value));
 }

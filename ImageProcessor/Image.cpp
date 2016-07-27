@@ -291,35 +291,59 @@ void Image::smooth(int horizontal_,int vertical_,bool processVertical_) {
     setAndReScalePixMapAfterModification(image);
 }
 
-void Image::gradient(bool processVertical_) {
+void Image::gradient(bool processVertical_, GradientType gradientType_) {
     qImageToSignalProcessors(image,processVertical_);
     int imageHeight = image.height();
     int imageWidth  = image.width();
 
-    if (processVertical_) {
-        for (int x = 0; x < imageWidth; x++) {
-            SignalProcessor* tempSignalProcessor = &grayScaleSignalVector[x];
-            tempSignalProcessor->modifySignalProcessor(ModificationType::GRADIENT_ABS);
-            unsigned int progress = round(100.0 / double(imageWidth)*x);
-            setProgressBar(progress);
+    if ( (gradientType_ == GR_NORMAL) || (gradientType_ == GR_ABS) ) {
+        ModificationType modType;
+        if (gradientType_ == GR_NORMAL) {
+            modType = ModificationType::GRADIENT_NORMAL;
+        } else {
+            modType = ModificationType::GRADIENT_ABS;
         }
-    } else {
-        for (int y = 0; y < imageHeight; y++) {
-            SignalProcessor* tempSignalProcessor = &grayScaleSignalVector[y];
-            tempSignalProcessor->modifySignalProcessor(ModificationType::GRADIENT_ABS);
-            unsigned int progress = round(100.0 / double(imageHeight)*y);
-            setProgressBar(progress);
+        if (processVertical_) {
+            for (int x = 0; x < imageWidth; x++) {
+                SignalProcessor* tempSignalProcessor = &grayScaleSignalVector[x];
+                tempSignalProcessor->modifySignalProcessor(modType);
+                unsigned int progress = round(100.0 / double(imageWidth)*x);
+                setProgressBar(progress);
+            }
+        } else {
+            for (int y = 0; y < imageHeight; y++) {
+                SignalProcessor* tempSignalProcessor = &grayScaleSignalVector[y];
+                tempSignalProcessor->modifySignalProcessor(modType);
+                unsigned int progress = round(100.0 / double(imageHeight)*y);
+                setProgressBar(progress);
+            }
         }
-    }
 
-    setProgressBar(100);
-    signalProcessorsToQImage(image,true,processVertical_);
-    setAndReScalePixMapAfterModification(image);
+        setProgressBar(100);
+        signalProcessorsToQImage(image,true,processVertical_);
+        setAndReScalePixMapAfterModification(image);
+    }
 }
 
 void Image::invert() {
     qImageToSignalProcessors(image);
     grayScaleSignal.modifySignalProcessor(ModificationType::INVERT);
+    setProgressBar(100);
+    signalProcessorsToQImage(image);
+    setAndReScalePixMapAfterModification(image);
+}
+
+void Image::threshold(ThresholdType threshholdType_, int thresholdValue_,
+                      int smallerThanThresholdValue_, int biggerThanTrashholdValue_) {
+    ModificationType modType;
+    if (threshholdType_ == ThresholdType::TH_NORMAL) {
+        modType = ModificationType::THRESHOLD;
+    } else {
+        modType = ModificationType::BINARY_THRESHOLD;
+    }
+
+    qImageToSignalProcessors(image);
+    grayScaleSignal.modifySignalProcessor(modType,{thresholdValue_,smallerThanThresholdValue_,biggerThanTrashholdValue_});
     setProgressBar(100);
     signalProcessorsToQImage(image);
     setAndReScalePixMapAfterModification(image);

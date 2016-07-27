@@ -246,6 +246,10 @@ QListView::item:hover {
         <property name="text">
          <string>  Invert</string>
         </property>
+        <property name="icon">
+         <iconset resource="ressources.qrc">
+          <normaloff>:/res/resources/invert.png</normaloff>:/res/resources/invert.png</iconset>
+        </property>
        </item>
        <item>
         <property name="text">
@@ -573,7 +577,7 @@ QListView::item:hover {
                <string notr="true">border:0;</string>
               </property>
               <property name="currentIndex">
-               <number>4</number>
+               <number>3</number>
               </property>
               <property name="elideMode">
                <enum>Qt::ElideNone</enum>
@@ -791,189 +795,203 @@ QListView::item:hover {
                <attribute name="title">
                 <string>Page</string>
                </attribute>
-               <widget class="QPushButton" name="pushButton">
-                <property name="geometry">
-                 <rect>
-                  <x>40</x>
-                  <y>100</y>
-                  <width>95</width>
-                  <height>31</height>
-                 </rect>
-                </property>
-                <property name="text">
-                 <string>Gradient</string>
-                </property>
-               </widget>
-               <widget class="QComboBox" name="comboBox_2">
-                <property name="geometry">
-                 <rect>
-                  <x>10</x>
-                  <y>20</y>
-                  <width>236</width>
-                  <height>23</height>
-                 </rect>
-                </property>
+               <layout class="QVBoxLayout" name="verticalLayout_11">
                 <item>
-                 <property name="text">
-                  <string>Processing Direction : Horizontal</string>
-                 </property>
+                 <widget class="QComboBox" name="comboBox_2">
+                  <item>
+                   <property name="text">
+                    <string>Processing Direction : Horizontal</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Processing Direction : Vertical</string>
+                   </property>
+                  </item>
+                 </widget>
                 </item>
                 <item>
-                 <property name="text">
-                  <string>Processing Direction : Vertical</string>
-                 </property>
-                </item>
-               </widget>
-               <widget class="QComboBox" name="comboBox_3">
-                <property name="geometry">
-                 <rect>
-                  <x>10</x>
-                  <y>60</y>
-                  <width>236</width>
-                  <height>23</height>
-                 </rect>
-                </property>
-                <item>
-                 <property name="text">
-                  <string>Gradient Type : Normal </string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>Gradient Type : Absolute</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>Gradient Type : Magnitude</string>
-                 </property>
+                 <widget class="QComboBox" name="comboBox_3">
+                  <item>
+                   <property name="text">
+                    <string>Gradient Type : Normal </string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Gradient Type : Absolute</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Gradient Type : Magnitude</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Gradient Type : Direction</string>
+                   </property>
+                  </item>
+                 </widget>
                 </item>
                 <item>
-                 <property name="text">
-                  <string>Gradient Type : Direction</string>
-                 </property>
+                 <widget class="QPushButton" name="pushButton">
+                  <property name="text">
+                   <string>Gradient</string>
+                  </property>
+                 </widget>
                 </item>
-               </widget>
+               </layout>
               </widget>
               <widget class="QWidget" name="tab_2">
                <attribute name="title">
                 <string>Tab 2</string>
                </attribute>
-               <layout class="QVBoxLayout" name="verticalLayout_6">
+               <layout class="QHBoxLayout" name="horizontalLayout_8">
                 <item>
-                 <layout class="QHBoxLayout" name="horizontalLayout_3">
-                  <item>
-                   <widget class="QLabel" name="label_3">
-                    <property name="text">
-                     <string>R</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QSlider" name="horizontalSlider">
-                    <property name="minimum">
-                     <number>-255</number>
-                    </property>
-                    <property name="maximum">
-                     <number>255</number>
-                    </property>
-                    <property name="orientation">
-                     <enum>Qt::Horizontal</enum>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QCheckBox" name="checkBox">
-                    <property name="text">
-                     <string/>
-                    </property>
-                    <property name="checked">
-                     <bool>true</bool>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
-                </item>
-                <item>
-                 <layout class="QHBoxLayout" name="horizontalLayout_4">
-                  <item>
-                   <widget class="QLabel" name="label_4">
-                    <property name="text">
-                     <string>G</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QSlider" name="horizontalSlider_2">
-                    <property name="minimum">
-                     <number>-255</number>
-                    </property>
-                    <property name="maximum">
-                     <number>255</number>
-                    </property>
-                    <property name="orientation">
-                     <enum>Qt::Horizontal</enum>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QCheckBox" name="checkBox_2">
-                    <property name="text">
-                     <string/>
-                    </property>
-                    <property name="checked">
-                     <bool>true</bool>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
-                </item>
-                <item>
-                 <layout class="QHBoxLayout" name="horizontalLayout_5">
+                 <layout class="QVBoxLayout" name="verticalLayout_6">
                   <item>
                    <widget class="QLabel" name="label_5">
                     <property name="text">
-                     <string>B</string>
+                     <string>Threshold-Value</string>
                     </property>
                    </widget>
                   </item>
                   <item>
-                   <widget class="QSlider" name="horizontalSlider_3">
-                    <property name="minimum">
-                     <number>-255</number>
-                    </property>
-                    <property name="maximum">
-                     <number>255</number>
-                    </property>
-                    <property name="orientation">
-                     <enum>Qt::Horizontal</enum>
-                    </property>
+                   <layout class="QHBoxLayout" name="horizontalLayout_3">
+                    <item>
+                     <widget class="QLabel" name="label_3">
+                      <property name="text">
+                       <string>0</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QSlider" name="horizontalSlider">
+                      <property name="minimum">
+                       <number>0</number>
+                      </property>
+                      <property name="maximum">
+                       <number>255</number>
+                      </property>
+                      <property name="orientation">
+                       <enum>Qt::Horizontal</enum>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QLabel" name="label_4">
+                      <property name="text">
+                       <string>0</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <widget class="QComboBox" name="comboBox_4">
+                    <item>
+                     <property name="text">
+                      <string>Threshold Type : Binary Threshold</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>Threshold Type : Normal Threshold</string>
+                     </property>
+                    </item>
                    </widget>
                   </item>
                   <item>
-                   <widget class="QCheckBox" name="checkBox_3">
+                   <widget class="QLabel" name="label_12">
+                    <property name="enabled">
+                     <bool>false</bool>
+                    </property>
                     <property name="text">
-                     <string/>
+                     <string>new value for data &lt; Threshold-Value</string>
                     </property>
-                    <property name="checked">
-                     <bool>true</bool>
+                   </widget>
+                  </item>
+                  <item>
+                   <layout class="QHBoxLayout" name="horizontalLayout_4">
+                    <item>
+                     <widget class="QLabel" name="label_14">
+                      <property name="text">
+                       <string>0</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QSlider" name="horizontalSlider_2">
+                      <property name="enabled">
+                       <bool>true</bool>
+                      </property>
+                      <property name="minimum">
+                       <number>0</number>
+                      </property>
+                      <property name="maximum">
+                       <number>255</number>
+                      </property>
+                      <property name="orientation">
+                       <enum>Qt::Horizontal</enum>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QLabel" name="label_13">
+                      <property name="text">
+                       <string>0</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="label_15">
+                    <property name="text">
+                     <string>new value for data &gt; Threshold-Value</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <layout class="QHBoxLayout" name="horizontalLayout_5">
+                    <item>
+                     <widget class="QLabel" name="label_17">
+                      <property name="text">
+                       <string>0</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QSlider" name="horizontalSlider_3">
+                      <property name="minimum">
+                       <number>0</number>
+                      </property>
+                      <property name="maximum">
+                       <number>255</number>
+                      </property>
+                      <property name="orientation">
+                       <enum>Qt::Horizontal</enum>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QLabel" name="label_16">
+                      <property name="text">
+                       <string>0</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="pushButton_2">
+                    <property name="text">
+                     <string>Threshold</string>
                     </property>
                    </widget>
                   </item>
                  </layout>
-                </item>
-                <item>
-                 <widget class="QPushButton" name="pushButton_2">
-                  <property name="maximumSize">
-                   <size>
-                    <width>16777215</width>
-                    <height>30</height>
-                   </size>
-                  </property>
-                  <property name="text">
-                   <string>Reset</string>
-                  </property>
-                 </widget>
                 </item>
                </layout>
               </widget>

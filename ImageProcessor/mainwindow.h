@@ -45,22 +45,6 @@ private slots:
 
     void on_actionSwap_triggered();
 
-    void on_horizontalSlider_sliderReleased();
-
-    void on_horizontalSlider_2_sliderReleased();
-
-    void on_horizontalSlider_3_sliderReleased();
-
-    void on_checkBox_clicked(bool checked);
-
-    void on_checkBox_2_clicked(bool checked);
-
-    void on_checkBox_3_clicked(bool checked);
-
-    void on_pushButton_2_clicked();
-
-    void on_pushButton_3_clicked();
-
     void on_pushButton_clicked();
 
     void on_pushButton_4_clicked();
@@ -74,6 +58,16 @@ private slots:
     void on_progressBar_valueChanged(int value);
 
     void on_toolButton_4_clicked();
+
+    void on_horizontalSlider_valueChanged(int value);
+
+    void on_pushButton_2_clicked();
+
+    void on_comboBox_4_currentIndexChanged(const QString &arg1);
+
+    void on_horizontalSlider_2_valueChanged(int value);
+
+    void on_horizontalSlider_3_valueChanged(int value);
 
 private:
     Ui::MainWindow *ui;

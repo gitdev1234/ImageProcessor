@@ -25,5 +25,6 @@
         <file>resources/general.png</file>
         <file>resources/filter.png</file>
         <file>resources/rgb.png</file>
+        <file>resources/invert.png</file>
     </qresource>
 </RCC>

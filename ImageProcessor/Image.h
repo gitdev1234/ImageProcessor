@@ -19,6 +19,9 @@
 
 using namespace std;
 
+enum GradientType  {GR_NORMAL, GR_ABS, GR_MAGNITUDE, GR_DIRECTION};
+enum ThresholdType {TH_NORMAL, TH_BINARY};
+
 class Image {
 public:
     /* --- constructors / destructors --- */
@@ -49,8 +52,10 @@ public:
     void modifyRGB(signedRGBDelta delta_);
     void setAndReScalePixMapAfterModification(const QImage& image_);
     void smooth(int horizontal_, int vertical_, bool processVertical_);
-    void gradient(bool processVertical_);
+    void gradient(bool processVertical_, GradientType gradientType_);
     void invert();
+    void threshold(ThresholdType threshholdType_, int thresholdValue_,
+                   int smallerThanThresholdValue_, int biggerThanTrashholdValue_);
 
     /* --- analyze image --- */
     QColor getMinMax(bool min_);
