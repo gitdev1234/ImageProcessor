@@ -140,8 +140,9 @@ SignalProcessor SignalProcessor::modifySignalProcessor(ModificationType modifica
     }
 
     SignalProcessor copyBeforeModification;
-    if ( (modificationType_ == ModificationType::MOVING_AVERAGE) ||
-         (modificationType_ == ModificationType::GRADIENT      ) ){
+    if ( (modificationType_ == ModificationType::MOVING_AVERAGE)  ||
+         (modificationType_ == ModificationType::GRADIENT_NORMAL) ||
+         (modificationType_ == ModificationType::GRADIENT_ABS)    ){
         copyBeforeModification = (*this);
     }
 
@@ -189,18 +190,20 @@ SignalProcessor SignalProcessor::modifySignalProcessor(ModificationType modifica
                 }break;
             case ModificationType::MOVING_AVERAGE : {
                     int sum = 0;
-                    if (!(val_[0] <= 0)) {
-                        for( int j = 0; j < val_[0]; j++ ) {
-                            sum += copyBeforeModification.getValueAt( i+j-val_[0]/2 );
-                        }
-
-                        (*this)[i] = round(double(sum) / double( val_[0] ) );
+                    for( int j = 0; j < val_[0]; j++ ) {
+                        sum += copyBeforeModification.getValueAt( i+j-val_[0]/2 );
                     }
+
+                    (*this)[i] = round(double(sum) / double( val_[0] ) );
                 } break;
-        case ModificationType::GRADIENT :  {
-            int sum = copyBeforeModification.getValueAt(i + 3) - copyBeforeModification.getValueAt(i - 3);
-            (*this)[i] = abs(round(double(sum) / double( 2 ) ));
-        } break;
+            case ModificationType::GRADIENT_NORMAL :  {
+                int sum = copyBeforeModification.getValueAt( i + 1) - copyBeforeModification.getValueAt( i - 1);
+                (*this)[i] = round(double(sum) / double( 2 ) );
+            } break;
+            case ModificationType::GRADIENT_ABS :  {
+                int sum = copyBeforeModification.getValueAt( i + 1) - copyBeforeModification.getValueAt( i - 1);
+                (*this)[i] = abs(round(double(sum) / double( 2 )));
+            } break;
 
             default : (*this)[i] = 0;
         }
