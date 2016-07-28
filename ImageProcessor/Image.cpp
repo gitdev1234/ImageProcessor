@@ -291,7 +291,7 @@ void Image::smooth(int horizontal_,int vertical_,bool processVertical_) {
     setAndReScalePixMapAfterModification(image);
 }
 
-void Image::gradient(bool processVertical_, GradientType gradientType_) {
+void Image::gradient(bool processVertical_, GradientType gradientType_, bool loadImageProcessorsBackToQImage_) {
     qImageToSignalProcessors(image,processVertical_);
     int imageHeight = image.height();
     int imageWidth  = image.width();
@@ -320,9 +320,34 @@ void Image::gradient(bool processVertical_, GradientType gradientType_) {
         }
 
         setProgressBar(100);
-        signalProcessorsToQImage(image,true,processVertical_);
-        setAndReScalePixMapAfterModification(image);
+        if (loadImageProcessorsBackToQImage_) {
+            signalProcessorsToQImage(image,true,processVertical_);
+            setAndReScalePixMapAfterModification(image);
+        }
+    } else if (gradientType_ == GR_MAGNITUDE) {
+        gradient(false, GradientType::GR_ABS,false);
+        vector<SignalProcessor>  tempHorizontalSignalProcessorVector = grayScaleSignalVector;
+        gradient(true, GradientType::GR_ABS,false);
+        vector<SignalProcessor>  tempVerticalSignalProcessorVector = grayScaleSignalVector;
+        for (int y = 0; y < imageHeight; y++) {
+            for (int x = 0; x < imageWidth; x++) {
+                SignalProcessor* tempHorizontalSignalProcessor = &tempHorizontalSignalProcessorVector[y];
+                SignalProcessor* tempVerticalSignalProcessor   = &tempVerticalSignalProcessorVector  [x];
+                int horizontalGradient = (*tempHorizontalSignalProcessor)[x];
+                int verticalGradient   = (*tempVerticalSignalProcessor  )[y];
+                int magnitudeGradient  = sqrt(horizontalGradient*horizontalGradient + verticalGradient*verticalGradient);
+                grayScaleSignal[( imageWidth * y ) - 1 + x] = abs(magnitudeGradient);
+            }
+            unsigned int progress = round(100.0 / double(imageHeight) * y);
+            setProgressBar(progress);
+        }
+        setProgressBar(100);
+        if (loadImageProcessorsBackToQImage_) {
+            signalProcessorsToQImage(image,false,false);
+            setAndReScalePixMapAfterModification(image);
+        }
     }
+
 }
 
 void Image::invert() {

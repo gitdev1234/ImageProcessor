@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>834</width>
-    <height>416</height>
+    <height>419</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -329,7 +329,7 @@ QListView::item:hover {
               <x>0</x>
               <y>0</y>
               <width>380</width>
-              <height>154</height>
+              <height>156</height>
              </rect>
             </property>
             <property name="styleSheet">
@@ -472,7 +472,7 @@ QListView::item:hover {
               <x>0</x>
               <y>0</y>
               <width>380</width>
-              <height>159</height>
+              <height>160</height>
              </rect>
             </property>
             <property name="styleSheet">
@@ -577,7 +577,7 @@ QListView::item:hover {
                <string notr="true">border:0;</string>
               </property>
               <property name="currentIndex">
-               <number>3</number>
+               <number>2</number>
               </property>
               <property name="elideMode">
                <enum>Qt::ElideNone</enum>
