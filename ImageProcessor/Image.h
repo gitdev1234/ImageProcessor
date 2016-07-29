@@ -51,7 +51,7 @@ public:
     /* --- modify image --- */
     void modifyRGB(signedRGBDelta delta_);
     void setAndReScalePixMapAfterModification(const QImage& image_);
-    void smooth(int horizontal_, int vertical_, bool processVertical_);
+    void smooth(int horizontal_, int vertical_);
     void gradient(bool processVertical_, GradientType gradientType_, bool loadImageProcessorsBackToQImage_ = true);
     void invert();
     void threshold(ThresholdType threshholdType_, int thresholdValue_,

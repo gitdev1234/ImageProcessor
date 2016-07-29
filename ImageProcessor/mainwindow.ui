@@ -337,7 +337,7 @@ QListView::item:hover {
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>380</width>
+              <width>370</width>
               <height>182</height>
              </rect>
             </property>
@@ -480,7 +480,7 @@ QListView::item:hover {
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>380</width>
+              <width>370</width>
               <height>186</height>
              </rect>
             </property>
@@ -586,7 +586,7 @@ QListView::item:hover {
                <string notr="true">border:0;</string>
               </property>
               <property name="currentIndex">
-               <number>0</number>
+               <number>1</number>
               </property>
               <property name="elideMode">
                <enum>Qt::ElideNone</enum>
@@ -714,7 +714,7 @@ QListView::item:hover {
                   <item>
                    <widget class="QLabel" name="label_6">
                     <property name="text">
-                     <string>Sliding Window Size -  Horizontal</string>
+                     <string>Sliding Window -  horizontal considered neighbours</string>
                     </property>
                    </widget>
                   </item>
@@ -746,7 +746,7 @@ QListView::item:hover {
                   <item>
                    <widget class="QLabel" name="label_7">
                     <property name="text">
-                     <string>Sliding Window Size - Vertical</string>
+                     <string>Sliding Window -  vertical considered neighbours</string>
                     </property>
                    </widget>
                   </item>
@@ -774,20 +774,6 @@ QListView::item:hover {
                      </widget>
                     </item>
                    </layout>
-                  </item>
-                  <item>
-                   <widget class="QComboBox" name="comboBox">
-                    <item>
-                     <property name="text">
-                      <string>Processing Direction : Horizontal</string>
-                     </property>
-                    </item>
-                    <item>
-                     <property name="text">
-                      <string>Processing Direction : Vertical</string>
-                     </property>
-                    </item>
-                   </widget>
                   </item>
                   <item>
                    <widget class="QPushButton" name="pushButton_4">

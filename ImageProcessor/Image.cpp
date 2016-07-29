@@ -179,12 +179,12 @@ void Image::setProgressBar(unsigned int percentage_) {
 }
 
 
-void Image::smooth(int horizontal_,int vertical_,bool processVertical_) {
+void Image::smooth(int horizontal_, int vertical_) {
     int imageHeight = image.height();
     int imageWidth  = image.width();
 
     // load image to SignalProcessor-object 'grayScaleSignal'
-    qImageToSignalProcessors(image,processVertical_);
+    qImageToSignalProcessors(image,false);
     // algorithm will work on old data 'grayScaleSignal' and save
     // results in buffer-variable 'newGrayScaleSignal'
     SignalProcessor newGrayScaleSignal = grayScaleSignal;

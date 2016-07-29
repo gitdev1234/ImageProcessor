@@ -254,8 +254,7 @@ void MainWindow::on_pushButton_clicked()
 
 void MainWindow::on_pushButton_4_clicked()
 {
-    bool processVertical = (ui->comboBox->currentIndex() == 1);
-    originalImage.smooth(ui->horizontalSlider_4->value(),ui->horizontalSlider_5->value(),processVertical);
+    originalImage.smooth(ui->horizontalSlider_4->value(),ui->horizontalSlider_5->value());
 }
 
 void MainWindow::on_horizontalSlider_4_valueChanged(int value)
