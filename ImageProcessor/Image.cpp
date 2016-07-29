@@ -273,7 +273,44 @@ void Image::gradient(bool processVertical_, GradientType gradientType_, bool loa
             setAndReScalePixMapAfterModification(image);
         }
     } else if (gradientType_ == GR_MAGNITUDE) {
-        gradient(false, GradientType::GR_ABS,false);
+        // load color - data into horizontal vectors
+        qImageToSignalProcessors(image,false);
+        vector<SignalProcessor> horizontalGrayScaleSignalVector = grayScaleSignalVector;
+
+        // load color - data into vertical vectors
+        qImageToSignalProcessors(image,true);
+        vector<SignalProcessor> verticalGrayScaleSignalVector = grayScaleSignalVector;
+
+        for (int y = 0; y < imageHeight; y++) {
+            // calculate horizontal
+            SignalProcessor* tempHorizontalGrayScaleSignal = &horizontalGrayScaleSignalVector[y];
+            tempHorizontalGrayScaleSignal->modifySignalProcessor(ModificationType::GRADIENT_ABS);
+        }
+
+        for (int x = 0; x < imageWidth; x++) {
+            // calculate vertical gradients
+            SignalProcessor*   tempVerticalGrayScaleSignal = &verticalGrayScaleSignalVector[x];
+            tempVerticalGrayScaleSignal->modifySignalProcessor(ModificationType::GRADIENT_ABS);
+        }
+
+        for (int y = 0; y < imageHeight; y++) {
+            for (int x = 0; x < imageWidth; x++) {
+                int index = y * imageWidth + x;
+
+                SignalProcessor* tempHorizontalGrayScaleSignal = &horizontalGrayScaleSignalVector[y];
+                SignalProcessor*   tempVerticalGrayScaleSignal = &verticalGrayScaleSignalVector[x];
+
+                int horizontalGradient = (*tempHorizontalGrayScaleSignal)[x];
+                int verticalGradient   = (*tempVerticalGrayScaleSignal)[y];
+                grayScaleSignal[index] = sqrt(horizontalGradient*horizontalGradient + verticalGradient*verticalGradient);
+            }
+        }
+
+        signalProcessorsToQImage(image,false);
+        setAndReScalePixMapAfterModification(image);
+
+
+        /*gradient(false, GradientType::GR_ABS,false);
         vector<SignalProcessor>  tempHorizontalSignalProcessorVector = grayScaleSignalVector;
         gradient(true, GradientType::GR_ABS,false);
         vector<SignalProcessor>  tempVerticalSignalProcessorVector = grayScaleSignalVector;
@@ -293,7 +330,8 @@ void Image::gradient(bool processVertical_, GradientType gradientType_, bool loa
         if (loadImageProcessorsBackToQImage_) {
             signalProcessorsToQImage(image,false,false);
             setAndReScalePixMapAfterModification(image);
-        }
+        }*/
+
     }
 
 }
