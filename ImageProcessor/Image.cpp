@@ -272,7 +272,7 @@ void Image::gradient(bool processVertical_, GradientType gradientType_, bool loa
             signalProcessorsToQImage(image,true,processVertical_);
             setAndReScalePixMapAfterModification(image);
         }
-    } else if (gradientType_ == GR_MAGNITUDE) {
+    } else if ((gradientType_ == GR_MAGNITUDE) || (gradientType_ == GR_DIRECTION)) {
         // load color - data into horizontal vectors
         qImageToSignalProcessors(image,false);
         vector<SignalProcessor> horizontalGrayScaleSignalVector = grayScaleSignalVector;
@@ -302,7 +302,18 @@ void Image::gradient(bool processVertical_, GradientType gradientType_, bool loa
 
                 int horizontalGradient = (*tempHorizontalGrayScaleSignal)[x];
                 int verticalGradient   = (*tempVerticalGrayScaleSignal)[y];
-                grayScaleSignal[index] = sqrt(horizontalGradient*horizontalGradient + verticalGradient*verticalGradient);
+                switch (gradientType_) {
+                    case GradientType::GR_MAGNITUDE :
+                        grayScaleSignal[index] = sqrt(horizontalGradient*horizontalGradient + verticalGradient*verticalGradient);
+                        break;
+                    case GradientType::GR_DIRECTION :
+                        grayScaleSignal[index] = atan(double(horizontalGradient)/double(verticalGradient)) * 180 / double(M_PI) ;
+                        break;
+                    default : ; break;
+
+                }
+
+
             }
         }
 

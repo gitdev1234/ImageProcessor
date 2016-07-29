@@ -1,6 +1,8 @@
 #ifndef IMAGE_H
 #define IMAGE_H
 
+#define _USE_MATH_DEFINES
+#include <cmath>
 #include <QLabel>
 #include <QProgressBar>
 #include <QPixmap>
