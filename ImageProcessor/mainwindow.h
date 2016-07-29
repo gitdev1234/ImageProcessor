@@ -77,6 +77,7 @@ private:
     Image originalImage;
     Image modifiedImage;
     Image bufferImage;
+    Image resultImage;
     QLabel bufferLabel;
 
     // enabling/disabling of RGB-channels

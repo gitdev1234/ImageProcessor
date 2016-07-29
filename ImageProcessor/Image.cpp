@@ -448,3 +448,30 @@ void Image::signalProcessorsToQImage(QImage& imageToWriteTo_, bool loadFromSigna
         // todo
     }
 }
+
+/* --- auto-detect --- */
+int    Image::autoDetect() {
+    int imageHeight = image.height();
+    int imageWidth  = image.width();
+
+    int estimatedSize = 0;
+    for (int y = 0; y < image.height(); y++) {
+        for (int x = 0; x < image.width(); x++) {
+            if (checkPixelRequirements(x,y)) {
+                grayScaleSignal[y * image.width() + x - 1] = 0;
+                estimatedSize++;
+            } else {
+                grayScaleSignal[y * image.width() + x - 1] = 255;
+            }
+        }
+    }
+    signalProcessorsToQImage(image,false);
+    setAndReScalePixMapAfterModification(image);
+    return estimatedSize;
+}
+
+bool   Image::checkPixelRequirements(int x_, int y_) {
+    if (grayScaleSignal[y_ * image.width() + x_ - 1] == 0) {
+        return true;
+    }
+}

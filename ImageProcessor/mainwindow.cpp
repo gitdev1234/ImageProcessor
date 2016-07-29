@@ -16,8 +16,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     /* --- bind gui-elements to Image-objects --- */
-    originalImage = Image(ui->label,ui->progressBar);
-    modifiedImage = Image(ui->label_2,ui->progressBar);
+    originalImage = Image(ui->label   ,ui->progressBar);
+    modifiedImage = Image(ui->label_2 ,ui->progressBar);
+    resultImage   = Image(ui->label_18,ui->progressBar);
 
     /* --- load initial images --- */
     QSize originalSize = originalImage.loadImage(*this,"Sample03.png");
@@ -32,6 +33,7 @@ MainWindow::MainWindow(QWidget *parent) :
     /* --- initial gui - settings ---*/
     setWindowFlags(Qt::FramelessWindowHint); //needed for custom titleBar (deactivates normal statusbar)
     ui->tabWidget->tabBar()->hide();
+    ui->tabWidget_2->tabBar()->hide();
     showMaximized();
     ui->toolButton->  setDefaultAction(ui->actionZoom_out);
     ui->toolButton_2->setDefaultAction(ui->actionZoom_in);
@@ -98,6 +100,7 @@ void MainWindow::on_listWidget_itemClicked(QListWidgetItem *item) {
         originalImage.saveImage();
     } else if (data == "  --- Analyze ---") {
         ui->tabWidget->setCurrentIndex(0);
+        ui->tabWidget_2->setCurrentIndex(0);
     } else if (data == "  Smooth") {
         ui->tabWidget->setCurrentIndex(1);
     } else if (data == "  Gradient") {
@@ -106,6 +109,14 @@ void MainWindow::on_listWidget_itemClicked(QListWidgetItem *item) {
         ui->tabWidget->setCurrentIndex(3);
     } else if (data == "  Invert") {
         originalImage.invert();
+    } else if (data == "  --- Auto-Detect ---") {
+        resultImage.loadImage(originalImage);
+        resultImage.stretchImageToLabel(true);
+        int estimatedSize = resultImage.autoDetect();
+        stringstream sstr;
+        sstr << "Estimated Size : " << estimatedSize << " Pixels";
+        ui->label_19->setText(QString(sstr.str().c_str()));
+        ui->tabWidget_2->setCurrentIndex(1);
     }
 
     ui->listWidget->item(0)->setSelected(true );  // General

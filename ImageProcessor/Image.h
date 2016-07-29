@@ -65,6 +65,10 @@ public:
     QColor getMaxRGB();
     void todo();
 
+    /* --- auto-detect --- */
+    int    autoDetect();
+    bool   checkPixelRequirements(int x_, int y_);
+
 private:
     QImage image;
     string path;
