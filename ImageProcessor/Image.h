@@ -56,6 +56,7 @@ public:
     void invert();
     void threshold(ThresholdType threshholdType_, int thresholdValue_,
                    int smallerThanThresholdValue_, int biggerThanTrashholdValue_);
+    void staticIncrease(int delta_);
 
     /* --- analyze image --- */
     QColor getMinMax(bool min_);

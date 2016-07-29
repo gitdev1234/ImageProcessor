@@ -102,53 +102,6 @@ void Image::swap(Image &image_) {
     //label->pixmap()->swap(temp);
 }
 
-/* --- modify image --- */
-void Image::modifyRGB(signedRGBDelta delta_) {
-
-    unsigned int imageHeight = image.height();
-    for (unsigned int y = 0; y < imageHeight; y++) {
-        QRgb *scanLine = (QRgb *) image.scanLine(y);
-        for (unsigned int x = 0; x < image.width(); x++) {
-            // line[x] has an individual pixel
-            QColor color = scanLine[x];
-
-            int newRed = (color.red() + delta_.red);
-            if (newRed > 255) {
-                newRed = 255;
-            }
-            if (newRed < 0 ) {
-                newRed = 0;
-            }
-            color.setRed(newRed);
-
-            int newGreen = (color.green() + delta_.green);
-            if (newGreen > 255) {
-                newGreen = 255;
-            }
-            if (newGreen < 0 ) {
-                newGreen = 0;
-            }
-            color.setGreen(newGreen);
-
-            int newBlue = (color.blue() + delta_.blue);
-            if (newBlue > 255) {
-                newBlue = 255;
-            }
-            if (newBlue < 0 ) {
-                newBlue = 0;
-            }
-            color.setBlue(newBlue);
-
-            scanLine[x] = color.rgb();
-        }
-        unsigned int progress = round(100.0 / double(imageHeight)*y);
-        setProgressBar(progress);
-    }
-    setProgressBar(100);
-    setAndReScalePixMapAfterModification(image);
-
-
-}
 
 void Image::setAndReScalePixMapAfterModification(const QImage &image_) {
     QSize sizeBeforeModification = label->pixmap()->size();
@@ -161,6 +114,7 @@ void Image::setAndReScalePixMapAfterModification(const QImage &image_) {
 QColor Image::getMinMax(bool min_) {
     QColor res;
     double minMax;
+    qImageToSignalProcessors(image);
     if (image.format() == QImage::Format_Indexed8) {
         if (min_ ) {
             minMax = grayScaleSignal.analyzeSignalProcessor(AnalyzationType::MINIMUM);
@@ -178,6 +132,7 @@ QColor Image::getMinMax(bool min_) {
 }
 
 QColor Image::getAverage() {
+    qImageToSignalProcessors(image);
     QColor res;
     double average;
     if (image.format() == QImage::Format_Indexed8) {
@@ -193,6 +148,7 @@ QColor Image::getAverage() {
 }
 
 QColor Image::getStandardDeviation() {
+    qImageToSignalProcessors(image);
     QColor res;
     double standardDeviation;
     if (image.format() == QImage::Format_Indexed8) {
@@ -208,6 +164,7 @@ QColor Image::getStandardDeviation() {
 }
 
 void Image::calcHistogram() {
+    qImageToSignalProcessors(image);
     QFileDialog dialog;
     QString path = dialog.getSaveFileName();
     if (image.format() == QImage::Format_Indexed8) {
@@ -217,53 +174,10 @@ void Image::calcHistogram() {
     }
 }
 
-QColor Image::getMaxRGB() {
-    int maxRed = 0;
-    int maxGreen = 0;
-    int maxBlue = 0;
-    unsigned int imageHeight = image.height();
-    for (unsigned int y = 0; y < imageHeight; y++) {
-        QRgb *scanLine = (QRgb *) image.scanLine(y);
-        for (unsigned int x = 0; x < image.width(); x++) {
-            QColor color = scanLine[x];
-            if (color.red() > maxRed) {
-                maxRed = color.red();
-            }
-            if (color.green() > maxGreen) {
-                maxGreen = color.green();
-            }
-            if (color.blue() > maxBlue) {
-                maxBlue = color.blue();
-            }
-        }
-        unsigned int progress = round(100.0 / double(imageHeight)*y);
-        setProgressBar(progress);
-    }
-    QColor maxColors(maxRed,maxGreen,maxBlue);
-    setProgressBar(100);
-    return maxColors;
-}
-
 void Image::setProgressBar(unsigned int percentage_) {
     progressBar->setValue(percentage_);
 }
 
-void Image::todo() {
-    unsigned int imageHeight = image.height();
-    for (unsigned int y = 0; y < imageHeight; y++) {
-        QRgb *scanLine = (QRgb *) image.scanLine(y);
-        uchar* ar = image.scanLine(y);
-        vector<int> array;
-        int width = image.width();
-        cout << "[";
-        for (unsigned int x = 0; x < width*4; x++) {
-            cout << int(*ar) << ",";
-            array.push_back(*ar);
-            ar++;
-        }
-        cout << "]" << endl;
-    }
-}
 
 void Image::smooth(int horizontal_,int vertical_,bool processVertical_) {
     qImageToSignalProcessors(image,processVertical_);
@@ -449,6 +363,14 @@ void Image::signalProcessorsToQImage(QImage& imageToWriteTo_, bool loadFromSigna
     }
 }
 
+void Image::staticIncrease(int delta_) {
+    qImageToSignalProcessors(image);
+    grayScaleSignal.modifySignalProcessor(ModificationType::ADD,{delta_});
+    setProgressBar(100);
+    signalProcessorsToQImage(image);
+    setAndReScalePixMapAfterModification(image);
+}
+
 /* --- auto-detect --- */
 int    Image::autoDetect() {
     int imageHeight = image.height();
@@ -468,7 +390,7 @@ int    Image::autoDetect() {
         }
         unsigned int progress = round(100.0 / double(imageHeight) * y);
         setProgressBar(progress);
-    }
+        }
     setProgressBar(100);
     signalProcessorsToQImage(image,false);
     setAndReScalePixMapAfterModification(image);

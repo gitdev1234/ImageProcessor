@@ -69,6 +69,10 @@ private slots:
 
     void on_horizontalSlider_3_valueChanged(int value);
 
+    void on_horizontalSlider_6_valueChanged(int value);
+
+    void on_pushButton_3_clicked();
+
 private:
     Ui::MainWindow *ui;
     QPoint m_dragPosition;

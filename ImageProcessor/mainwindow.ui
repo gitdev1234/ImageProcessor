@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>834</width>
-    <height>419</height>
+    <height>471</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -262,7 +262,16 @@ QListView::item:hover {
        </item>
        <item>
         <property name="text">
-         <string>  RGB</string>
+         <string>  --- Modify Colors ---</string>
+        </property>
+        <property name="icon">
+         <iconset resource="ressources.qrc">
+          <normaloff>:/res/resources/modify.png</normaloff>:/res/resources/modify.png</iconset>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>  Static Inc / Dec</string>
         </property>
         <property name="icon">
          <iconset resource="ressources.qrc">
@@ -329,7 +338,7 @@ QListView::item:hover {
               <x>0</x>
               <y>0</y>
               <width>380</width>
-              <height>156</height>
+              <height>182</height>
              </rect>
             </property>
             <property name="styleSheet">
@@ -472,7 +481,7 @@ QListView::item:hover {
               <x>0</x>
               <y>0</y>
               <width>380</width>
-              <height>160</height>
+              <height>186</height>
              </rect>
             </property>
             <property name="styleSheet">
@@ -577,7 +586,7 @@ QListView::item:hover {
                <string notr="true">border:0;</string>
               </property>
               <property name="currentIndex">
-               <number>2</number>
+               <number>0</number>
               </property>
               <property name="elideMode">
                <enum>Qt::ElideNone</enum>
@@ -999,6 +1008,53 @@ QListView::item:hover {
                <attribute name="title">
                 <string>Page</string>
                </attribute>
+               <layout class="QVBoxLayout" name="verticalLayout_14">
+                <item>
+                 <widget class="QLabel" name="label_20">
+                  <property name="text">
+                   <string>Static Increase / Decrease Value</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_9">
+                  <item>
+                   <widget class="QLabel" name="label_21">
+                    <property name="text">
+                     <string>0</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QSlider" name="horizontalSlider_6">
+                    <property name="minimum">
+                     <number>-255</number>
+                    </property>
+                    <property name="maximum">
+                     <number>255</number>
+                    </property>
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="label_22">
+                    <property name="text">
+                     <string>255</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="pushButton_3">
+                  <property name="text">
+                   <string>Static Increase / Decrease</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
               </widget>
              </widget>
             </item>

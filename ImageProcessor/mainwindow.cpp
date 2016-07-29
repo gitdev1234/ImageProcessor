@@ -41,10 +41,11 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->toolButton_4->setDefaultAction(ui->actionLoad_from_original);
     ui->toolButton_5->setDefaultAction(ui->actionLoad_from_modified);
     ui->toolButton_6->setDefaultAction(ui->actionSwap);
-    ui->listWidget->item(0)->setSelected(true); // General
-    ui->listWidget->item(3)->setSelected(true); // Analyze
-    ui->listWidget->item(4)->setSelected(true); // Filter
-    ui->listWidget->item(9)->setSelected(true); // Modify
+    ui->listWidget->item(0)->setSelected(true);  // General
+    ui->listWidget->item(3)->setSelected(true);  // Analyze
+    ui->listWidget->item(4)->setSelected(true);  // Filter
+    ui->listWidget->item(9)->setSelected(true);  // AutoDetect
+    ui->listWidget->item(10)->setSelected(true); // Modify
     ui->horizontalSlider_4->setMaximum(originalSize.width());
     ui->horizontalSlider_5->setMaximum(originalSize.height());
     ui->label_10->setText(QString::number(originalSize.width()));
@@ -117,6 +118,8 @@ void MainWindow::on_listWidget_itemClicked(QListWidgetItem *item) {
         sstr << "Estimated Size : " << estimatedSize << " Pixels";
         ui->label_19->setText(QString(sstr.str().c_str()));
         ui->tabWidget_2->setCurrentIndex(1);
+    }   else if (data == "  Static Inc / Dec") {
+        ui->tabWidget->setCurrentIndex(4);
     }
 
     ui->listWidget->item(0)->setSelected(true );  // General
@@ -128,8 +131,9 @@ void MainWindow::on_listWidget_itemClicked(QListWidgetItem *item) {
     ui->listWidget->item(6)->setSelected(false);  // Gradient
     ui->listWidget->item(7)->setSelected(false);  // Threshold
     ui->listWidget->item(8)->setSelected(false);  // Invert
-    ui->listWidget->item(9)->setSelected(true );  // Modify
-    ui->listWidget->item(10)->setSelected(false); // RGB
+    ui->listWidget->item(9)->setSelected(true );  // Auto-Detect
+    ui->listWidget->item(10)->setSelected(true);  // Modify Colors
+    ui->listWidget->item(11)->setSelected(false); // Increase Decrease
 }
 
 void MainWindow::on_listWidget_3_itemClicked(QListWidgetItem *item) {
@@ -309,4 +313,16 @@ void MainWindow::on_horizontalSlider_2_valueChanged(int value)
 void MainWindow::on_horizontalSlider_3_valueChanged(int value)
 {
     ui->label_17->setText(QString::number(value));
+}
+
+void MainWindow::on_horizontalSlider_6_valueChanged(int value)
+{
+    ui->label_21->setText(QString::number(value));
+}
+
+void MainWindow::on_pushButton_3_clicked()
+{
+    originalImage.staticIncrease(ui->horizontalSlider_6->value());
+    ui->horizontalSlider_6->setValue(0);
+
 }
