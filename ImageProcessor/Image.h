@@ -67,7 +67,7 @@ public:
 
     /* --- auto-detect --- */
     int    autoDetect();
-    bool   checkPixelRequirements(int x_, int y_);
+    bool   checkPixelRequirements(int x_, int y_, int average_, int standardDeviation_);
 
 private:
     QImage image;

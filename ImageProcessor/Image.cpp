@@ -455,23 +455,28 @@ int    Image::autoDetect() {
     int imageWidth  = image.width();
 
     int estimatedSize = 0;
+    int average = grayScaleSignal.analyzeSignalProcessor(AnalyzationType::AVERAGE);
+    int stdDev  = grayScaleSignal.analyzeSignalProcessor(AnalyzationType::STD_DEVIATION);
     for (int y = 0; y < image.height(); y++) {
         for (int x = 0; x < image.width(); x++) {
-            if (checkPixelRequirements(x,y)) {
+            if (checkPixelRequirements(x,y,average,stdDev)) {
                 grayScaleSignal[y * image.width() + x - 1] = 0;
                 estimatedSize++;
             } else {
                 grayScaleSignal[y * image.width() + x - 1] = 255;
             }
         }
+        unsigned int progress = round(100.0 / double(imageHeight) * y);
+        setProgressBar(progress);
     }
+    setProgressBar(100);
     signalProcessorsToQImage(image,false);
     setAndReScalePixMapAfterModification(image);
     return estimatedSize;
 }
 
-bool   Image::checkPixelRequirements(int x_, int y_) {
-    if (grayScaleSignal[y_ * image.width() + x_ - 1] == 0) {
+bool   Image::checkPixelRequirements(int x_, int y_, int average_, int standardDeviation_) {
+    if (grayScaleSignal[y_ * image.width() + x_ - 1] <  average_ - standardDeviation_) {
         return true;
     }
 }
