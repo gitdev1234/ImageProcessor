@@ -21,8 +21,8 @@ MainWindow::MainWindow(QWidget *parent) :
     resultImage   = Image(ui->label_18,ui->progressBar);
 
     /* --- load initial images --- */
-    QSize originalSize = originalImage.loadImage(*this,"Sample03.png");
-    modifiedImage.loadImage(*this,"Sample03.png");
+    QSize originalSize = originalImage.loadImage(*this,"Sample01.png");
+    modifiedImage.loadImage(*this,"Sample01.png");
 
     /* --- output size at statusbar --- */
     stringstream sstr;
@@ -64,12 +64,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ImagesStretchedToLabel = true;
     ui->toolButton->setEnabled(!ImagesStretchedToLabel);   // zoom-out button
     ui->toolButton_2->setEnabled(!ImagesStretchedToLabel); // zoom-in  button
-
-    /* --- initial settings for enabling / disabling RGB channels --- */
-    rgbDeltasBeforeDisabling.red   = 0;
-    rgbDeltasBeforeDisabling.green = 0;
-    rgbDeltasBeforeDisabling.blue  = 0;
-
 
 }
 
@@ -232,9 +226,9 @@ void MainWindow::on_actionLoad_from_original_triggered()
 
 void MainWindow::on_actionSwap_triggered()
 {
-    bufferImage.loadImage(originalImage);
-    originalImage.loadImage(modifiedImage);
-    modifiedImage.loadImage(bufferImage);
+    bufferImage = originalImage;
+    originalImage = modifiedImage;
+    modifiedImage = bufferImage;
 }
 
 
@@ -323,5 +317,10 @@ void MainWindow::on_pushButton_3_clicked()
 {
     originalImage.staticIncrease(ui->horizontalSlider_6->value());
     ui->horizontalSlider_6->setValue(0);
+
+}
+
+void MainWindow::on_toolButton_6_clicked()
+{
 
 }

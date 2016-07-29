@@ -10,7 +10,6 @@
 #include <QPainter>
 // ----
 #include "Image.h"
-#include "Types.h"
 
 namespace Ui {
 class MainWindow;
@@ -73,6 +72,8 @@ private slots:
 
     void on_pushButton_3_clicked();
 
+    void on_toolButton_6_clicked();
+
 private:
     Ui::MainWindow *ui;
     QPoint m_dragPosition;
@@ -83,9 +84,6 @@ private:
     Image bufferImage;
     Image resultImage;
     QLabel bufferLabel;
-
-    // enabling/disabling of RGB-channels
-    signedRGBDelta rgbDeltasBeforeDisabling;
 
 };
 

@@ -16,7 +16,6 @@
 #include <iostream>
 #include <QMessageBox>
 //---
-#include "Types.h"
 #include "SignalProcessor.h"
 
 using namespace std;
@@ -48,11 +47,9 @@ public:
     /* --- scaling / zooming / stretching --- */
     void stretchImageToLabel(bool stretchImageToLabel_);
     void scaleImage(double factor_);
-    void swap(Image& image_);
+    void setAndReScalePixMapAfterModification(const QImage& image_);
 
     /* --- modify image --- */
-    void modifyRGB(signedRGBDelta delta_);
-    void setAndReScalePixMapAfterModification(const QImage& image_);
     void smooth(int horizontal_, int vertical_);
     void gradient(bool processVertical_, GradientType gradientType_, bool loadImageProcessorsBackToQImage_ = true);
     void invert();
@@ -65,8 +62,6 @@ public:
     QColor getAverage();
     QColor getStandardDeviation();
     void   calcHistogram();
-    QColor getMaxRGB();
-    void todo();
 
     /* --- auto-detect --- */
     int    autoDetect();
@@ -78,9 +73,11 @@ private:
     QLabel* label;
     QProgressBar* progressBar;
     void setProgressBar(unsigned int percentage_);
+
     // Converting QImage <---> SignalProcessor
     void qImageToSignalProcessors(QImage imageToLoadFrom_, bool loadVerticalToVector_ = false);
     void signalProcessorsToQImage(QImage& imageToWriteTo_, bool loadFromSignalProcessorVector_ = false, bool loadVerticalFromVector_ = false);
+
     // one SignalProcessor per whole image
     SignalProcessor grayScaleSignal;
     // vector of SignalProcessors, for one signalProcessor per scanline

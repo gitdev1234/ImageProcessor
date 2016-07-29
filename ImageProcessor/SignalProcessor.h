@@ -49,7 +49,6 @@ enum AnalyzationType {MINIMUM, MAXIMUM, AVERAGE, STD_DEVIATION};
  *  --> multiplication with two Signals
  *  --> division       with two Signals
  *
- *  --> TODO
  *
  * The class SignalProcessor supports data with multiple channels!
  * For example if one has stored data with different content in the same signal,

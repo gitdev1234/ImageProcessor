@@ -96,12 +96,6 @@ void Image::scaleImage(double factor_) {
     }
 }
 
-void Image::swap(Image &image_) {
-    // TODO
-    //QPixmap& temp  = image_.label->pixmap();
-    //label->pixmap()->swap(temp);
-}
-
 
 void Image::setAndReScalePixMapAfterModification(const QImage &image_) {
     QSize sizeBeforeModification = label->pixmap()->size();
@@ -458,6 +452,20 @@ void Image::staticIncrease(int delta_) {
 int    Image::autoDetect() {
     int imageHeight = image.height();
     int imageWidth  = image.width();
+
+
+    smooth(double(imageWidth)*double(0.01),double(imageHeight)*double(0.01));
+    smooth(double(imageWidth)*double(0.01),double(imageHeight)*double(0.01));
+    smooth(double(imageWidth)*double(0.01),double(imageHeight)*double(0.01));
+    smooth(double(imageWidth)*double(0.01),double(imageHeight)*double(0.01));
+    smooth(double(imageWidth)*double(0.005),double(imageHeight)*double(0.005));
+    smooth(double(imageWidth)*double(0.005),double(imageHeight)*double(0.005));
+    smooth(double(imageWidth)*double(0.005),double(imageHeight)*double(0.005));
+    smooth(double(imageWidth)*double(0.005),double(imageHeight)*double(0.005));
+    smooth(double(imageWidth)*double(0.00125),double(imageHeight)*double(0.00125));
+    smooth(double(imageWidth)*double(0.00125),double(imageHeight)*double(0.00125));
+    smooth(double(imageWidth)*double(0.00125),double(imageHeight)*double(0.00125));
+    smooth(double(imageWidth)*double(0.00125),double(imageHeight)*double(0.00125));
 
     int estimatedSize = 0;
     int average = grayScaleSignal.analyzeSignalProcessor(AnalyzationType::AVERAGE);

@@ -242,7 +242,7 @@ double SignalProcessor::analyzeSignalProcessor(AnalyzationType analyzationType_)
         case AnalyzationType::AVERAGE       : result_l =       0; break;
         case AnalyzationType::STD_DEVIATION : {   average_l = analyzeSignalProcessor(AnalyzationType::AVERAGE);
                                                 result_l = 0;};   break;
-        default : ; // TODO
+        default : ;
     }
 
     // iterate through all data
@@ -256,7 +256,7 @@ double SignalProcessor::analyzeSignalProcessor(AnalyzationType analyzationType_)
                                                   }; break;
             case AnalyzationType::AVERAGE       : result_l += (*this)[ i ]; break;
             case AnalyzationType::STD_DEVIATION : result_l += pow((double((*this)[ i ]) - double(average_l)),2); break;
-            default : ; // TODO
+            default : ;
         }
     }
 
@@ -264,7 +264,7 @@ double SignalProcessor::analyzeSignalProcessor(AnalyzationType analyzationType_)
     switch (analyzationType_) {
         case AnalyzationType::AVERAGE       : result_l = double(result_l) / double(size_l); break;
         case AnalyzationType::STD_DEVIATION : result_l = sqrt(double(result_l) / double(size_l)); break;
-        default : ; // TODO
+        default : ;
     }
 
 

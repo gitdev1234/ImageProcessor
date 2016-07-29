@@ -20,7 +20,6 @@ SOURCES += main.cpp\
     SignalProcessor.cpp
 
 HEADERS  += mainwindow.h \
-    Types.h \
     Image.h \
     SignalProcessor.h
 
