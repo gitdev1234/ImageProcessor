@@ -180,29 +180,77 @@ void Image::setProgressBar(unsigned int percentage_) {
 
 
 void Image::smooth(int horizontal_,int vertical_,bool processVertical_) {
-    qImageToSignalProcessors(image,processVertical_);
     int imageHeight = image.height();
     int imageWidth  = image.width();
-
-    if (processVertical_) {
-        for (int x = 0; x < imageWidth; x++) {
-            SignalProcessor* tempSignalProcessor = &grayScaleSignalVector[x];
-            tempSignalProcessor->modifySignalProcessor(ModificationType::MOVING_AVERAGE,{horizontal_});
-            unsigned int progress = round(100.0 / double(imageWidth)*x);
-            setProgressBar(progress);
+    if (vertical_ == 0) {
+        qImageToSignalProcessors(image,processVertical_);
+        if (processVertical_) {
+            for (int x = 0; x < imageWidth; x++) {
+                SignalProcessor* tempSignalProcessor = &grayScaleSignalVector[x];
+                tempSignalProcessor->modifySignalProcessor(ModificationType::MOVING_AVERAGE,{horizontal_});
+                unsigned int progress = round(100.0 / double(imageWidth)*x);
+                setProgressBar(progress);
+            }
+        } else {
+            for (int y = 0; y < imageHeight; y++) {
+                SignalProcessor* tempSignalProcessor = &grayScaleSignalVector[y];
+                tempSignalProcessor->modifySignalProcessor(ModificationType::MOVING_AVERAGE,{horizontal_});
+                unsigned int progress = round(100.0 / double(imageHeight)*y);
+                setProgressBar(progress);
+            }
         }
+
+        setProgressBar(100);
+        signalProcessorsToQImage(image,true,processVertical_);
+        setAndReScalePixMapAfterModification(image);
     } else {
-        for (int y = 0; y < imageHeight; y++) {
-            SignalProcessor* tempSignalProcessor = &grayScaleSignalVector[y];
-            tempSignalProcessor->modifySignalProcessor(ModificationType::MOVING_AVERAGE,{horizontal_});
-            unsigned int progress = round(100.0 / double(imageHeight)*y);
-            setProgressBar(progress);
-        }
-    }
+        qImageToSignalProcessors(image,processVertical_);
+        if (processVertical_) {
 
-    setProgressBar(100);
-    signalProcessorsToQImage(image,true,processVertical_);
-    setAndReScalePixMapAfterModification(image);
+        } else {
+            // algorithm will work on old data 'grayScaleSignal' and save
+            // results in buffer-variable 'newGrayScaleSignal'
+            SignalProcessor newGrayScaleSignal = grayScaleSignal;
+            for (int y = 0; y < imageHeight; y++) {
+                for (int x = 0; x < imageWidth; x++) {
+                    SignalProcessor temp(0,true,0,255);
+
+                    for (int yOffset = -vertical_; yOffset <= vertical_; yOffset++) {
+                        for (int xOffset = -horizontal_; xOffset <= horizontal_; xOffset++) {
+                            int yCoord = y + yOffset;
+                            int xCoord = x + xOffset;
+
+                            // if index is no valid index use the first value of
+                            // current line / column
+                            if (yCoord < 0) {
+                                yCoord = 0;
+                            }
+                            if (xCoord < 0) {
+                                xCoord = 0;
+                            }
+
+                            // calculate index of 1-dimensional signalprocessor by
+                            // line and column index
+                            int index = yCoord * imageWidth + xCoord;
+                            temp.push_back(grayScaleSignal.getValueAt(index));
+                        }
+                    }
+                    int index = y * imageWidth + x;
+                    newGrayScaleSignal[index] = round(temp.analyzeSignalProcessor(AnalyzationType::AVERAGE));
+                }
+                unsigned int progress = round(100.0 / double(imageHeight)*y);
+                setProgressBar(progress);
+            }
+            // overwrite grayScaleSignal with new values
+            grayScaleSignal = newGrayScaleSignal;
+            // load signalProcessor back to image
+            signalProcessorsToQImage(image,false);
+            setAndReScalePixMapAfterModification(image);
+            // set progressbar to 100 percent
+            setProgressBar(100);
+        }
+
+    }
 }
 
 void Image::gradient(bool processVertical_, GradientType gradientType_, bool loadImageProcessorsBackToQImage_) {
